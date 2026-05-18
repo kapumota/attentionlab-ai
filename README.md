@@ -1,8 +1,45 @@
 ### AttentionLab AI 
 
-**AttentionLab AI** es un dashboard  full-stack para visualizar y experimentar conceptos modernos de IA: mecanismos de atención, arquitecturas Transformer, estimación de KV cache, comparación MHA/GQA/MLA, RAG visual, depuración de agentes, MLLM e integración con backend FastAPI.
+**AttentionLab AI** implementa un laboratorio interactivo de sistemas de IA generativa con separación clara entre interfaz, contratos de datos y servicios backend. En el frontend, React y TypeScript modelan la experiencia visual: matriz de atención interactiva con encabezados de fila/columna, inspector de celdas, modos Básico/Técnico/Experto, demostración guiada, presets de escenarios, constructor visual de bloques Transformer, gráficos de KV cache, timeline de agentes y consola API con copiado de payloads. 
 
-Este lanzamiento está preparado para demostración pública, GitHub y Hugging Face Docker Spaces. Incluye frontend React/Vite, backend FastAPI, endpoints reproducibles, documentación técnica, ejemplos JSON, validación local, Dockerfile y flujo de despliegue.
+En el backend, FastAPI expone endpoints tipados con Pydantic para cómputo didáctico de atención, validación de arquitecturas, estimación de memoria/costo de LLMs, contraste multimodal InfoNCE, RAG en memoria, trazas de agente y experimentos ligeros.
+
+La aplicación funciona por defecto en modo determinístico/fallback, sin requerir GPU ni credenciales de OpenAI. Esto permite ejecución local reproducible, pruebas automatizadas, CI y despliegue como Docker Space. Los modelos reales son opcionales y pueden activarse mediante dependencias adicionales y variables de entorno.
+
+> **Estado:** version estable `v1.0.9`, lista para GitHub y Hugging Face Docker Spaces. No es un LLM entrenado desde cero ni un RAG productivo con base vectorial persistente; es una herramienta didáctica y reproducible para explicar conceptos técnicos de IA moderna.
+
+
+#### Screenshots
+
+Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/attentionlab-ai/tree/main/screenshots).
+
+##### 1. Vista general del dashboard
+
+![Vista general del dashboard](screenshots/01-home.png)
+
+##### 2. Laboratorio de atención
+
+![Laboratorio de atención](screenshots/02-atencion.png)
+
+##### 3. Constructor Transformer
+
+![Constructor Transformer](screenshots/03-transformer.png)
+
+##### 4. Estimador LLM / KV Cache
+
+![Estimador LLM y KV Cache](screenshots/04-LLMCost.png)
+
+##### 5. RAG + Agent Debugger
+
+![RAG y Agent Debugger](screenshots/05-rag-agentes.png)
+
+##### 6. Backend / API
+
+![Backend API console](screenshots/06-backend-api.png)
+
+##### 7. Publicación / Hugging Face Docker Space
+
+![Hugging Face Docker Space](screenshots/07-HuggingFace-docker-space.png)
 
 #### Características principales
 
@@ -16,6 +53,7 @@ Este lanzamiento está preparado para demostración pública, GitHub y Hugging F
 | RAG + Agent Debugger | Pipeline visual, indexación, recuperación top-k, scores, citas, groundedness, tool tracing y timeline del agente |
 | Backend / API | Consola visual con request, response, latencia, interpretación, errores comunes y botones de copia |
 | Robustez frontend | ErrorBoundary, accesibilidad, role=status, aria-labels, mensajes de error guiados y copiado para README |
+| Deploy | Dockerfile multi-stage, puerto `7860`, compatible con Hugging Face Docker Spaces |
 
 #### No requiere OpenAI API
 
@@ -29,24 +67,34 @@ GPU: no requerida
 
 Los modelos reales son opcionales y se activan solo si instalas dependencias adicionales y defines variables de entorno.
 
-#### Estructura del repositorio
+#### Arquitectura de alto nivel
 
 ```text
-attentionlab-ai-v1.0.9/
-├── apps/
-│   ├── web/                  # Frontend React + TypeScript + Vite
-│   └── api/                  # Backend FastAPI + Pydantic
-├── docs/                     # Documentación técnica
-├── examples/                 # Payloads JSON reproducibles
-├── screenshots/              # Capturas y GIF demo
-├── scripts/                  # Validaciones local/Docker
-├── Dockerfile                # Hugging Face Docker Space
-├── docker-compose.yml
-├── Makefile
-├── .env.example
-└── README.md
+Navegador
+  │
+  ▼
+React + TypeScript + Vite
+  ├─ Dashboard educativo
+  ├─ Matriz de atención interactiva
+  ├─ Constructor Transformer
+  ├─ LLM / KV Cache playground
+  ├─ MLLM / InfoNCE playground
+  ├─ RAG + Agent Debugger
+  └─ Backend API console
+  │
+  ▼
+FastAPI + Pydantic
+  ├─ /api/attention/compute
+  ├─ /api/architecture/validate
+  ├─ /api/llm/estimate
+  ├─ /api/mllm/contrastive-batch
+  ├─ /api/rag/*
+  ├─ /api/agents/*
+  └─ /api/models/*
+  │
+  ▼
+Modo determinístico / modelos opcionales
 ```
-
 #### Ubicación del frontend
 
 El frontend está en:
@@ -112,7 +160,7 @@ npm --prefix apps/web ci --no-audit --no-fund
 
 Usa dos terminales.
 
-##### Terminal 1: backend FastAPI
+#### Terminal 1: backend FastAPI
 
 ```bash
 cd attentionlab-ai-v1.0.9
@@ -128,7 +176,7 @@ http://localhost:8000/api/health
 http://localhost:8000/docs
 ```
 
-##### Terminal 2: frontend Vite
+#### Terminal 2: frontend Vite
 
 ```bash
 cd attentionlab-ai-v1.0.9
@@ -143,7 +191,7 @@ http://localhost:5173
 
 En desarrollo, Vite usa proxy para enviar `/api/*` hacia `http://localhost:8000`.
 
-##### Ejecutar como aplicación integrada FastAPI
+#### Ejecutar como aplicación integrada FastAPI
 
 ```bash
 npm --prefix apps/web run build
@@ -159,7 +207,7 @@ http://localhost:7860/api/health
 http://localhost:7860/docs
 ```
 
-##### Docker
+#### Docker
 
 ```bash
 docker build -t attentionlab-ai:v1.0.9 .
@@ -178,7 +226,7 @@ Luego abre:
 http://localhost:7860
 ```
 
-##### Hugging Face Docker Space
+#### Hugging Face Docker Space
 
 Este repositorio está preparado para Hugging Face Docker Spaces mediante el bloque YAML superior del `README.md`:
 
@@ -196,7 +244,7 @@ git push --force space main
 
 También puedes usar GitHub Actions con `HF_TOKEN`, reemplazando `HF_USERNAME/attentionlab-ai` por tu repo real.
 
-##### Validación
+#### Validación
 
 ```bash
 npm --prefix apps/web run check
@@ -243,17 +291,9 @@ export ATTENTIONLAB_EMBEDDING_MODEL_ID=sentence-transformers/all-MiniLM-L6-v2
 export ATTENTIONLAB_TEXT_MODEL_ID=distilbert-base-uncased
 ```
 
-#### Archivos que no deben subirse
+### Ejemplos de uso
 
-```text
-.atencion/
-apps/web/node_modules/
-apps/web/dist/
-__pycache__/
-.pytest_cache/
-.env
-```
+Puedes ver ejemplos de uso en la carpeta de documentación, en el archivo `EJEMPLOS_USO.md`
 
-#### Licencia
-
+## Licence
 MIT. Ver `LICENSE`.
