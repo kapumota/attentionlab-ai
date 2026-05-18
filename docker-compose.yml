@@ -1,0 +1,8 @@
+services:
+  attentionlab:
+    build: .
+    ports:
+      - "7860:7860"
+    environment:
+      - PORT=7860
+      - ATTENTIONLAB_ENABLE_MODEL_ADAPTERS=false

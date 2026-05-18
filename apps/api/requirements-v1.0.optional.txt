@@ -1,0 +1,7 @@
+# Dependencias opcionales para activar backend Python real en v1.0.
+# Instálalas solo si el Space tiene suficiente RAM/CPU/GPU.
+transformers>=4.45.0
+torch>=2.4.0
+sentence-transformers>=3.0.0
+onnxruntime>=1.19.0
+accelerate>=0.33.0

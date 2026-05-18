@@ -1,0 +1,26 @@
+{
+  "name": "@attentionlab/web",
+  "version": "1.0.9",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "lint": "tsc --noEmit",
+    "check": "npm run lint && npm run build"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "6.0.2",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "typescript": "6.0.3",
+    "vite": "8.0.13"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
+  },
+  "description": "AttentionLab AI v1.0.9: dashboard robusto con ErrorBoundary, terminología consistente, interpretaciones automáticas, copiado para documentación y comparación MHA/GQA/MLA.",
+  "license": "MIT"
+}

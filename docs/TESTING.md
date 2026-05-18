@@ -1,0 +1,181 @@
+### Pruebas y validación de AttentionLab AI 
+
+Esta guía resume cómo validar frontend, backend, API, Docker y flujo completo.
+
+#### Validación completa local
+
+Desde la raíz del proyecto:
+
+```bash
+source .atencion/bin/activate
+bash scripts/validate-local.sh
+```
+
+El script debe comprobar:
+
+```text
+Pruebas de backend
+Frontend TypeScript
+Compilación de producción del frontend
+Validación local completada
+```
+
+#### Backend
+
+```bash
+source .atencion/bin/activate
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+```
+
+La suite cubre:
+
+- health check,
+- Tiempo de ejecución de modelos,
+- Cálculo de atención
+- Validación de arquitectura,
+- Estimación LLM,
+- Lote contrastivo MLLM
+- Embeddings/retorno de generación
+- Estado/consulta/ingesta RAG
+- Depurador de agentes
+- Rastreo de agentes
+- Persistencia ligera de experimentos.
+
+Resultado esperado:
+
+```text
+passed
+```
+
+#### Frontend
+
+Instalación limpia:
+
+```bash
+npm --prefix apps/web ci --no-audit --no-fund
+```
+
+TypeScript + build:
+
+```bash
+npm --prefix apps/web run check
+```
+
+Build explícito:
+
+```bash
+npm --prefix apps/web run build
+```
+
+Resultado esperado:
+
+```text
+TypeScript OK
+Vite build OK
+```
+
+#### API manual con curl
+
+Primero levanta backend:
+
+```bash
+source .atencion/bin/activate
+PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+En otra terminal:
+
+```bash
+curl http://localhost:8000/api/health
+curl http://localhost:8000/api/models/status
+curl http://localhost:8000/api/models/runtime
+```
+
+Validar arquitectura:
+
+```bash
+curl -X POST http://localhost:8000/api/architecture/validate   -H "Content-Type: application/json"   --data @examples/architecture-hybrid.json
+```
+
+Attention compute:
+
+```bash
+curl -X POST http://localhost:8000/api/attention/compute   -H "Content-Type: application/json"   --data @examples/attention-causal.json
+```
+
+RAG:
+
+```bash
+curl -X POST http://localhost:8000/api/rag/ingest   -H "Content-Type: application/json"   --data @examples/rag-ingest.json
+
+curl -X POST http://localhost:8000/api/rag/query   -H "Content-Type: application/json"   --data @examples/rag-query.json
+```
+
+#### Frontend manual
+
+Levanta backend y frontend:
+
+```text
+Terminal 1: http://localhost:8000
+Terminal 2: http://localhost:5173
+```
+
+Revisa en navegador:
+
+```text
+http://localhost:5173
+```
+
+Validaciones visuales recomendadas:
+
+1. Barra global: Backend OK.
+2. Vista general: glosario y demo guiada.
+3. Laboratorio de atención: matriz interactiva e interpretación automática.
+4. Constructor Transformer: tarjetas y JSON colapsado.
+5. LLM Cost: gráficas MHA/GQA/MLA.
+6. RAG + Agent Debugger: indexar, consultar y depurar agente.
+7. Backend / API: request, response, interpretación y curl.
+8. Release: checklist colapsado.
+
+#### Docker
+
+```bash
+bash scripts/validate-docker.sh
+```
+
+Validación manual:
+
+```bash
+docker build -t attentionlab-ai:v1.0.9 .
+docker run --rm -p 7860:7860 attentionlab-ai:v1.0.9
+```
+
+En otra terminal:
+
+```bash
+curl http://localhost:7860/api/health
+```
+
+Abre:
+
+```text
+http://localhost:7860
+http://localhost:7860/docs
+```
+
+#### Criterio de lanzamiento
+
+Antes de publicar, deben pasar:
+
+```bash
+npm --prefix apps/web ci --no-audit --no-fund
+npm --prefix apps/web run check
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+bash scripts/validate-local.sh
+```
+
+Y, si Docker está disponible:
+
+```bash
+bash scripts/validate-docker.sh
+```

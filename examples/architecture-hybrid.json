@@ -1,0 +1,18 @@
+{
+  "name": "Hybrid-GQA-SWA-MLA",
+  "num_layers": 24,
+  "dimension": 2048,
+  "heads": 16,
+  "kv_heads": 4,
+  "rope": true,
+  "gating": true,
+  "mla_compression_rank": 128,
+  "sparse_top_k": 8,
+  "repeat": 6,
+  "layers": [
+    { "type": "gqa" },
+    { "type": "swa_gqa", "window": 1024 },
+    { "type": "mla", "compression_rank": 128 },
+    { "type": "gated_full_attention" }
+  ]
+}

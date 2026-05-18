@@ -1,0 +1,28 @@
+{
+  "name": "attentionlab-ai",
+  "version": "1.0.3",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:web": "npm --prefix apps/web run build",
+    "check:web": "npm --prefix apps/web run check",
+    "dev:api": "uvicorn app.main:app --app-dir apps/api --host 0.0.0.0 --port 7860 --reload",
+    "test:api": "PYTHONPATH=apps/api pytest apps/api/tests -q",
+    "docker:build": "docker build -t attentionlab-ai:v1.0.1 .",
+    "docker:run": "docker run --rm -p 7860:7860 attentionlab-ai:v1.0.1"
+  },
+  "description": "AttentionLab AI v1.0.3: dashboard educativo con navegación, demo guiada, modos Básico/Técnico/Experto y matriz de atención didáctica.",
+  "keywords": [
+    "attention",
+    "transformers",
+    "llm",
+    "mllm",
+    "agents",
+    "rag",
+    "fastapi",
+    "docker",
+    "hugging-face-spaces"
+  ],
+  "license": "MIT"
+}

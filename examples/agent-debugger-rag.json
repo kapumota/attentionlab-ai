@@ -1,0 +1,6 @@
+{
+  "prompt": "Explica cómo un agente usa RAG para responder con evidencia.",
+  "rag_query": "RAG documentos recuperados groundedness agente",
+  "top_k": 3,
+  "max_steps": 5
+}

@@ -1,0 +1,10 @@
+{
+  "num_layers": 24,
+  "dimension": 2048,
+  "query_heads": 16,
+  "kv_heads": 4,
+  "context_length": 32768,
+  "batch_size": 1,
+  "mla_rank": 128,
+  "rope": true
+}

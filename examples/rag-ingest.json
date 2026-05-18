@@ -1,0 +1,17 @@
+{
+  "reset": false,
+  "documents": [
+    {
+      "id": "doc-gqa-kv-cache",
+      "title": "GQA y KV cache",
+      "text": "Grouped-Query Attention reduce memoria al compartir claves y valores entre grupos de cabezas de consulta.",
+      "source": "example"
+    },
+    {
+      "id": "doc-rag-grounding",
+      "title": "RAG y groundedness",
+      "text": "RAG recupera documentos y permite responder con evidencia citada para mejorar groundedness.",
+      "source": "example"
+    }
+  ]
+}

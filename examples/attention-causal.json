@@ -1,0 +1,12 @@
+{
+  "config": {
+    "mode": "causal",
+    "tokens": 8,
+    "temperature": 0.35,
+    "window_size": 2,
+    "top_k": 3,
+    "query_heads": 12,
+    "kv_heads": 4,
+    "visual_head": 3
+  }
+}

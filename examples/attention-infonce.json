@@ -1,0 +1,12 @@
+{
+  "config": {
+    "mode": "infonce",
+    "tokens": 8,
+    "temperature": 0.2,
+    "window_size": 2,
+    "top_k": 3,
+    "query_heads": 8,
+    "kv_heads": 2,
+    "visual_head": 1
+  }
+}
