@@ -105,7 +105,7 @@ const sections: SectionItem[] = [
   {
     id: "llm",
     title: "Estimador LLM / KV Cache",
-    shortTitle: "LLM Cost",
+    shortTitle: "Costo LLM",
     description: "Estimaciones de memoria, contexto largo, GQA, MLA y batch de inferencia."
   },
   {
@@ -567,7 +567,7 @@ function buildAutoInterpretation(config: SimulationConfig, focusedRow: number, s
 
   if (config.mode === "sparse") {
     return {
-      title: "Interpretación automática: Top-k sparsity",
+      title: "Interpretación automática: Esparsidad Top-k ",
       body: `Con Top-k = ${config.topK}, cada token conserva solo sus ${config.topK} relaciones más fuertes. Esto reduce conexiones activas y simula atención dispersa.`,
       readme: `Este módulo visualiza atención sparse Top-k. Con Top-k = ${config.topK}, cada token conserva solo las relaciones más fuertes y descarta conexiones menos relevantes.`
     };
@@ -575,7 +575,7 @@ function buildAutoInterpretation(config: SimulationConfig, focusedRow: number, s
 
   if (config.mode === "ventana") {
     return {
-      title: "Interpretación automática: Sliding Window",
+      title: "Interpretación automática: Ventana deslizante",
       body: `Con ventana = ${config.windowSize}, cada token mira principalmente vecinos cercanos. Esto reduce costo visual y ayuda a explicar contexto largo más barato.`,
       readme: `Este módulo visualiza Sliding Window Attention. Cada token solo atiende una ventana local de tamaño ${config.windowSize}, reduciendo conexiones frente a atención completa.`
     };
