@@ -1,21 +1,8 @@
----
-title: AttentionLab AI v1.0.9
-emoji: 🧠
-colorFrom: indigo
-colorTo: blue
-sdk: docker
-app_port: 7860
-fullWidth: true
-short_description: Dashboard educativo de atención, Transformers, LLMs, MLLMs, RAG, Agent Debugger y backend FastAPI.
----
+### AttentionLab AI 
 
-### AttentionLab AI v1.0.9
+**AttentionLab AI** es un dashboard  full-stack para visualizar y experimentar conceptos modernos de IA: mecanismos de atención, arquitecturas Transformer, estimación de KV cache, comparación MHA/GQA/MLA, RAG visual, depuración de agentes, MLLM e integración con backend FastAPI.
 
-**AttentionLab AI** es un dashboard educativo full-stack para visualizar y experimentar conceptos modernos de IA: mecanismos de atención, arquitecturas Transformer, estimación de KV cache, comparación MHA/GQA/MLA, RAG visual, depuración de agentes, MLLM e integración con backend FastAPI.
-
-La release **v1.0.9 Robust Dashboard** está preparada para demostración pública, GitHub y Hugging Face Docker Spaces. Incluye frontend React/Vite, backend FastAPI, endpoints reproducibles, documentación técnica, ejemplos JSON, validación local, Dockerfile y flujo de despliegue.
-
-> Estado: release estable para demo técnica y educativa. No es un LLM entrenado desde cero ni un RAG de producción; es una plataforma visual para explicar, probar y defender conceptos de IA moderna.
+Este lanzamiento está preparado para demostración pública, GitHub y Hugging Face Docker Spaces. Incluye frontend React/Vite, backend FastAPI, endpoints reproducibles, documentación técnica, ejemplos JSON, validación local, Dockerfile y flujo de despliegue.
 
 #### Características principales
 
