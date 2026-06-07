@@ -6,253 +6,162 @@ colorTo: blue
 sdk: docker
 app_port: 7860
 fullWidth: true
-short_description: Laboratorio visual de atención, KV Cache, Transformers, RAG y Agent Debugger sin GPU ni API keys.
+short_description: Lab visual de IA generativa sin GPU
 ---
-
-[![Hugging Face Space](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
-
 
 ### Attentio AI Lab
 
-### Demo en vivo
+[![Hugging Face Space](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
+[![CI](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/kapumota/attentionlab-ai/actions)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-#### Vista rápida
+> Laboratorio interactivo para entender KV cache, atención moderna, diseño Transformer y depuración de agentes sin GPU ni API keys.
 
-Los siguientes GIFs muestran los flujos principales sin instalar nada.
+### El problema
 
-![KV Cache Estimator](assets/gifs/kv-cache-estimator.gif)
+Entender atención, KV cache y agentes modernos suele requerir leer papers, montar infraestructura, ejecutar modelos pesados y depurar código opaco. Esa barrera hace difícil explicar conceptos actuales de IA generativa en clases, talleres, entrevistas técnicas y revisiones de arquitectura.
 
-![Agent Debugger](assets/gifs/agent-debugger.gif)
+### La solución
 
-![Constructor Transformer](assets/gifs/transformer-builder.gif)
+Attentio AI Lab ofrece simulaciones visuales deterministas, contratos API validables y recorridos guiados para aprender conceptos de IA moderna de forma reproducible.
 
+#### Qué ofrece
 
-- Hugging Face Space: [Hugging Face Space](https://kapumota-attentio-ai-lab.hf.space)
-- Ejecución local rápida:
+- Visualización de atención y configuraciones Transformer.
+- KV Cache Estimator para comparar MHA, GQA, MLA y SWA.
+- Learning Path guiado para KV cache.
+- Agent Debugger Timeline con trazas deterministas.
+- Backend FastAPI con contratos Pydantic.
+- Frontend React + TypeScript reproducible.
+- Deploy público en Hugging Face Space.
 
-```bash
-docker build -t attentio-ai-lab:v1.1.0-dev .
-docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
-```
+### Demostración en vivo
 
-Abrir en el navegador:
+#### Hugging Face Space
 
-```text
-http://localhost:7860
-```
+[Probar Attentio AI Lab](https://kapumota-attentio-ai-lab.hf.space)
 
-Validar API:
+#### Endpoints públicos
 
-```bash
-curl http://localhost:7860/api/health
-```
+- Aplicación: https://kapumota-attentio-ai-lab.hf.space
+- Health check: https://kapumota-attentio-ai-lab.hf.space/api/health
+- OpenAPI: https://kapumota-attentio-ai-lab.hf.space/docs
 
+### Vista rápida
 
-**Attentio AI Lab** implementa un laboratorio interactivo de sistemas de IA generativa con separación clara entre interfaz, contratos de datos y servicios backend. En el frontend, React y TypeScript modelan la experiencia visual: matriz de atención interactiva con encabezados de fila/columna, inspector de celdas, modos Básico/Técnico/Experto, demostración guiada, presets de escenarios, constructor visual de bloques Transformer, gráficos de KV cache, timeline de agentes y consola API con copiado de payloads.
+#### Recursos visuales
 
-En el backend, FastAPI expone endpoints tipados con Pydantic para cómputo didáctico de atención, validación de arquitecturas, estimación de memoria/costo de LLMs, contraste multimodal InfoNCE, RAG en memoria, trazas de agente y experimentos ligeros.
+Los GIFs y capturas se mantienen en GitHub para mostrar los flujos principales del proyecto.
 
-La aplicación funciona por defecto en modo determinístico/fallback, sin requerir GPU ni credenciales de OpenAI. Esto permite ejecución local reproducible, pruebas automatizadas, CI y despliegue como Docker Space. Los modelos reales son opcionales y pueden activarse mediante dependencias adicionales y variables de entorno.
+- KV Cache Estimator: `assets/gifs/kv-cache-estimator.gif`
+- Agent Debugger: `assets/gifs/agent-debugger.gif`
+- Constructor Transformer: `assets/gifs/transformer-builder.gif`
+- Capturas: `screenshots/`
 
-> **Estado:** versión técnica `v1.1.0-dev`, lista para GitHub y Hugging Face Docker Spaces. No es un LLM entrenado desde cero ni un RAG productivo con base vectorial persistente; es una herramienta didáctica y reproducible para explicar conceptos técnicos de IA moderna.
+### Hero feature
 
+#### KV Cache Estimator
 
-#### Capturas
+KV Cache Estimator permite comparar arquitecturas de atención y entender el costo de memoria en contexto largo sin GPU, sin API keys y sin ejecutar modelos reales.
 
-Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/attentio-ai-lab/tree/main/screenshots).
+#### Capacidades
 
-##### 1. Vista general del panel
+- Comparación MHA vs GQA vs SWA vs MLA.
+- Escenarios 32k, 64k, 128k y 1M tokens.
+- Exportación de resultados como JSON.
+- Exportación de reporte técnico en Markdown.
+- Explicación didáctica de la fórmula.
+- Advertencia clara: estimador didáctico, no benchmark real.
 
-![Vista general del panel](screenshots/01-home.png)
+### Segunda firma
 
-##### 2. Laboratorio de atención
+#### Agent Debugger Timeline
 
-![Laboratorio de atención](screenshots/02-atencion.png)
+Agent Debugger Timeline permite depurar agentes mediante trazas deterministas, estados por paso, tool calls simulados y reportes técnicos copiables.
 
-##### 3. Constructor Transformer
+#### Capacidades
 
-![Constructor Transformer](screenshots/03-transformer.png)
+- Timeline exportable como JSON.
+- Estados por paso: ok, warning, error y skipped.
+- Tool calls simulados con entrada, salida, latencia y estado.
+- Error reproducible de herramienta.
+- Caso RAG con evidencia insuficiente.
+- Reporte técnico copiable en Markdown.
 
-##### 4. Estimador LLM / KV Cache
+### Learning paths
 
-![Estimador LLM y KV Cache](screenshots/04-LLMCost.png)
+#### Entiende KV Cache en 12 minutos
 
-##### 5. RAG + Agent Debugger
+- Checkpoint 1 - Qué es KV cache.
+- Checkpoint 2 - Por qué crece con el contexto.
+- Checkpoint 3 - MHA vs GQA.
+- Checkpoint 4 - MLA y compresión latente.
+- Checkpoint 5 - Diseña una configuración para 128k tokens.
+- Quiz - 3 preguntas con feedback inmediato.
 
-![RAG y Agent Debugger](screenshots/05-rag-agentes.png)
+#### Próximos recorridos
 
-##### 6. Backend / API
+- Diseña un Transformer eficiente.
+- Depura un agente paso a paso.
+- Atención visual: del softmax al patrón causal.
 
-![Consola API del backend](screenshots/06-backend-api.png)
+### Arquitectura
 
-##### 7. Publicación / Hugging Face Docker Space
+#### Frontend
 
-![Hugging Face Docker Space](screenshots/07-HuggingFace-docker-space.png)
+- React.
+- TypeScript.
+- Vite.
+- Componentes visuales con estados deterministas.
+- Error boundaries para robustez de interfaz.
 
-#### Características principales
+#### Backend
 
-| Área | Incluye |
-|---|---|
-| Panel guiado | Navegación por secciones, demo guiada, presets y modos Básico/Técnico/Experto |
-| Laboratorio de atención | Matriz interactiva con encabezados, inspector de celda, softmax, temperatura, máscaras causal/local/top-k, GQA e InfoNCE |
-| Constructor Transformer | Bloques visuales de capas, SWA/GQA/MLA, RoPE, gating, JSON técnico colapsable y validación backend |
-| Estimador LLM | KV cache MHA/GQA/MLA, gráficas, contexto largo, batch size, tokens/s estimados y panel comparativo |
-| MLLM playground | Alineación imagen-texto, candidatos editables, ranking InfoNCE e interpretación didáctica |
-| RAG + Agent Debugger | Pipeline visual, indexación, recuperación top-k, scores, citas, groundedness, tool tracing y timeline del agente |
-| Backend / API | Consola visual con request, response, latencia, interpretación, errores comunes y botones de copia |
-| Robustez frontend | ErrorBoundary, accesibilidad, role=status, aria-labels, mensajes de error guiados y copiado para README |
-| Deploy | Dockerfile multi-stage, puerto `7860`, compatible con Hugging Face Docker Spaces |
+- FastAPI.
+- Pydantic.
+- Routers por dominio.
+- Servicios deterministas.
+- Tests con Pytest.
 
-#### No requiere OpenAI API
+#### Deploy
 
-El proyecto funciona por defecto sin credenciales externas:
+- Docker multi-stage.
+- Hugging Face Space con SDK Docker.
+- Puerto público 7860.
+- Validación de `/api/health` y `/docs`.
 
-```text
-OpenAI API: no requerida
-Modo backend: determinístico / fallback ligero
-GPU: no requerida
-```
+### Evidencia técnica
 
-Los modelos reales son opcionales y se activan solo si instalas dependencias adicionales y defines variables de entorno.
-
-#### Arquitectura de alto nivel
-
-```text
-Navegador
-  │
-  ▼
-React + TypeScript + Vite
-  ├─ Panel educativo
-  ├─ Matriz de atención interactiva
-  ├─ Constructor Transformer
-  ├─ LLM / KV Cache playground
-  ├─ MLLM / InfoNCE playground
-  ├─ RAG + Agent Debugger
-  └─ Consola API del backend
-  │
-  ▼
-FastAPI + Pydantic
-  ├─ /api/attention/compute
-  ├─ /api/architecture/validate
-  ├─ /api/llm/estimate
-  ├─ /api/mllm/contrastive-batch
-  ├─ /api/rag/*
-  ├─ /api/agents/*
-  └─ /api/models/*
-  │
-  ▼
-Modo determinístico / modelos opcionales
-```
-#### Ubicación del frontend
-
-El frontend está en:
-
-```text
-apps/web
-```
-
-Archivos principales:
-
-```text
-apps/web/src/App.tsx                         # Panel principal
-apps/web/src/main.tsx                        # Entrada React
-apps/web/src/styles.css                      # Estilos globales
-apps/web/src/components/                     # Componentes UI
-apps/web/src/components/AttentionMatrix.tsx
-apps/web/src/components/ControlPanel.tsx
-apps/web/src/components/BackendPlayground.tsx
-apps/web/src/components/AgentDebuggerPlayground.tsx
-apps/web/src/components/ArchitectureBuilder.tsx
-apps/web/src/components/LLMPlayground.tsx
-apps/web/src/components/MLLMPlayground.tsx
-apps/web/src/components/GlossaryPanel.tsx
-apps/web/src/components/ErrorBoundary.tsx
-apps/web/src/components/CopyButton.tsx
-apps/web/src/core/apiClient.ts               # Cliente HTTP del frontend
-apps/web/src/config/api.ts                   # Base URL de API
-apps/web/vite.config.ts                      # Proxy local /api a FastAPI
-```
-
-#### Requisitos
-
-- Node.js `^20.19.0` o `>=22.12.0`. Recomendado: Node 22 LTS.
-- Python 3.10 o 3.11. Recomendado local: Python 3.10/3.11 con `pyenv`; Docker usa Python 3.11.
-- Docker opcional para validar Hugging Face Docker Spaces.
-
-#### Instalación local recomendada
-
-##### 1. Python con pyenv y entorno `.atencion`
+#### Validaciones principales
 
 ```bash
-pyenv local 3.10.x
-python --version
-
-python -m venv .atencion
-source .atencion/bin/activate
-
-python -m pip install --upgrade pip
-pip install -r apps/api/requirements-dev.txt
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+npm --prefix apps/web run check
+HF_SPACE_URL=https://kapumota-attentio-ai-lab.hf.space bash scripts/validate-hf-space.sh
 ```
 
-##### 2. Frontend con npm limpio
+#### Documentación relacionada
+
+- `docs/FASE_3_HERO_KV_CACHE.md`
+- `docs/FASE_4_LEARNING_PATH_KV_CACHE.md`
+- `docs/FASE_5_AGENT_DEBUGGER_TIMELINE.md`
+- `docs/RESULTADO_VALIDACION_HF_SPACE.md`
+- `docs/TESTING.md`
+- `docs/ARQUITECTURA.md`
+
+### Cómo ejecutar localmente
+
+#### Backend
 
 ```bash
-nvm use 22
-npm config set registry https://registry.npmjs.org/
-npm --prefix apps/web ci --no-audit --no-fund
+PYTHONPATH=apps/api python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-`npm ci` se recomienda para una instalación reproducible basada en `package-lock.json`.
-
-#### Ejecutar en desarrollo local
-
-Usa dos terminales.
-
-#### Terminal 1: backend FastAPI
+#### Frontend
 
 ```bash
-cd attentio-ai-lab
-source .atencion/bin/activate
-PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-Backend:
-
-```text
-http://localhost:8000
-http://localhost:8000/api/health
-http://localhost:8000/docs
-```
-
-#### Terminal 2: frontend Vite
-
-```bash
-cd attentio-ai-lab
+npm --prefix apps/web ci --include=dev
 npm --prefix apps/web run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
-
-En desarrollo, Vite usa proxy para enviar `/api/*` hacia `http://localhost:8000`.
-
-#### Ejecutar como aplicación integrada FastAPI
-
-```bash
-npm --prefix apps/web run build
-export ATTENTIONLAB_STATIC_DIR="$PWD/apps/web/dist"
-PYTHONPATH=apps/api uvicorn app.main:app --host 0.0.0.0 --port 7860
-```
-
-Abre:
-
-```text
-http://localhost:7860
-http://localhost:7860/api/health
-http://localhost:7860/docs
 ```
 
 #### Docker
@@ -262,127 +171,36 @@ docker build -t attentio-ai-lab:v1.1.0-dev .
 docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
 ```
 
-Con Docker Compose:
+### Límites
 
-```bash
-docker compose up --build
-```
+Attentio AI Lab es una herramienta didáctica y reproducible. No es un LLM entrenado desde cero, no es un RAG productivo y no es un benchmark de rendimiento.
 
-Luego abre:
+#### Qué no intenta reemplazar
 
-```text
-http://localhost:7860
-```
+- Profilers reales de GPU.
+- Benchmarks productivos de inferencia.
+- Sistemas RAG persistentes.
+- Frameworks de agentes productivos.
+- Entrenamiento o fine-tuning de modelos reales.
 
-#### Hugging Face Docker Space
+### Roadmap cercano
 
-La subida y verificación pública del Space corresponde a la Fase 2. En esta Fase 1 se deja la identidad, la versión y la imagen Docker preparadas para ese despliegue.
+#### Fase 7 - Calidad visible
 
-Configuración objetivo para el `README.md` del Space:
+Agregar badges, CI, checklist de release y quality gate.
 
-```yaml
-sdk: docker
-app_port: 7860
-```
+#### Fase 8 - Validación técnica de KV Cache Estimator
 
-Subida manual en la Fase 2:
+Agregar validación matemática y casos reproducibles.
 
-```bash
-git remote add space https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
-git push --force space main
-```
+#### Fase 9 - Segundo Learning Path
 
-También puedes usar GitHub Actions con `HF_TOKEN`, reemplazando `HF_USERNAME/attentio-ai-lab` por tu repo real.
+Crear un recorrido guiado para depurar agentes paso a paso.
 
-#### Validación
+#### Fase 10 - Release pública
 
-```bash
-npm --prefix apps/web run check
-PYTHONPATH=apps/api python -m pytest apps/api/tests -q
-bash scripts/validate-local.sh
-```
+Cerrar versión estable con changelog, release notes y GitHub Release.
 
-Validación Docker:
+### Licencia
 
-```bash
-bash scripts/validate-docker.sh
-```
-
-#### Endpoints principales
-
-```text
-GET  /api/health
-GET  /api/models/status
-GET  /api/models/runtime
-POST /api/models/embed
-POST /api/models/generate
-POST /api/models/contrastive-texts
-POST /api/attention/compute
-POST /api/architecture/validate
-POST /api/llm/estimate
-POST /api/mllm/contrastive-batch
-POST /api/agents/trace
-POST /api/agents/debug
-GET  /api/rag/status
-POST /api/rag/ingest
-POST /api/rag/query
-POST /api/experiments/save
-GET  /api/experiments
-```
-
-#### Modelos reales opcionales
-
-Por defecto el backend usa fallback determinista. Para activar modelos reales opcionales:
-
-```bash
-pip install -r apps/api/requirements-v1.1.optional.txt
-export ATTENTIONLAB_ENABLE_REAL_MODELS=true
-export ATTENTIONLAB_EMBEDDING_MODEL_ID=sentence-transformers/all-MiniLM-L6-v2
-export ATTENTIONLAB_TEXT_MODEL_ID=distilbert-base-uncased
-```
-
-### Ejemplos de uso
-
-Puedes ver ejemplos de uso en la carpeta de documentación, en el archivo `EJEMPLOS_USO.md`
-
-## Licencia
 MIT. Ver `LICENSE`.
-
-### Learning Path: Entiende KV Cache en 12 minutos
-
-#### Objetivo
-
-Attentio AI Lab ahora incluye un recorrido guiado para pasar del playground libre a un curriculum interactivo. El primer path enseña KV cache, crecimiento con contexto largo, MHA, GQA, MLA y diseño de una configuración para 128k tokens.
-
-#### Estructura
-
-- Checkpoint 1 - Qué es KV cache.
-- Checkpoint 2 - Por qué crece con el contexto.
-- Checkpoint 3 - MHA vs GQA.
-- Checkpoint 4 - MLA y compresión latente.
-- Checkpoint 5 - Diseña una configuración para 128k tokens.
-- Quiz - 3 preguntas con feedback inmediato.
-
-#### Integración
-
-El learning path se conecta con KV Cache Estimator y permite aplicar escenarios guiados directamente sobre el estimador.
-
-### Segunda firma: Agent Debugger Timeline
-
-#### Objetivo
-
-Agent Debugger Timeline convierte Attentio AI Lab en un laboratorio para depurar agentes mediante trazas deterministas, estados por paso, tool calls simulados y reportes técnicos copiables.
-
-#### Capacidades
-
-- Timeline exportable como JSON.
-- Reporte técnico copiable en Markdown.
-- Estados por paso: ok, warning, error y skipped.
-- Tool calls simulados con entrada, salida, latencia y estado.
-- Escenario reproducible de herramienta con error.
-- Caso RAG con evidencia insuficiente.
-- Trazas útiles para talleres, entrevistas y revisión técnica.
-
-#### Narrativa de portfolio
-
-Attentio AI Lab no solo enseña atención y memoria, también enseña a depurar agentes mediante trazas deterministas.
