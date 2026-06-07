@@ -9,6 +9,9 @@ fullWidth: true
 short_description: Laboratorio visual de atención, KV Cache, Transformers, RAG y Agent Debugger sin GPU ni API keys.
 ---
 
+[![Hugging Face Space](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
+
+
 ### Attentio AI Lab
 
 ### Demo en vivo
@@ -24,7 +27,7 @@ Los siguientes GIFs muestran los flujos principales sin instalar nada.
 ![Constructor Transformer](assets/gifs/transformer-builder.gif)
 
 
-- Hugging Face Space: pendiente de publicar en Fase 2.
+- Hugging Face Space: [Hugging Face Space](https://kapumota-attentio-ai-lab.hf.space)
 - Ejecución local rápida:
 
 ```bash
