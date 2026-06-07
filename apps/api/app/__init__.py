@@ -1,1 +1,1 @@
-"""Backend FastAPI de AttentionLab AI."""
+"""Backend FastAPI de Attentio AI Lab."""

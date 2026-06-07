@@ -9,10 +9,10 @@ from fastapi.staticfiles import StaticFiles
 
 from app.routers import agent_debugger, agents, architecture, attention, experiments, health, llm, mllm, models, rag, real_models
 
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.1.0-dev"
 
 app = FastAPI(
-    title="AttentionLab AI API",
+    title="API de Attentio AI Lab",
     version=APP_VERSION,
     description="Backend FastAPI para atención, métricas LLM, modelos pequeños reales, RAG visual, MLLM y depuración de agentes.",
 )
@@ -35,7 +35,7 @@ else:
     @app.get("/")
     def root() -> dict[str, str]:
         return {
-            "name": "AttentionLab AI",
+            "name": "Attentio AI Lab",
             "version": APP_VERSION,
             "message": "API activa. Compila el frontend para servir la app estática.",
             "docs": "/docs",

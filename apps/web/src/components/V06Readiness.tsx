@@ -1,7 +1,7 @@
 export function V06Readiness() {
   return (
     <section className="panel">
-      <p className="eyebrow">v0.6-ready</p>
+      <p className="eyebrow">una fase posterior-ready</p>
       <h2>Preparación para una edición de investigación</h2>
       <div className="checklist-grid">
         <div className="checklist-item"><strong>Persistencia real</strong><span>Migrar experimentos y documentos a SQLite/Postgres o un vector store externo.</span></div>

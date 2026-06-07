@@ -1,7 +1,7 @@
 export function SpaceReadiness() {
   return (
     <section className="panel">
-      <p className="eyebrow">v1.0 · Hugging Face Docker Space</p>
+      <p className="eyebrow">v1.1.0-dev · Hugging Face Docker Space</p>
       <h2>Publicación lista para Spaces</h2>
       <div className="checklist-grid">
         <div className="checklist-item"><strong>Docker</strong><span>Frontend React compilado y servido por FastAPI en el puerto 7860.</span></div>

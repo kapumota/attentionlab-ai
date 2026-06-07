@@ -1,4 +1,4 @@
-### Instalación local de AttentionLab AI
+### Instalación local de Attentio AI Lab
 
 Esta guía instala el proyecto en modo desarrollo local usando `pyenv`, Python 3.10/3.11, entorno virtual `.atencion` y Node 22.
 
@@ -32,7 +32,7 @@ Python 3.12 puede funcionar, pero se debe validar con la suite de pruebas antes 
 Desde la raíz del proyecto:
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 ```
 
 Verifica la estructura:
@@ -161,7 +161,7 @@ Usa dos terminales.
 ##### Terminal 1: backend
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 source .atencion/bin/activate
 PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -176,7 +176,7 @@ http://localhost:8000/docs
 ##### Terminal 2: frontend
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 npm --prefix apps/web run dev
 ```
 

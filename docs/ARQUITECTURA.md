@@ -1,6 +1,6 @@
-### Arquitectura de AttentionLab AI
+### Arquitectura de Attentio AI Lab
 
-AttentionLab AI  usa una arquitectura full-stack ligera:
+Attentio AI Lab  usa una arquitectura full-stack ligera:
 
 ```text
 Frontend React/Vite
@@ -18,7 +18,7 @@ El objetivo de diseño es que la demo funcione sin GPU, sin OpenAI API y sin ser
 apps/web
   React + TypeScript + Vite
   Componentes didácticos
-  Dashboard guiado
+  Panel guiado
   Cliente API /api/*
 
 apps/api
@@ -43,7 +43,7 @@ apps/web
 
 Responsabilidades:
 
-- Dashboard principal con navegación por secciones.
+- Panel principal con navegación por secciones.
 - Modos Básico, Técnico y Experto.
 - Laboratorio visual de atención.
 - Constructor visual de arquitectura Transformer.

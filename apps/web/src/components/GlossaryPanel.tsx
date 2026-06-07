@@ -81,7 +81,7 @@ const terms: GlossaryTerm[] = [
     example: "Depurar agente"
   },
   {
-    term: "Tool tracing",
+    term: "Trazado de herramientas",
     definition: "Registro de herramientas usadas por un agente, con entradas, salidas, latencia y estado.",
     target: "rag",
     example: "Ver timeline del agente"
@@ -106,7 +106,7 @@ export function GlossaryPanel({ onNavigate }: Props) {
       <div className="builder-heading">
         <div>
           <p className="eyebrow">Glosario técnico</p>
-          <h2>Conceptos clave del dashboard</h2>
+          <h2>Conceptos clave del panel</h2>
           <p className="mini-aviso">
             Busca un término y salta directamente al módulo donde se demuestra visualmente.
           </p>

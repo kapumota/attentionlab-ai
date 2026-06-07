@@ -1,6 +1,6 @@
-"""Ejemplo de adaptador v0.5. Es opcional en v0.5 y puede activarse con ATTENTIONLAB_ENABLE_REAL_MODELS=true.
+"""Ejemplo de adaptador v1.1.0-dev. Es opcional en v1.1.0-dev y puede activarse con ATTENTIONLAB_ENABLE_REAL_MODELS=true.
 
-Para activarlo en v0.5:
+Para activarlo en v1.1.0-dev:
 1. Añadir torch/transformers a requirements.
 2. Implementar carga diferida del modelo.
 3. Exponer métodos generate(), embeddings() y attention_trace().
@@ -11,7 +11,7 @@ class TransformersLocalAdapter:
         self.model_id = model_id
 
     def load(self):
-        raise NotImplementedError("Implementar en v0.5")
+        raise NotImplementedError("Implementar en v1.1.0-dev")
 
     def generate(self, prompt: str) -> str:
-        raise NotImplementedError("Implementar en v0.5")
+        raise NotImplementedError("Implementar en v1.1.0-dev")

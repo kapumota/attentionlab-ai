@@ -21,7 +21,7 @@ git init
 git add .
 git commit -m "Release v0.4 Real Models Docker Space"
 git branch -M main
-git remote add origin https://huggingface.co/spaces/TU_USUARIO/attentionlab-ai
+git remote add origin https://huggingface.co/spaces/TU_USUARIO/attentio-ai-lab
 git push -u origin main
 ```
 

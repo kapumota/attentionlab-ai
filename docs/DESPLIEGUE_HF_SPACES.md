@@ -1,6 +1,6 @@
 ### Despliegue en Hugging Face Spaces
 
-AttentionLab AI  está preparado para publicarse como **Hugging Face Docker Space**.
+Attentio AI Lab  está preparado para publicarse como **Hugging Face Docker Space**.
 
 #### 1. Requisitos
 
@@ -17,14 +17,14 @@ El `README.md` debe empezar con:
 
 ```yaml
 ---
-title: AttentionLab AI v1.0.9
+title: Attentio AI Lab v1.1.0-dev
 emoji: 🧠
 colorFrom: indigo
 colorTo: blue
 sdk: docker
 app_port: 7860
 fullWidth: true
-short_description: Dashboard  de atención, Transformers, LLMs, MLLMs, RAG y Agent Debugger.
+short_description: Laboratorio visual de atención, Transformers, LLMs, MLLMs, RAG y Agent Debugger.
 ---
 ```
 
@@ -37,7 +37,7 @@ En Hugging Face:
 ```text
 New Space
 SDK: Docker
-Name: attentionlab-ai
+Name: attentio-ai-lab
 Visibility: Public o Private
 ```
 
@@ -48,9 +48,9 @@ Desde la raíz del proyecto:
 ```bash
 git init
 git add .
-git commit -m "Release v1.0.9"
+git commit -m "Release v1.1.0-dev"
 git branch -M main
-git remote add space https://huggingface.co/spaces/HF_USERNAME/attentionlab-ai
+git remote add space https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
 git push --force space main
 ```
 
@@ -70,7 +70,7 @@ Pasos:
 2. En GitHub, ve a `Settings`.
 3. Abre `Secrets and variables`.
 4. Crea el secret `HF_TOKEN`.
-5. Edita el workflow y reemplaza `HF_USERNAME/attentionlab-ai` por tu Space real.
+5. Edita el workflow y reemplaza `HF_USERNAME/attentio-ai-lab` por tu Space real.
 6. Ejecuta el workflow manualmente si está configurado con `workflow_dispatch`.
 
 #### 6. Qué construye Hugging Face

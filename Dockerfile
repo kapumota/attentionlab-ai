@@ -1,4 +1,4 @@
-# AttentionLab AI v1.0 — Hugging Face Docker Space
+# Attentio AI Lab v1.1.0-dev - Hugging Face Docker Space
 # Etapa 1: compila el frontend React/Vite.
 FROM node:20-bookworm-slim AS web-build
 

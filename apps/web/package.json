@@ -1,6 +1,6 @@
 {
-  "name": "@attentionlab/web",
-  "version": "1.0.9",
+  "name": "@attentio-ai-lab/web",
+  "version": "1.1.0-dev",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,6 +21,6 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3"
   },
-  "description": "AttentionLab AI v1.0.9: dashboard robusto con ErrorBoundary, terminología consistente, interpretaciones automáticas, copiado para documentación y comparación MHA/GQA/MLA.",
+  "description": "Attentio AI Lab v1.1.0-dev: interfaz educativa con ErrorBoundary, terminología consistente, interpretaciones automáticas, copiado para documentación y comparación MHA/GQA/MLA.",
   "license": "MIT"
 }

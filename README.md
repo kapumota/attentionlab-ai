@@ -1,21 +1,21 @@
-### AttentionLab AI 
+### Attentio AI Lab
 
-**AttentionLab AI** implementa un laboratorio interactivo de sistemas de IA generativa con separación clara entre interfaz, contratos de datos y servicios backend. En el frontend, React y TypeScript modelan la experiencia visual: matriz de atención interactiva con encabezados de fila/columna, inspector de celdas, modos Básico/Técnico/Experto, demostración guiada, presets de escenarios, constructor visual de bloques Transformer, gráficos de KV cache, timeline de agentes y consola API con copiado de payloads. 
+**Attentio AI Lab** implementa un laboratorio interactivo de sistemas de IA generativa con separación clara entre interfaz, contratos de datos y servicios backend. En el frontend, React y TypeScript modelan la experiencia visual: matriz de atención interactiva con encabezados de fila/columna, inspector de celdas, modos Básico/Técnico/Experto, demostración guiada, presets de escenarios, constructor visual de bloques Transformer, gráficos de KV cache, timeline de agentes y consola API con copiado de payloads.
 
 En el backend, FastAPI expone endpoints tipados con Pydantic para cómputo didáctico de atención, validación de arquitecturas, estimación de memoria/costo de LLMs, contraste multimodal InfoNCE, RAG en memoria, trazas de agente y experimentos ligeros.
 
 La aplicación funciona por defecto en modo determinístico/fallback, sin requerir GPU ni credenciales de OpenAI. Esto permite ejecución local reproducible, pruebas automatizadas, CI y despliegue como Docker Space. Los modelos reales son opcionales y pueden activarse mediante dependencias adicionales y variables de entorno.
 
-> **Estado:** version estable `v1.0.9`, lista para GitHub y Hugging Face Docker Spaces. No es un LLM entrenado desde cero ni un RAG productivo con base vectorial persistente; es una herramienta didáctica y reproducible para explicar conceptos técnicos de IA moderna.
+> **Estado:** versión técnica `v1.1.0-dev`, lista para GitHub y Hugging Face Docker Spaces. No es un LLM entrenado desde cero ni un RAG productivo con base vectorial persistente; es una herramienta didáctica y reproducible para explicar conceptos técnicos de IA moderna.
 
 
-#### Screenshots
+#### Capturas
 
-Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/attentionlab-ai/tree/main/screenshots).
+Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/attentio-ai-lab/tree/main/screenshots).
 
-##### 1. Vista general del dashboard
+##### 1. Vista general del panel
 
-![Vista general del dashboard](screenshots/01-home.png)
+![Vista general del panel](screenshots/01-home.png)
 
 ##### 2. Laboratorio de atención
 
@@ -35,7 +35,7 @@ Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/a
 
 ##### 6. Backend / API
 
-![Backend API console](screenshots/06-backend-api.png)
+![Consola API del backend](screenshots/06-backend-api.png)
 
 ##### 7. Publicación / Hugging Face Docker Space
 
@@ -45,7 +45,7 @@ Las capturas están en la carpeta [`screenshots/`](https://github.com/kapumota/a
 
 | Área | Incluye |
 |---|---|
-| Dashboard guiado | Navegación por secciones, demo guiada, presets y modos Básico/Técnico/Experto |
+| Panel guiado | Navegación por secciones, demo guiada, presets y modos Básico/Técnico/Experto |
 | Laboratorio de atención | Matriz interactiva con encabezados, inspector de celda, softmax, temperatura, máscaras causal/local/top-k, GQA e InfoNCE |
 | Constructor Transformer | Bloques visuales de capas, SWA/GQA/MLA, RoPE, gating, JSON técnico colapsable y validación backend |
 | Estimador LLM | KV cache MHA/GQA/MLA, gráficas, contexto largo, batch size, tokens/s estimados y panel comparativo |
@@ -61,7 +61,7 @@ El proyecto funciona por defecto sin credenciales externas:
 
 ```text
 OpenAI API: no requerida
-Modo backend: deterministic / fallback ligero
+Modo backend: determinístico / fallback ligero
 GPU: no requerida
 ```
 
@@ -74,13 +74,13 @@ Navegador
   │
   ▼
 React + TypeScript + Vite
-  ├─ Dashboard educativo
+  ├─ Panel educativo
   ├─ Matriz de atención interactiva
   ├─ Constructor Transformer
   ├─ LLM / KV Cache playground
   ├─ MLLM / InfoNCE playground
   ├─ RAG + Agent Debugger
-  └─ Backend API console
+  └─ Consola API del backend
   │
   ▼
 FastAPI + Pydantic
@@ -106,7 +106,7 @@ apps/web
 Archivos principales:
 
 ```text
-apps/web/src/App.tsx                         # Dashboard principal
+apps/web/src/App.tsx                         # Panel principal
 apps/web/src/main.tsx                        # Entrada React
 apps/web/src/styles.css                      # Estilos globales
 apps/web/src/components/                     # Componentes UI
@@ -163,7 +163,7 @@ Usa dos terminales.
 #### Terminal 1: backend FastAPI
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 source .atencion/bin/activate
 PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -179,7 +179,7 @@ http://localhost:8000/docs
 #### Terminal 2: frontend Vite
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 npm --prefix apps/web run dev
 ```
 
@@ -210,8 +210,8 @@ http://localhost:7860/docs
 #### Docker
 
 ```bash
-docker build -t attentionlab-ai:v1.0.9 .
-docker run --rm -p 7860:7860 attentionlab-ai:v1.0.9
+docker build -t attentio-ai-lab:v1.1.0-dev .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
 ```
 
 Con Docker Compose:
@@ -228,21 +228,23 @@ http://localhost:7860
 
 #### Hugging Face Docker Space
 
-Este repositorio está preparado para Hugging Face Docker Spaces mediante el bloque YAML superior del `README.md`:
+La subida y verificación pública del Space corresponde a la Fase 2. En esta Fase 1 se deja la identidad, la versión y la imagen Docker preparadas para ese despliegue.
+
+Configuración objetivo para el `README.md` del Space:
 
 ```yaml
 sdk: docker
 app_port: 7860
 ```
 
-Subida manual:
+Subida manual en la Fase 2:
 
 ```bash
-git remote add space https://huggingface.co/spaces/HF_USERNAME/attentionlab-ai
+git remote add space https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
 git push --force space main
 ```
 
-También puedes usar GitHub Actions con `HF_TOKEN`, reemplazando `HF_USERNAME/attentionlab-ai` por tu repo real.
+También puedes usar GitHub Actions con `HF_TOKEN`, reemplazando `HF_USERNAME/attentio-ai-lab` por tu repo real.
 
 #### Validación
 
@@ -285,7 +287,7 @@ GET  /api/experiments
 Por defecto el backend usa fallback determinista. Para activar modelos reales opcionales:
 
 ```bash
-pip install -r apps/api/requirements-v1.0.optional.txt
+pip install -r apps/api/requirements-v1.1.optional.txt
 export ATTENTIONLAB_ENABLE_REAL_MODELS=true
 export ATTENTIONLAB_EMBEDDING_MODEL_ID=sentence-transformers/all-MiniLM-L6-v2
 export ATTENTIONLAB_TEXT_MODEL_ID=distilbert-base-uncased
@@ -295,5 +297,5 @@ export ATTENTIONLAB_TEXT_MODEL_ID=distilbert-base-uncased
 
 Puedes ver ejemplos de uso en la carpeta de documentación, en el archivo `EJEMPLOS_USO.md`
 
-## Licence
+## Licencia
 MIT. Ver `LICENSE`.

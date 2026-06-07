@@ -6,8 +6,8 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
-IMAGE="attentionlab-ai:v1.0"
-CONTAINER="attentionlab-ai-v1-test"
+IMAGE="attentio-ai-lab:v1.1.0-dev"
+CONTAINER="attentio-ai-lab-v1-1-test"
 
 docker build -t "$IMAGE" .
 

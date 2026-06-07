@@ -239,9 +239,9 @@ export function generateTextOnBackend(params: {
   });
 }
 
-// ============================
-// API v0.5: RAG visual + Agent Debugger
-// ============================
+// ---
+// API v1.1.0-dev: RAG visual + Agent Debugger
+// ---
 
 export interface RagDocumentInput {
   id?: string | null;

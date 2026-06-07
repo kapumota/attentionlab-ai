@@ -1,4 +1,4 @@
-### Pruebas y validación de AttentionLab AI 
+### Pruebas y validación de Attentio AI Lab
 
 Esta guía resume cómo validar frontend, backend, API, Docker y flujo completo.
 
@@ -146,8 +146,8 @@ bash scripts/validate-docker.sh
 Validación manual:
 
 ```bash
-docker build -t attentionlab-ai:v1.0.9 .
-docker run --rm -p 7860:7860 attentionlab-ai:v1.0.9
+docker build -t attentio-ai-lab:v1.1.0-dev .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
 ```
 
 En otra terminal:

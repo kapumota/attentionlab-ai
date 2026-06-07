@@ -1,4 +1,4 @@
-// Adaptador v0.5 para modelos pequeños reales en navegador.
+// Adaptador v1.1.0-dev para modelos pequeños reales en navegador.
 // Usa import dinámico desde CDN para mantener el build ligero y compatible con Docker Space.
 // Transformers.js ejecuta modelos ONNX en el navegador mediante ONNX Runtime Web.
 

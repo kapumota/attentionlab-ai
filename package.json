@@ -1,6 +1,6 @@
 {
-  "name": "attentionlab-ai",
-  "version": "1.0.3",
+  "name": "attentio-ai-lab",
+  "version": "1.1.0-dev",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,10 +9,10 @@
     "check:web": "npm --prefix apps/web run check",
     "dev:api": "uvicorn app.main:app --app-dir apps/api --host 0.0.0.0 --port 7860 --reload",
     "test:api": "PYTHONPATH=apps/api pytest apps/api/tests -q",
-    "docker:build": "docker build -t attentionlab-ai:v1.0.1 .",
-    "docker:run": "docker run --rm -p 7860:7860 attentionlab-ai:v1.0.1"
+    "docker:build": "docker build -t attentio-ai-lab:v1.1.0-dev .",
+    "docker:run": "docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev"
   },
-  "description": "AttentionLab AI v1.0.3: dashboard educativo con navegación, demo guiada, modos Básico/Técnico/Experto y matriz de atención didáctica.",
+  "description": "Attentio AI Lab v1.1.0-dev: laboratorio educativo para visualizar atención, KV Cache, arquitecturas Transformer, RAG y depuración de agentes sin GPU ni API keys.",
   "keywords": [
     "attention",
     "transformers",

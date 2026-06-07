@@ -60,7 +60,7 @@ function getBlockDetails(block: ArchitectureBlock, index: number, architecture: 
   if (block.position_encoding) details.push(["pos", block.position_encoding]);
 
   return {
-    title: `Layer block ${index + 1}`,
+    title: `Bloque de capa ${index + 1}`,
     label: formatBlockType(block.type),
     description: blockDescriptions[block.type],
     details

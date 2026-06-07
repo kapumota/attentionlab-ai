@@ -758,7 +758,7 @@ code {
   }
 }
 
-/* Dashboard v1.0.2: navegación por secciones y demo guiada */
+/* Fase visual: navegación por secciones y demo guiada */
 .app-header {
   max-width: 1360px;
   margin: 0 auto;
@@ -1110,7 +1110,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.3: modo estudiante/experto y matriz didáctica */
+/* Fase visual: modo estudiante/experto y matriz didáctica */
 .panel {
   background: rgba(255, 255, 255, 0.92);
   color: var(--texto);
@@ -1424,7 +1424,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.4: presets de demo y ayuda contextual de controles */
+/* Fase visual: presets de demo y ayuda contextual de controles */
 .preset-rail {
   max-width: 1360px;
   margin: 0 auto;
@@ -1627,7 +1627,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.5: consola visual de backend y RAG pipeline */
+/* Fase visual: consola visual de backend y pipeline RAG */
 .api-console .console-header,
 .rag-visual .results-header {
   display: flex;
@@ -1971,7 +1971,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.6: Agent timeline y LLM visual charts */
+/* Fase visual: línea de tiempo de agente y gráficos visuales LLM */
 .status-badge.idle {
   background: #f1f5f9;
   border-color: rgba(100, 116, 139, 0.28);
@@ -2312,7 +2312,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.7: constructor visual, MLLM interactivo y glosario */
+/* Fase visual: constructor visual, MLLM interactivo y glosario */
 .builder-heading {
   display: flex;
   justify-content: space-between;
@@ -2649,7 +2649,7 @@ button.secundario:hover,
   }
 }
 
-/* v1.0.8: estado global, release colapsado, accesibilidad y rendimiento visual */
+/* Fase visual: estado global, release colapsado, accesibilidad y rendimiento visual */
 .global-status-bar {
   max-width: 1360px;
   margin: 0 auto 10px;
@@ -2857,7 +2857,7 @@ input[type="range"]:focus-visible {
   }
 }
 
-/* v1.0.9: ErrorBoundary, terminología, interpretaciones automáticas, copiado y comparación */
+/* Fase visual: ErrorBoundary, terminología, interpretaciones automáticas, copiado y comparación */
 .error-boundary {
   border: 1px solid rgba(239, 68, 68, 0.28);
   background: #fff7f7;
