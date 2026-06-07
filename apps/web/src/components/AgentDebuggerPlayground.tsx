@@ -63,6 +63,8 @@ function PipelineCard({ step, title, status, active, detail }: PipelineCardProps
 }
 
 
+type EscenarioAgente = "normal" | "evidencia_insuficiente" | "herramienta_con_error";
+
 interface AgentTimelineItem {
   step: number;
   title: string;
@@ -76,7 +78,7 @@ interface AgentTimelineItem {
 
 function clipText(value: string, max = 110) {
   if (value.length <= max) return value;
-  return `${value.slice(0, max - 1)}…`;
+  return `${value.slice(0, max - 1)}...`;
 }
 
 function getStatusLabel(status: AgentTimelineItem["status"]) {
@@ -85,6 +87,37 @@ function getStatusLabel(status: AgentTimelineItem["status"]) {
   if (status === "error") return "Error";
   if (status === "skipped") return "Omitido";
   return "Pendiente";
+}
+
+function getScenarioLabel(scenario: EscenarioAgente) {
+  if (scenario === "evidencia_insuficiente") return "RAG con evidencia insuficiente";
+  if (scenario === "herramienta_con_error") return "Herramienta con error reproducible";
+  return "Ejecución normal";
+}
+
+function construirReporteTecnico(debugResult: AgentDebugResponse, timelineItems: AgentTimelineItem[]) {
+  if (debugResult.export_markdown) return debugResult.export_markdown;
+
+  const pasos = timelineItems.map((item) => (
+    `- Paso ${item.step}: ${item.title}\n  - Estado: ${getStatusLabel(item.status)}\n  - Entrada: ${item.input}\n  - Acción: ${item.action}\n  - Salida: ${item.output}`
+  )).join("\n");
+
+  return [
+    "### Reporte técnico Agent Debugger Timeline",
+    "",
+    "#### Escenario",
+    "",
+    getScenarioLabel(debugResult.scenario),
+    "",
+    "#### Timeline",
+    "",
+    pasos,
+    "",
+    "#### Groundedness",
+    "",
+    `Score: ${(debugResult.groundedness.score * 100).toFixed(1)}%`,
+    `Advertencia: ${debugResult.groundedness.warning}`
+  ].join("\n");
 }
 
 function buildAgentTimeline(params: {
@@ -211,6 +244,7 @@ export function AgentDebuggerPlayground() {
   const [query, setQuery] = useState("RAG documentos recuperados herramienta observación agente");
   const [docsRaw, setDocsRaw] = useState(documentosIniciales);
   const [topK, setTopK] = useState(3);
+  const [scenario, setScenario] = useState<EscenarioAgente>("normal");
   const [status, setStatus] = useState<RagStatusResponse | null>(null);
   const [ragResult, setRagResult] = useState<RagQueryResponse | null>(null);
   const [debugResult, setDebugResult] = useState<AgentDebugResponse | null>(null);
@@ -239,6 +273,8 @@ export function AgentDebuggerPlayground() {
         `Evidencia: ${item.evidence}`
       ].join("\n")).join("\n\n")
     : "Ejecuta Depurar agente para generar una línea de tiempo.";
+  const technicalReportText = debugResult ? construirReporteTecnico(debugResult, timelineItems) : "Ejecuta Depurar agente para generar un reporte técnico.";
+  const exportJsonText = debugResult ? JSON.stringify(debugResult.export_json || debugResult, null, 2) : "{}";
 
   async function handleIngest() {
     setLoading(true);
@@ -274,7 +310,7 @@ export function AgentDebuggerPlayground() {
     setLoading(true);
     setError(null);
     try {
-      const result = await debugAgent({ prompt, ragQuery: query, topK });
+      const result = await debugAgent({ prompt, ragQuery: query, topK, scenario });
       setDebugResult(result);
       setRagResult({
         query,
@@ -373,6 +409,14 @@ export function AgentDebuggerPlayground() {
           <label htmlFor="ragTopK">Top-k documentos: <span className="valor-control">{topK}</span></label>
           <input id="ragTopK" type="range" min="1" max="6" value={topK} onChange={(event) => setTopK(Number(event.target.value))} />
 
+          <label htmlFor="agentScenario">Escenario reproducible</label>
+          <select id="agentScenario" value={scenario} onChange={(event) => setScenario(event.target.value as EscenarioAgente)}>
+            <option value="normal">Ejecución normal</option>
+            <option value="evidencia_insuficiente">RAG con evidencia insuficiente</option>
+            <option value="herramienta_con_error">Herramienta con error reproducible</option>
+          </select>
+          <p className="mini-aviso">Escenario activo: {getScenarioLabel(scenario)}.</p>
+
           <div className="botonera-modelos">
             <button onClick={handleQuery} disabled={loading}>Consultar RAG</button>
             <button onClick={handleDebug} disabled={loading}>Depurar agente</button>
@@ -453,6 +497,8 @@ export function AgentDebuggerPlayground() {
             <div className="timeline-actions">
               <span className="status-badge ok"><span className="status-dot" aria-hidden="true" />Groundedness {percent(debugResult.groundedness.score)}</span>
               <CopyButton text={timelineText}>Copiar timeline</CopyButton>
+              <CopyButton text={exportJsonText}>Copiar JSON</CopyButton>
+              <CopyButton text={technicalReportText}>Copiar reporte técnico</CopyButton>
             </div>
           </div>
 
@@ -470,6 +516,12 @@ export function AgentDebuggerPlayground() {
             {debugResult.groundedness.warning && <small>Advertencia: {debugResult.groundedness.warning}</small>}
           </div>
 
+          <div className="agent-report-card">
+            <h3>Reporte técnico copiable</h3>
+            <p className="mini-aviso">Resume timeline, tool calls, errores reproducibles y groundedness en formato Markdown.</p>
+            <pre>{technicalReportText}</pre>
+          </div>
+
           <div className="agent-internal-grid">
             <div>
               <h3>Nodos internos de la traza</h3>
@@ -478,8 +530,10 @@ export function AgentDebuggerPlayground() {
                   <div className="trace-step" key={`${step.step}-${step.node}`}>
                     <strong>{step.step}. {step.node}</strong>
                     <span>{step.description}</span>
+                    <small>Entrada: {step.input_summary || "sin entrada registrada"}</small>
+                    <small>Salida: {step.output_summary || "sin salida registrada"}</small>
                     <div className="mini-barra"><div style={{ width: percent(step.attention_weight) }} /></div>
-                    <small>Peso {percent(step.attention_weight)}{step.tool_name ? ` · herramienta: ${step.tool_name}` : ""}</small>
+                    <small>Estado: {step.status} · Peso {percent(step.attention_weight)}{step.tool_name ? ` · herramienta: ${step.tool_name}` : ""}</small>
                     {step.evidence_ids.length > 0 && <small>Evidencia: {step.evidence_ids.join(", ")}</small>}
                   </div>
                 ))}

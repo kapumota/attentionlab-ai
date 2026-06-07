@@ -366,3 +366,23 @@ Attentio AI Lab ahora incluye un recorrido guiado para pasar del playground libr
 #### Integración
 
 El learning path se conecta con KV Cache Estimator y permite aplicar escenarios guiados directamente sobre el estimador.
+
+### Segunda firma: Agent Debugger Timeline
+
+#### Objetivo
+
+Agent Debugger Timeline convierte Attentio AI Lab en un laboratorio para depurar agentes mediante trazas deterministas, estados por paso, tool calls simulados y reportes técnicos copiables.
+
+#### Capacidades
+
+- Timeline exportable como JSON.
+- Reporte técnico copiable en Markdown.
+- Estados por paso: ok, warning, error y skipped.
+- Tool calls simulados con entrada, salida, latencia y estado.
+- Escenario reproducible de herramienta con error.
+- Caso RAG con evidencia insuficiente.
+- Trazas útiles para talleres, entrevistas y revisión técnica.
+
+#### Narrativa de portfolio
+
+Attentio AI Lab no solo enseña atención y memoria, también enseña a depurar agentes mediante trazas deterministas.

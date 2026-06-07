@@ -74,3 +74,61 @@ def test_experiment_save_and_list():
     listing = client.get("/api/experiments")
     assert listing.status_code == 200
     assert any(item["id"] == saved_id for item in listing.json()["experiments"])
+
+
+def test_agent_debugger_exporta_timeline_json_y_markdown():
+    response = client.post(
+        "/api/agents/debug",
+        json={
+            "prompt": "Depura un agente que usa documentos y herramientas",
+            "rag_query": "agent debugger herramienta evidencia",
+            "top_k": 3,
+            "max_steps": 6,
+            "scenario": "normal",
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["scenario"] == "normal"
+    assert data["export_json"]["tipo"] == "agent_debugger_timeline"
+    assert "### Reporte técnico Agent Debugger Timeline" in data["export_markdown"]
+    assert data["technical_report"]
+    assert all("status" in step for step in data["steps"])
+
+
+def test_agent_debugger_evidencia_insuficiente_es_reproducible():
+    response = client.post(
+        "/api/agents/debug",
+        json={
+            "prompt": "Responde solo si hay evidencia fuerte",
+            "rag_query": "consulta sin evidencia confiable",
+            "top_k": 3,
+            "max_steps": 6,
+            "scenario": "evidencia_insuficiente",
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["scenario"] == "evidencia_insuficiente"
+    assert data["retrieved"] == []
+    assert data["groundedness"]["missing_evidence"]
+    assert any(step["status"] == "warning" for step in data["steps"])
+
+
+def test_agent_debugger_error_de_herramienta_es_reproducible():
+    response = client.post(
+        "/api/agents/debug",
+        json={
+            "prompt": "Simula una herramienta con error",
+            "rag_query": "herramienta error agente",
+            "top_k": 2,
+            "max_steps": 6,
+            "scenario": "herramienta_con_error",
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    statuses = [tool["status"] for tool in data["tool_calls"]]
+    assert "error" in statuses
+    assert "skipped" in statuses
+    assert any(step["status"] == "error" for step in data["steps"])
