@@ -11,6 +11,10 @@ short_description: Lab visual de IA generativa sin GPU
 
 ### Attentio AI Lab
 
+[![Version](https://img.shields.io/badge/version-v1.1.0--dev-orange)](package.json)
+
+[![CI](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml)
+
 [![Hugging Face Space](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
 [![CI](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/kapumota/attentionlab-ai/actions)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -129,6 +133,30 @@ Agent Debugger Timeline permite depurar agentes mediante trazas deterministas, e
 - Hugging Face Space con SDK Docker.
 - Puerto público 7860.
 - Validación de `/api/health` y `/docs`.
+
+### Calidad visible
+
+#### Validación reproducible
+
+El proyecto incluye un punto único de validación para backend, frontend, documentación y Space público.
+
+```bash
+make validate
+```
+
+#### Qué valida
+
+- Pruebas backend con Pytest.
+- Compilación y chequeo TypeScript del frontend.
+- Revisión de whitespace con `git diff --check`.
+- Revisión documental sin separadores no deseados ni guiones largos.
+- Validación opcional del Hugging Face Space con `HF_SPACE_URL`.
+
+#### Documentos de calidad
+
+- `docs/QUALITY_GATE.md`
+- `docs/RELEASE_CHECKLIST.md`
+
 
 ### Evidencia técnica
 
