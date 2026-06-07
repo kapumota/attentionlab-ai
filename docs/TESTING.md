@@ -179,3 +179,38 @@ Y, si Docker está disponible:
 ```bash
 bash scripts/validate-docker.sh
 ```
+
+
+### Validación de despliegue cero fricción
+
+La Fase 2 valida que Attentio AI Lab pueda ejecutarse localmente como contenedor y luego publicarse como Hugging Face Docker Space.
+
+#### Validación local
+
+```bash
+git diff --check
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+npm --prefix apps/web run check
+```
+
+#### Validación Docker
+
+```bash
+bash scripts/validate-docker.sh
+```
+
+#### Validación del Space público
+
+Después de publicar el Space:
+
+```bash
+HF_SPACE_URL=https://HF_USERNAME-attentio-ai-lab.hf.space bash scripts/validate-hf-space.sh
+```
+
+La validación debe confirmar:
+
+```text
+/
+/api/health
+/docs
+```

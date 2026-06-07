@@ -33,3 +33,21 @@ pnpm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Entornos locales
+.venv/
+.atencion/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Frontend
+node_modules/
+apps/web/node_modules/
+apps/web/dist/
+
+# Patches locales
+*.patch

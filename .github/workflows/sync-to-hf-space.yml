@@ -1,9 +1,7 @@
 name: Sync to Hugging Face Space
 
-# Se deja manual por defecto para evitar fallos en GitHub Actions
-# si todavía no configuraste HF_TOKEN o el repo de Hugging Face.
-# Cuando tengas el Space creado, reemplaza HF_USERNAME por tu usuario
-# y, si quieres despliegue automático, vuelve a activar el bloque push.
+# Despliegue manual por defecto para evitar fallos si HF_TOKEN
+# o HF_SPACE_ID todavía no están configurados.
 on:
   workflow_dispatch:
   # push:
@@ -14,10 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verificar configuración de Hugging Face
+        run: |
+          if [ -z "${{ vars.HF_SPACE_ID }}" ]; then
+            echo "Configura la variable HF_SPACE_ID con el formato usuario/attentio-ai-lab." >&2
+            exit 1
+          fi
       - uses: huggingface/hub-sync@v0.1.0
         with:
           github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: HF_USERNAME/attentio-ai-lab
+          huggingface_repo_id: ${{ vars.HF_SPACE_ID }}
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: space
           space_sdk: docker
