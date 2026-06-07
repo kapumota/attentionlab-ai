@@ -8,5 +8,3 @@ Sirve para depurar cómo un agente usa documentos, herramientas y observaciones.
 4. Ejecuta la traza.
 5. Revisa documentos recuperados, tool calls y groundedness.
 6. Guarda el experimento.
-
-

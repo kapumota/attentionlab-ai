@@ -158,7 +158,7 @@ Validación local completada.
 
 Usa dos terminales.
 
-##### Terminal 1: backend
+#### Terminal 1: backend
 
 ```bash
 cd attentio-ai-lab
@@ -173,7 +173,7 @@ http://localhost:8000/api/health
 http://localhost:8000/docs
 ```
 
-##### Terminal 2: frontend
+#### Terminal 2: frontend
 
 ```bash
 cd attentio-ai-lab
@@ -202,7 +202,7 @@ http://localhost:7860
 
 #### 9. Problemas comunes
 
-##### npm tarda demasiado o da ETIMEDOUT
+#### npm tarda demasiado o da ETIMEDOUT
 
 Revisa que no apunte a un registry interno:
 
@@ -220,7 +220,7 @@ npm --prefix apps/web install --package-lock-only --registry=https://registry.np
 npm --prefix apps/web ci --no-audit --no-fund
 ```
 
-##### EBADENGINE en Vite
+#### EBADENGINE en Vite
 
 Actualiza Node:
 
@@ -229,7 +229,7 @@ nvm install 22
 nvm use 22
 ```
 
-##### Backend desconectado en frontend
+#### Backend desconectado en frontend
 
 Verifica:
 

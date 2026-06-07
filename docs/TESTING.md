@@ -214,3 +214,23 @@ La validación debe confirmar:
 /api/health
 /docs
 ```
+
+### Validación de recursos visuales
+
+#### Objetivo
+
+La Fase 2.1 valida que los GIFs usados por el README existan y no estén vacíos.
+
+#### Comando
+
+```bash
+bash scripts/validate-visual-assets.sh
+```
+
+#### Archivos validados
+
+```text
+assets/gifs/kv-cache-estimator.gif
+assets/gifs/agent-debugger.gif
+assets/gifs/transformer-builder.gif
+```
