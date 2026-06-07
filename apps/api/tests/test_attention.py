@@ -36,3 +36,24 @@ def test_llm_estimate():
     assert response.status_code == 200
     data = response.json()
     assert data["kv_cache_mha_gb"] > data["kv_cache_gqa_gb"]
+    assert data["kv_cache_mha_gb"] > data["kv_cache_swa_gb"]
+    assert data["swa_vs_mha_ratio"] < 1
+
+
+def test_kv_cache_estimator_long_context_presets():
+    payload = {
+        "num_layers": 32,
+        "dimension": 4096,
+        "query_heads": 32,
+        "kv_heads": 8,
+        "mla_rank": 256,
+        "swa_window_size": 4096,
+        "context_length": 131072,
+        "batch_size": 1
+    }
+    response = client.post("/api/llm/estimate", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["kv_cache_mha_gb"] > data["kv_cache_gqa_gb"] > data["kv_cache_mla_gb"]
+    assert data["kv_cache_mha_gb"] > data["kv_cache_swa_gb"]
+    assert "benchmark real" in " ".join(data["notes"])

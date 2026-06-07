@@ -341,6 +341,27 @@ export ATTENTIONLAB_EMBEDDING_MODEL_ID=sentence-transformers/all-MiniLM-L6-v2
 export ATTENTIONLAB_TEXT_MODEL_ID=distilbert-base-uncased
 ```
 
+
+### Hero feature: KV Cache Estimator
+
+#### Qué resuelve
+
+KV Cache Estimator es el módulo principal de Attentio AI Lab para explicar memoria de inferencia en LLMs de contexto largo. Permite comparar MHA, GQA, SWA y MLA sin GPU, sin API keys y sin ejecutar modelos reales.
+
+#### Qué permite explorar
+
+- Comparar escenarios de 32k, 64k, 128k y 1M tokens.
+- Ver diferencias entre MHA, GQA, SWA y MLA.
+- Estimar memoria de KV cache en GB.
+- Exportar resultados como JSON y Markdown.
+- Revisar fórmulas técnicas del estimador.
+- Entender que el resultado es didáctico y no un benchmark real.
+
+#### Frase de portfolio
+
+Diseñé un estimador visual de KV cache que permite comparar arquitecturas de atención y entender el costo de memoria en contexto largo sin GPU ni modelos reales.
+
+
 ### Ejemplos de uso
 
 Puedes ver ejemplos de uso en la carpeta de documentación, en el archivo `EJEMPLOS_USO.md`

@@ -7,7 +7,7 @@ import { ExperimentExplanation } from "./components/ExperimentExplanation";
 import { HybridArchitecture } from "./components/HybridArchitecture";
 import { ModuleStatus } from "./components/ModuleStatus";
 import { ArchitectureBuilder } from "./components/ArchitectureBuilder";
-import { LLMPlayground } from "./components/LLMPlayground";
+import { LLMPlayground, type KvHeroPreset } from "./components/LLMPlayground";
 import { MLLMPlayground } from "./components/MLLMPlayground";
 import { AgentsPlayground } from "./components/AgentsPlayground";
 import { SpaceReadiness } from "./components/SpaceReadiness";
@@ -104,9 +104,9 @@ const sections: SectionItem[] = [
   },
   {
     id: "llm",
-    title: "Estimador LLM / KV Cache",
-    shortTitle: "Costo LLM",
-    description: "Estimaciones de memoria, contexto largo, GQA, MLA y batch de inferencia."
+    title: "KV Cache Estimator",
+    shortTitle: "KV Cache",
+    description: "Hero feature para comparar MHA, GQA, SWA y MLA en contexto largo."
   },
   {
     id: "rag",
@@ -334,6 +334,22 @@ export function App() {
     if (preset.batchSize) setBatchSize(preset.batchSize);
   }
 
+  function applyKvHeroPreset(preset: KvHeroPreset) {
+    const nextConfig: SimulationConfig = {
+      ...config,
+      ...preset.config
+    };
+    const nextBuilder: BuilderConfig = {
+      ...builder,
+      ...preset.builder
+    };
+
+    handleConfigChange(nextConfig);
+    handleBuilderChange(nextBuilder);
+    setContextLength(preset.contextLength);
+    setBatchSize(preset.batchSize);
+  }
+
   function goToNextSection() {
     const currentIndex = sections.findIndex((section) => section.id === activeSection);
     setActiveSection(sections[(currentIndex + 1) % sections.length].id);
@@ -422,7 +438,7 @@ export function App() {
       return (
         <section className="section-stack">
           <GuidedDemoPanel activeDemoStep={activeDemoStep} onApplyStep={applyDemoStep} compact />
-          <ErrorBoundary title="Estimador LLM / KV Cache">
+          <ErrorBoundary title="KV Cache Estimator">
             <LLMPlayground
               config={config}
               builder={builder}
@@ -430,6 +446,7 @@ export function App() {
               batchSize={batchSize}
               onContextLengthChange={setContextLength}
               onBatchSizeChange={setBatchSize}
+              onApplyHeroPreset={applyKvHeroPreset}
             />
           </ErrorBoundary>
           <ExperimentExplanation description={explanation.description} formula={explanation.formula} />

@@ -35,8 +35,10 @@ export interface ArchitectureValidationResponse {
 export interface LlmEstimateResponse {
   kv_cache_mha_gb: number;
   kv_cache_gqa_gb: number;
+  kv_cache_swa_gb: number;
   kv_cache_mla_gb: number;
   gqa_vs_mha_ratio: number;
+  swa_vs_mha_ratio: number;
   mla_vs_gqa_ratio: number;
   long_context_relations_millions: number;
   perplexity_proxy: number;

@@ -95,6 +95,7 @@ class LLMEstimateRequest(BaseModel):
     query_heads: int = Field(default=8, ge=1, le=256)
     kv_heads: int = Field(default=2, ge=1, le=256)
     mla_rank: int = Field(default=64, ge=1, le=8192)
+    swa_window_size: int = Field(default=4096, ge=128, le=1048576)
     context_length: int = Field(default=8192, ge=128, le=1048576)
     batch_size: int = Field(default=1, ge=1, le=128)
     precision: Precision = "fp16"
@@ -104,8 +105,10 @@ class LLMEstimateRequest(BaseModel):
 class LLMEstimateResponse(BaseModel):
     kv_cache_mha_gb: float
     kv_cache_gqa_gb: float
+    kv_cache_swa_gb: float
     kv_cache_mla_gb: float
     gqa_vs_mha_ratio: float
+    swa_vs_mha_ratio: float
     mla_vs_gqa_ratio: float
     long_context_relations_millions: float
     perplexity_proxy: float

@@ -86,13 +86,16 @@ export interface LlmMetricsConfig {
   kvHeads: number;
   mlaRank: number;
   rope: boolean;
+  windowSize: number;
 }
 
 export interface LlmMetrics {
   kvCacheMhaGB: number;
   kvCacheGqaGB: number;
+  kvCacheSwaGB: number;
   kvCacheMlaGB: number;
   gqaVsMha: number;
+  swaVsMha: number;
   mlaVsGqa: number;
   longContextRelationsMillions: number;
   approximatePerplexity: number;

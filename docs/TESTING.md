@@ -234,3 +234,35 @@ assets/gifs/kv-cache-estimator.gif
 assets/gifs/agent-debugger.gif
 assets/gifs/transformer-builder.gif
 ```
+
+### Validación de KV Cache Estimator
+
+#### Objetivo
+
+La Fase 3 valida que KV Cache Estimator funcione como hero feature del proyecto y que mantenga contratos estables entre frontend, backend y documentación.
+
+#### Pruebas backend
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+```
+
+#### Pruebas frontend
+
+```bash
+npm --prefix apps/web run check
+```
+
+#### Casos cubiertos
+
+- Estimación de KV cache para MHA.
+- Estimación de KV cache para GQA.
+- Estimación conceptual para SWA.
+- Comparación conceptual con MLA.
+- Escenarios de 32k, 64k, 128k y 1M tokens.
+- Exportación de resultados como JSON.
+- Exportación de resultados como Markdown.
+
+#### Advertencia técnica
+
+KV Cache Estimator es un estimador didáctico. No reemplaza mediciones reales con profiler, no mide kernels CUDA y no debe usarse como benchmark productivo.
