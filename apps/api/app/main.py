@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import agent_debugger, agents, architecture, attention, experiments, health, llm, mllm, models, rag, real_models
+from app.routers import agent_debugger, agents, architecture, attention, experiments, health, learning, llm, mllm, models, rag, real_models
 
 APP_VERSION = "1.1.0-dev"
 
@@ -25,7 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-for router in [health.router, attention.router, architecture.router, llm.router, mllm.router, agents.router, agent_debugger.router, rag.router, experiments.router, models.router, real_models.router]:
+for router in [health.router, attention.router, architecture.router, llm.router, learning.router, mllm.router, agents.router, agent_debugger.router, rag.router, experiments.router, models.router, real_models.router]:
     app.include_router(router, prefix="/api")
 
 static_dir = Path(os.getenv("ATTENTIONLAB_STATIC_DIR", "static"))

@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "../config/api";
 import type { ArchitectureSpec, SimulationConfig } from "../types";
+import type { RespuestaQuizAprendizaje, RutaAprendizajeKv } from "../learning/kvCachePath";
 
 export interface ApiHealth {
   status: "ok";
@@ -139,6 +140,18 @@ export function estimateLlmOnBackend(params: {
     batch_size: params.batchSize,
     precision: "fp16",
     rope: params.rope
+  });
+}
+
+
+export function getRutaAprendizajeKvCache(): Promise<RutaAprendizajeKv> {
+  return getJson<RutaAprendizajeKv>("/api/learning/kv-cache-path");
+}
+
+export function validarRespuestaAprendizaje(preguntaId: string, opcion: number): Promise<RespuestaQuizAprendizaje> {
+  return postJson<RespuestaQuizAprendizaje>("/api/learning/kv-cache-path/quiz", {
+    pregunta_id: preguntaId,
+    opcion
   });
 }
 
