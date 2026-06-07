@@ -18,8 +18,26 @@ validate-local:
 validate-docker:
 	bash scripts/validate-docker.sh
 
-validate-hf-space:
-	bash scripts/validate-hf-space.sh
-
 test:
 	PYTHONPATH=apps/api pytest apps/api/tests -q
+
+# Fase 7 - inicio
+.PHONY: validate validate-backend validate-frontend validate-docs validate-hf-space
+
+validate:
+	bash scripts/validate-all.sh
+
+validate-backend:
+	PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+
+validate-frontend:
+	npm --prefix apps/web ci --include=dev
+	npm --prefix apps/web run check
+
+validate-docs:
+	git diff --check
+	@if grep -RIn --exclude-dir=node_modules --exclude-dir=.venv --exclude-dir=.atencion --exclude-dir=.git --exclude-dir=dist --exclude-dir=__pycache__ "====\|—\|–" README.md docs packages/shared-contracts/openapi-notes.md; then echo "Documentación con separadores o guiones no permitidos."; exit 1; fi
+
+validate-hf-space:
+	bash scripts/validate-hf-space.sh
+# Fase 7 - fin
