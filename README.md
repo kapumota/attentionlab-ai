@@ -13,6 +13,17 @@ short_description: Laboratorio visual de atención, KV Cache, Transformers, RAG 
 
 ### Demo en vivo
 
+#### Vista rápida
+
+Los siguientes GIFs muestran los flujos principales sin instalar nada.
+
+![KV Cache Estimator](assets/gifs/kv-cache-estimator.gif)
+
+![Agent Debugger](assets/gifs/agent-debugger.gif)
+
+![Constructor Transformer](assets/gifs/transformer-builder.gif)
+
+
 - Hugging Face Space: pendiente de publicar en Fase 2.
 - Ejecución local rápida:
 

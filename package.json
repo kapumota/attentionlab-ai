@@ -13,7 +13,8 @@
     "docker:run": "docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev",
     "validate:local": "bash scripts/validate-local.sh",
     "validate:docker": "bash scripts/validate-docker.sh",
-    "validate:hf-space": "bash scripts/validate-hf-space.sh"
+    "validate:hf-space": "bash scripts/validate-hf-space.sh",
+    "validate:visual": "bash scripts/validate-visual-assets.sh"
   },
   "description": "Attentio AI Lab v1.1.0-dev: laboratorio educativo para visualizar atención, KV Cache, arquitecturas Transformer, RAG y depuración de agentes sin GPU ni API keys.",
   "keywords": [

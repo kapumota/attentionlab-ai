@@ -124,7 +124,7 @@ Respuesta esperada para health:
 
 #### 8. Errores comunes
 
-##### Build falla en npm
+#### Build falla en npm
 
 Revisa que `apps/web/package-lock.json` no apunte a un registry privado:
 
@@ -133,7 +133,7 @@ grep -R "packages.applied-caas" apps/web/package-lock.json
 grep -R "internal.api.openai.org" apps/web/package-lock.json
 ```
 
-##### El Space abre pero no carga la app
+#### El Space abre pero no carga la app
 
 Revisa que el Dockerfile copie:
 
@@ -147,7 +147,7 @@ Y que exista:
 ENV ATTENTIONLAB_STATIC_DIR=/app/static
 ```
 
-##### La API no responde
+#### La API no responde
 
 Revisa que el contenedor use:
 

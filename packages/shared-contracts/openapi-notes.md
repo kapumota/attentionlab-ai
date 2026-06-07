@@ -1,4 +1,4 @@
-# Contratos compartidos
+### Contratos compartidos
 
 En v1.1.0-dev los contratos viven en `apps/api/app/schemas/contracts.py` y el OpenAPI se expone automáticamente en `/docs` y `/openapi.json`.
 

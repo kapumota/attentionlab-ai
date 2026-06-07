@@ -1328,3 +1328,22 @@ curl http://localhost:7860/api/health
 5. Probar el Agent Debugger.
 6. Revisar la consola API si se desea copiar payloads.
 
+### Vista rápida con GIFs
+
+#### Flujos visuales incluidos
+
+La Fase 2.1 agrega GIFs de demostración para revisar los flujos principales sin ejecutar comandos adicionales.
+
+```text
+assets/gifs/kv-cache-estimator.gif
+assets/gifs/agent-debugger.gif
+assets/gifs/transformer-builder.gif
+```
+
+#### Uso en README
+
+Los GIFs se muestran en el README para explicar rápidamente el valor de Attentio AI Lab:
+
+- Estimar memoria de KV Cache.
+- Depurar agentes con timeline.
+- Diseñar bloques Transformer.

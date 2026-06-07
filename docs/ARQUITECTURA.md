@@ -170,15 +170,15 @@ En Docker y Hugging Face se usa un solo puerto:
 
 #### Decisiones de diseño
 
-##### Sin OpenAI API obligatoria
+#### Sin OpenAI API obligatoria
 
 El proyecto no requiere `OPENAI_API_KEY`. Esto permite que la demo sea reproducible, gratuita y apta para despliegue público.
 
-##### Fallback determinista
+#### Fallback determinista
 
 El backend usa servicios deterministas para mantener resultados reproducibles y evitar dependencias pesadas.
 
-##### Modelos reales opcionales
+#### Modelos reales opcionales
 
 Los adaptadores reales se activan solo con variables de entorno y dependencias opcionales:
 
@@ -186,11 +186,11 @@ Los adaptadores reales se activan solo con variables de entorno y dependencias o
 export ATTENTIONLAB_ENABLE_REAL_MODELS=true
 ```
 
-##### RAG educativo
+#### RAG educativo
 
 El módulo RAG está diseñado para enseñanza: indexación, recuperación top-k, scores y groundedness. No pretende reemplazar una base vectorial de producción.
 
-##### Siguientes mejoras posibles
+#### Siguientes mejoras posibles
 
 - Persistencia real de experimentos.
 - RAG persistente con SQLite, Chroma, FAISS o pgvector.
