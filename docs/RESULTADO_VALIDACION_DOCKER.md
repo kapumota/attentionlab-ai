@@ -4,7 +4,7 @@ Release técnica documentada: Attentio AI Lab v1.1.0-dev
 
 #### Estado
 
-Este archivo debe actualizarse después de ejecutar Docker en una máquina con Docker disponible.
+Este archivo debe actualizarse después de ejecutar Docker en una máquina con Docker disponible y, en Fase 2, después de verificar el Space público.
 
 En el entorno de generación anterior no se pudo ejecutar Docker porque Docker no estaba instalado o no estaba disponible en `PATH`.
 
@@ -51,5 +51,30 @@ Run: pendiente
 Health check: pendiente
 Frontend: pendiente
 Docs: pendiente
+Resultado final: pendiente
+```
+#### Validación pública del Space
+
+```bash
+HF_SPACE_URL=https://HF_USERNAME-attentio-ai-lab.hf.space bash scripts/validate-hf-space.sh
+```
+
+Resultado esperado:
+
+```text
+Hugging Face Space validado: frontend, /api/health y /docs responden.
+```
+
+#### Resultado Hugging Face del usuario
+
+Completar después de publicar:
+
+```text
+Space creado: pendiente
+Estado Running: pendiente
+URL directa: pendiente
+Frontend público: pendiente
+Health público: pendiente
+Docs público: pendiente
 Resultado final: pendiente
 ```

@@ -1297,3 +1297,34 @@ Con `.atencion` activo debe apuntar a:
 .atencion/bin/python
 ```
 
+
+### Uso rápido con Docker
+
+Attentio AI Lab puede ejecutarse como una demo local reproducible sin GPU ni API keys.
+
+```bash
+docker build -t attentio-ai-lab:v1.1.0-dev .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+```
+
+Abrir en el navegador:
+
+```text
+http://localhost:7860
+```
+
+Validar el backend:
+
+```bash
+curl http://localhost:7860/api/health
+```
+
+#### Flujo mínimo de demostración
+
+1. Abrir la interfaz principal.
+2. Verificar el estado del backend.
+3. Probar el laboratorio de atención.
+4. Probar el estimador de KV Cache.
+5. Probar el Agent Debugger.
+6. Revisar la consola API si se desea copiar payloads.
+

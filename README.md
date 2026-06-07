@@ -1,4 +1,38 @@
+---
+title: Attentio AI Lab
+emoji: 🧠
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+app_port: 7860
+fullWidth: true
+short_description: Laboratorio visual de atención, KV Cache, Transformers, RAG y Agent Debugger sin GPU ni API keys.
+---
+
 ### Attentio AI Lab
+
+### Demo en vivo
+
+- Hugging Face Space: pendiente de publicar en Fase 2.
+- Ejecución local rápida:
+
+```bash
+docker build -t attentio-ai-lab:v1.1.0-dev .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+```
+
+Abrir en el navegador:
+
+```text
+http://localhost:7860
+```
+
+Validar API:
+
+```bash
+curl http://localhost:7860/api/health
+```
+
 
 **Attentio AI Lab** implementa un laboratorio interactivo de sistemas de IA generativa con separación clara entre interfaz, contratos de datos y servicios backend. En el frontend, React y TypeScript modelan la experiencia visual: matriz de atención interactiva con encabezados de fila/columna, inspector de celdas, modos Básico/Técnico/Experto, demostración guiada, presets de escenarios, constructor visual de bloques Transformer, gráficos de KV cache, timeline de agentes y consola API con copiado de payloads.
 

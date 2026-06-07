@@ -1,6 +1,6 @@
 ### Despliegue en Hugging Face Spaces
 
-Attentio AI Lab  está preparado para publicarse como **Hugging Face Docker Space**.
+Attentio AI Lab está preparado para publicarse como **Hugging Face Docker Space**.
 
 #### 1. Requisitos
 
@@ -43,14 +43,19 @@ Visibility: Public o Private
 
 #### 4. Publicación manual
 
-Desde la raíz del proyecto:
+Desde la raíz del proyecto, después de fusionar el PR en `main`:
 
 ```bash
-git init
-git add .
-git commit -m "Release v1.1.0-dev"
-git branch -M main
+git checkout main
+git pull origin main
 git remote add space https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
+git push --force space main
+```
+
+Si el remoto ya existe:
+
+```bash
+git remote set-url space https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
 git push --force space main
 ```
 
@@ -70,7 +75,7 @@ Pasos:
 2. En GitHub, ve a `Settings`.
 3. Abre `Secrets and variables`.
 4. Crea el secret `HF_TOKEN`.
-5. Edita el workflow y reemplaza `HF_USERNAME/attentio-ai-lab` por tu Space real.
+5. Edita el workflow y configura la variable `HF_SPACE_ID` con tu Space real, por ejemplo `HF_USERNAME/attentio-ai-lab`.
 6. Ejecuta el workflow manualmente si está configurado con `workflow_dispatch`.
 
 #### 6. Qué construye Hugging Face
@@ -95,14 +100,18 @@ Resultado:
 
 #### 7. Verificación del Space
 
-Cuando el Space esté en estado `Running`, verifica:
+Cuando el Space esté en estado `Running`, verifica la página del Space y la URL directa de la aplicación:
 
 ```text
-/
-/api/health
-/api/models/runtime
-/api/rag/status
-/docs
+Página del Space: https://huggingface.co/spaces/HF_USERNAME/attentio-ai-lab
+App directa: https://HF_USERNAME-attentio-ai-lab.hf.space
+Rutas de app: /, /api/health, /api/models/runtime, /api/rag/status, /docs
+```
+
+Validación automatizada:
+
+```bash
+HF_SPACE_URL=https://HF_USERNAME-attentio-ai-lab.hf.space bash scripts/validate-hf-space.sh
 ```
 
 Respuesta esperada para health:
