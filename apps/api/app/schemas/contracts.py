@@ -346,6 +346,7 @@ class RagStatusResponse(BaseModel):
 
 
 ToolStatus = Literal["ok", "warning", "error", "skipped"]
+AgentDebugScenario = Literal["normal", "evidencia_insuficiente", "herramienta_con_error"]
 
 
 class AgentToolCall(BaseModel):
@@ -363,6 +364,10 @@ class AgentDebugStep(BaseModel):
     attention_weight: float
     evidence_ids: list[str] = Field(default_factory=list)
     tool_name: str | None = None
+    status: ToolStatus = "ok"
+    input_summary: str = ""
+    output_summary: str = ""
+    latency_ms: float = 0.0
 
 
 class GroundednessReport(BaseModel):
@@ -379,6 +384,7 @@ class AgentDebugRequest(BaseModel):
     max_steps: int = Field(default=5, ge=3, le=10)
     enable_tools: bool = True
     include_memory: bool = True
+    scenario: AgentDebugScenario = "normal"
 
 
 class AgentDebugResponse(BaseModel):
@@ -390,6 +396,10 @@ class AgentDebugResponse(BaseModel):
     groundedness: GroundednessReport
     latency_ms: float
     notes: list[str]
+    scenario: AgentDebugScenario = "normal"
+    export_json: dict = Field(default_factory=dict)
+    export_markdown: str = ""
+    technical_report: str = ""
 
 
 class ExperimentRecord(BaseModel):

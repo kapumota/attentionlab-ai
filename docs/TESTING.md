@@ -266,3 +266,36 @@ npm --prefix apps/web run check
 - Las respuestas correctas devuelven feedback positivo.
 - Las respuestas incorrectas devuelven explicación.
 - El frontend puede usar fallback local si el backend no responde.
+
+### Validación de Agent Debugger Timeline
+
+#### Objetivo
+
+La Fase 5 valida que Agent Debugger funcione como segunda firma técnica del proyecto, con timeline exportable, estados auditables, tool calls simulados y escenarios reproducibles.
+
+#### Backend
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests/test_v05_agent_rag.py -q
+```
+
+#### Suite completa
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+npm --prefix apps/web run check
+```
+
+#### Casos cubiertos
+
+- Timeline exportable como JSON.
+- Reporte técnico copiable en Markdown.
+- Estados por paso: ok, warning, error y skipped.
+- Tool calls simulados.
+- Error reproducible de herramienta.
+- RAG con evidencia insuficiente.
+- Contratos backend y tipos frontend compatibles.
+
+#### Advertencia técnica
+
+Agent Debugger Timeline usa trazas deterministas y tool calls simulados. Su objetivo es educativo y de depuración conceptual, no ejecución productiva de agentes externos.

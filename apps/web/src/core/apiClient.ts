@@ -311,6 +311,10 @@ export interface AgentDebugStep {
   attention_weight: number;
   evidence_ids: string[];
   tool_name: string | null;
+  status: "ok" | "warning" | "error" | "skipped";
+  input_summary: string;
+  output_summary: string;
+  latency_ms: number;
 }
 
 export interface AgentDebugResponse {
@@ -327,6 +331,10 @@ export interface AgentDebugResponse {
   };
   latency_ms: number;
   notes: string[];
+  scenario: "normal" | "evidencia_insuficiente" | "herramienta_con_error";
+  export_json: Record<string, unknown>;
+  export_markdown: string;
+  technical_report: string;
 }
 
 export interface ExperimentSaveResponse {
@@ -356,14 +364,16 @@ export function debugAgent(params: {
   prompt: string;
   ragQuery: string;
   topK: number;
+  scenario?: "normal" | "evidencia_insuficiente" | "herramienta_con_error";
 }): Promise<AgentDebugResponse> {
   return postJson<AgentDebugResponse>("/api/agents/debug", {
     prompt: params.prompt,
     rag_query: params.ragQuery,
     top_k: params.topK,
-    max_steps: 5,
+    max_steps: 6,
     enable_tools: true,
-    include_memory: true
+    include_memory: true,
+    scenario: params.scenario ?? "normal"
   });
 }
 
