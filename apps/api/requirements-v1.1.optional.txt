@@ -1,4 +1,4 @@
-# Dependencias opcionales para activar backend Python real en v0.5.
+# Dependencias opcionales para activar backend Python real. El nombre del archivo se conserva por compatibilidad.
 # Instálalas solo si el Space tiene suficiente RAM/CPU/GPU.
 transformers>=4.45.0
 torch>=2.4.0

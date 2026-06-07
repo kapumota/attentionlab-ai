@@ -297,7 +297,7 @@ export function AgentDebuggerPlayground() {
     setError(null);
     try {
       const saved = await saveExperiment({
-        name: "Traza v1.0 Agent Debugger",
+        name: "Traza v1.1.0-dev Agent Debugger",
         module: "agent-debugger",
         payload: debugResult as unknown as Record<string, unknown>
       });
@@ -311,7 +311,7 @@ export function AgentDebuggerPlayground() {
 
   return (
     <section className="panel seccion agent-debugger rag-visual">
-      <p className="eyebrow">v1.0 · Agent Debugger + RAG visual</p>
+      <p className="eyebrow">v1.1.0-dev · Agent Debugger + RAG visual</p>
       <h2>Depurador visual de agentes</h2>
       <p className="mini-aviso">
         El flujo muestra documentos, indexación, consulta, recuperación top-k, respuesta del agente y evidencia citada.
@@ -487,7 +487,7 @@ export function AgentDebuggerPlayground() {
             </div>
 
             <div>
-              <h3>Tool tracing</h3>
+              <h3>Trazado de herramientas</h3>
               <p className="mini-aviso">Qué significa: registro de llamadas a herramientas con entrada, salida, latencia y estado.</p>
               <div className="resultado-grid tool-tracing-grid">
                 {debugResult.tool_calls.map((tool) => (

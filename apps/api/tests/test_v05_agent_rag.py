@@ -67,7 +67,7 @@ def test_agent_debugger_returns_trace_and_groundedness():
 def test_experiment_save_and_list():
     response = client.post(
         "/api/experiments/save",
-        json={"name": "Prueba v0.5", "module": "agent-debugger", "payload": {"ok": True}},
+        json={"name": "Prueba v1.1.0-dev", "module": "agent-debugger", "payload": {"ok": True}},
     )
     assert response.status_code == 200
     saved_id = response.json()["id"]

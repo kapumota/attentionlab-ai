@@ -7,7 +7,7 @@ from app.schemas import ExperimentListResponse, ExperimentRecord, ExperimentSave
 
 
 class ExperimentStore:
-    """Persistencia ligera en memoria para v0.5.
+    """Persistencia ligera en memoria para v1.1.0-dev.
 
     El contrato permite migrar a SQLite/Postgres sin cambiar la UI.
     """

@@ -91,7 +91,7 @@ export function RealModelPlayground() {
 
   return (
     <section className="panel real-model-playground">
-      <p className="eyebrow">v1.0 · modelos pequeños reales</p>
+      <p className="eyebrow">v1.1.0-dev · modelos pequeños reales</p>
       <h2>Transformers.js / ONNX / Backend Python</h2>
       <p className="explicacion">
         Este panel permite ejecutar embeddings reales en el navegador con Transformers.js y comparar textos con una distribución tipo InfoNCE.

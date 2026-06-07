@@ -1,8 +1,8 @@
-### Ejemplos de uso de AttentionLab AI
+### Ejemplos de uso de Attentio AI Lab
 
-Este documento muestra cómo ejecutar y usar el frontend de **AttentionLab AI v1.0.9** durante una demostración local. 
+Este documento muestra cómo ejecutar y usar el frontend de **Attentio AI Lab v1.1.0-dev** durante una demostración local.
 
-Está pensado para explicar todas las operaciones principales del dashboard: navegación, laboratorio de atención, presets, constructor Transformer, estimador LLM, RAG, 
+Está pensado para explicar todas las operaciones principales del panel: navegación, laboratorio de atención, presets, constructor Transformer, estimador LLM, RAG,
 Agent Debugger, consola FastAPI, MLLM y publicación.
 
 El proyecto funciona por defecto sin OpenAI API, sin GPU y sin credenciales externas. El backend usa un modo determinístico/fallback ligero para que la demostración sea reproducible.
@@ -34,7 +34,7 @@ Para la demostración normal de desarrollo, usa dos terminales.
 ##### Terminal 1: backend FastAPI
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 source .atencion/bin/activate
 PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -65,7 +65,7 @@ Respuesta esperada:
 ```json
 {
   "status": "ok",
-  "version": "1.0.9"
+  "version": "1.1.0-dev"
 }
 ```
 
@@ -73,7 +73,7 @@ Respuesta esperada:
 ##### Terminal 2: frontend React/Vite
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 npm --prefix apps/web run dev
 ```
 
@@ -95,7 +95,7 @@ En desarrollo, Vite usa proxy para redirigir:
 /api/* -> http://localhost:8000/api/*
 ```
 
-#### 3. Estructura del dashboard
+#### 3. Estructura del panel
 
 El frontend está organizado en secciones:
 
@@ -136,7 +136,7 @@ Resumen de módulos
 Explicación sugerida:
 
 ```text
-AttentionLab AI es un dashboard full-stack para visualizar mecanismos de atención,
+Attentio AI Lab es un panel full-stack para visualizar mecanismos de atención,
 arquitecturas Transformer, estimación de KV cache, RAG visual, depuración de agentes,
 MLLM e integración con backend FastAPI.
 ```
@@ -146,17 +146,17 @@ Estado esperado en la barra global:
 ```text
 Backend: OK
 API: /api/*
-Runtime: deterministic
+Runtime: determinístico
 OpenAI API: no requerida
-Docker-ready
-Tests: passing
+Listo para Docker
+Pruebas: correctas
 ```
 
 Si el backend aparece desconectado, revisa que la Terminal 1 siga ejecutando FastAPI.
 
 #### 5. Modo Básico, Técnico y Experto
 
-El dashboard permite cambiar el nivel de explicación:
+El panel permite cambiar el nivel de explicación:
 
 ```text
 Básico
@@ -393,7 +393,7 @@ Explicación:
 Sliding Window reduce costo porque evita que todos los tokens atiendan a todos los demás.
 ```
 
-#### 7.6. Ejemplo: Atención Top-k 
+#### 7.6. Ejemplo: Atención Top-k
 
 Selecciona:
 
@@ -452,7 +452,7 @@ Esto disminuye la memoria necesaria para KV cache durante inferencia.
 
 #### 8. Presets de presentación
 
-Arriba del dashboard hay escenarios rápidos:
+Arriba del panel hay escenarios rápidos:
 
 ```text
 Demostración rápida
@@ -608,7 +608,7 @@ Agregar bloque
 Debe aparecer una tarjeta como:
 
 ```text
-Layer block 1
+Bloque de capa 1
 GQA
 Reduce KV cache compartiendo keys/values entre grupos de query heads.
 Repeat: 6
@@ -1167,13 +1167,13 @@ En este modo:
 Construye la imagen:
 
 ```bash
-docker build -t attentionlab-ai:v1.0.9 .
+docker build -t attentio-ai-lab:v1.1.0-dev .
 ```
 
 Ejecuta la imagen:
 
 ```bash
-docker run --rm -p 7860:7860 attentionlab-ai:v1.0.9
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
 ```
 
 Abre la dirección:
@@ -1203,7 +1203,7 @@ API error
 Solución:
 
 ```bash
-cd attentionlab-ai-v1.0.9
+cd attentio-ai-lab
 source .atencion/bin/activate
 PYTHONPATH=apps/api uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```

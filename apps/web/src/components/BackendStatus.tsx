@@ -13,7 +13,7 @@ export function BackendStatus() {
   return (
     <section className="panel">
       <p className="eyebrow">FastAPI backend</p>
-      <h2>Backend FastAPI: v1.0</h2>
+      <h2>Backend FastAPI: v1.1.0-dev</h2>
       <div className="metricas">
         <div className="metrica">
           <div className="nombre">Estado</div>

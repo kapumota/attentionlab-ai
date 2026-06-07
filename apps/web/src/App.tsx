@@ -88,7 +88,7 @@ const sections: SectionItem[] = [
     id: "overview",
     title: "Vista general",
     shortTitle: "Vista general",
-    description: "Mapa del dashboard, estado técnico y acceso a la demostración guiada."
+    description: "Mapa del panel, estado técnico y acceso a la demostración guiada."
   },
   {
     id: "attention",
@@ -236,7 +236,7 @@ const demoPresets: DemoPreset[] = [
     demoStep: 5,
     preset: { ...initialConfig, mode: "agente", tokens: 8, topK: 3 },
     objective: "Mostrar una traza auditable con herramienta, latencia, estado y groundedness.",
-    changes: ["Tool tracing", "groundedness", "pasos del agente"]
+    changes: ["Trazado de herramientas", "groundedness", "pasos del agente"]
   },
   {
     id: "mllm-image-text",
@@ -487,8 +487,8 @@ export function App() {
     <>
       <header className="app-header">
         <div>
-          <p className="eyebrow">Dashboard educativo de IA</p>
-          <h1>AttentionLab AI</h1>
+          <p className="eyebrow">Panel educativo de IA</p>
+          <h1>Attentio AI Lab</h1>
           <p className="subtitulo">
             Laboratorio visual para explorar atención, arquitecturas Transformer, KV cache,
             RAG, agentes, modelos multimodales y endpoints FastAPI sin depender de OpenAI API.
@@ -510,9 +510,9 @@ export function App() {
       />
 
       <main className="dashboard-shell">
-        <aside className="dashboard-sidebar" aria-label="Navegación del dashboard">
+        <aside className="dashboard-sidebar" aria-label="Navegación del panel">
           <div className="brand-card">
-            <strong>v1.0.9 Dashboard</strong>
+            <strong>Attentio AI Lab v1.1.0-dev</strong>
             <span>Backend OK cuando FastAPI responde en /api/health.</span>
             <span className="brand-mode">Modo: {learningMode === "basic" ? "Básico" : learningMode === "technical" ? "Técnico" : "Experto"}</span>
           </div>
@@ -645,14 +645,14 @@ function TerminologyPanel() {
         <p className="eyebrow">Terminología consistente</p>
         <h2>Estándar de nombres técnicos</h2>
         <p>
-          El dashboard mantiene términos técnicos habituales en IA, pero los acompaña con explicación en español para que no parezcan etiquetas sueltas.
+          El panel mantiene términos técnicos habituales en IA, pero los acompaña con explicación en español para que no parezcan etiquetas sueltas.
         </p>
       </div>
       <div className="terminology-grid">
         <article><strong>Head de atención</strong><span>Subespacio o cabeza que aprende una relación distinta entre tokens.</span></article>
         <article><strong>Query / Key / Value</strong><span>Consultas, claves y valores usados para calcular atención.</span></article>
         <article><strong>Groundedness</strong><span>Mide cuánto una respuesta está respaldada por documentos recuperados.</span></article>
-        <article><strong>Tool tracing</strong><span>Registra herramientas llamadas por el agente, entradas, salidas, latencia y estado.</span></article>
+        <article><strong>Trazado de herramientas</strong><span>Registra herramientas llamadas por el agente, entradas, salidas, latencia y estado.</span></article>
       </div>
     </section>
   );
@@ -679,7 +679,7 @@ function GlobalStatusBar({ onOpenApi }: { onOpenApi: () => void }) {
   }, []);
 
   const backendOk = health?.status === "ok";
-  const runtimeLabel = runtime?.enabled ? "modelos reales" : "deterministic";
+  const runtimeLabel = runtime?.enabled ? "modelos reales" : "determinístico";
   const modeLabel = health?.mode === "docker-space" ? "Docker Space" : health?.mode === "local" ? "Modo local" : "Modo pendiente";
 
   return (
@@ -696,9 +696,9 @@ function GlobalStatusBar({ onOpenApi }: { onOpenApi: () => void }) {
         <span className="global-chip neutral">Runtime: {runtimeLabel}</span>
         <span className="global-chip ok">Sin OpenAI API</span>
         <span className="global-chip neutral">{modeLabel}</span>
-        <span className="global-chip ok">Docker-ready</span>
-        <span className="global-chip ok">Tests: passing</span>
-        <span className="global-chip neutral">v{health?.version ?? "1.0.1"}</span>
+        <span className="global-chip ok">Listo para Docker</span>
+        <span className="global-chip ok">Pruebas: correctas</span>
+        <span className="global-chip neutral">v{health?.version ?? "1.1.0-dev"}</span>
       </div>
       <div className="global-status-actions">
         <button type="button" className="secundario" onClick={() => void refreshStatus()}>Actualizar estado</button>
@@ -781,7 +781,7 @@ function LearningModePanel({ learningMode, config }: { learningMode: LearningMod
   };
   const expert = {
     title: "Modo experto",
-    body: "Además de la visualización, revisa contratos, payloads, endpoints, métricas y salidas JSON para conectar el dashboard con FastAPI.",
+    body: "Además de la visualización, revisa contratos, payloads, endpoints, métricas y salidas JSON para conectar el panel con FastAPI.",
     detail: `Endpoint principal: POST /api/attention/compute. Tokens: ${config.tokens}. Query heads: ${config.queryHeads}. KV heads: ${config.kvHeads}.`
   };
   const content = learningMode === "basic" ? basic : learningMode === "technical" ? technical : expert;
@@ -806,7 +806,7 @@ function OverviewCards({ onStartDemo, learningMode }: { onStartDemo: () => void;
     <section className="overview-hero panel">
       <div>
         <p className="eyebrow">Vista general</p>
-        <h2>Un dashboard guiado, no una página larga.</h2>
+        <h2>Un panel guiado, no una página larga.</h2>
         <p className="explicacion">
           La interfaz ahora separa cada bloque en secciones navegables para que la demostración tenga orden:
           primero se elige un escenario, luego se entiende el concepto, se manipula la simulación y finalmente se conectan los endpoints del backend.

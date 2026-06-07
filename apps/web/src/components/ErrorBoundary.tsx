@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error(`[AttentionLab] Error en ${this.props.title}`, error, info.componentStack);
+    console.error(`[Attentio] Error en ${this.props.title}`, error, info.componentStack);
   }
 
   retry = () => {
@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         <p className="eyebrow">Frontera de error React</p>
         <h2>{this.props.title}</h2>
         <p>
-          Este módulo encontró un error de renderizado. Puedes seguir usando el resto del dashboard mientras revisas este bloque.
+          Este módulo encontró un error de renderizado. Puedes seguir usando el resto del panel mientras revisas este bloque.
         </p>
         <div className="error-boundary-actions">
           <button type="button" onClick={this.retry}>Reintentar</button>

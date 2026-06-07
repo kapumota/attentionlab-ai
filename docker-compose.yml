@@ -1,5 +1,5 @@
 services:
-  attentionlab:
+  attentio:
     build: .
     ports:
       - "7860:7860"

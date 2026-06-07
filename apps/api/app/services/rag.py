@@ -65,9 +65,9 @@ class _StoredDocument:
 
 
 class RagStore:
-    """Vector store en memoria para v0.5.
+    """Vector store en memoria para v1.1.0-dev.
 
-    Está pensado para demo, tests y Space gratuito. La v0.6 podría reemplazarlo
+    Está pensado para demo, tests y Space gratuito. La una fase posterior podría reemplazarlo
     por SQLite + FAISS, Chroma, LanceDB u otro almacén persistente.
     """
 
@@ -168,7 +168,7 @@ class RagStore:
             store="in-memory-deterministic-vector-store",
             ready_for_v06=True,
             notes=[
-                "v0.5 implementa RAG visual reproducible.",
+                "v1.1.0-dev implementa RAG visual reproducible.",
                 "La siguiente evolución natural es persistencia y embeddings reales por colección.",
             ],
         )

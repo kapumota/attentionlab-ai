@@ -160,9 +160,9 @@ class ModelAdapterStatus(BaseModel):
     available_adapters: list[str]
     message: str
 
-# ============================
-# Contratos v0.5: modelos reales pequeños
-# ============================
+# ---
+# Contratos v1.1.0-dev: modelos reales pequeños
+# ---
 
 ModelAdapter = Literal["deterministic-backend", "python-transformers", "browser-transformers-js", "onnx-runtime-web"]
 
@@ -234,9 +234,9 @@ class TextContrastiveResponse(BaseModel):
     model_id: str
     notes: list[str]
 
-# ============================
-# Contratos v0.5: Agent Debugger + RAG visual
-# ============================
+# ---
+# Contratos v1.1.0-dev: Agent Debugger + RAG visual
+# ---
 
 class RagDocument(BaseModel):
     id: str | None = Field(default=None, max_length=120)
@@ -339,7 +339,7 @@ class AgentDebugResponse(BaseModel):
 
 class ExperimentRecord(BaseModel):
     id: str | None = Field(default=None, max_length=120)
-    name: str = Field(default="Experimento AttentionLab", max_length=160)
+    name: str = Field(default="Experimento Attentio", max_length=160)
     module: str = Field(default="agent-debugger", max_length=80)
     payload: dict = Field(default_factory=dict)
 

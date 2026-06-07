@@ -56,7 +56,7 @@ def softmax(values: list[float], temperature: float) -> list[float]:
 
 
 class RealModelService:
-    """Servicio v0.5 para modelos pequeños reales con fallback seguro.
+    """Servicio v1.1.0-dev para modelos pequeños reales con fallback seguro.
 
     Modos:
     - deterministic: no requiere dependencias pesadas; útil para tests.
@@ -176,7 +176,7 @@ class RealModelService:
     def _fallback_generation(self, prompt: str) -> str:
         clipped = prompt.strip()[:180]
         return (
-            "Respuesta de respaldo v0.5: el sistema recibió el prompt "
+            "Respuesta de respaldo v1.1.0-dev: el sistema recibió el prompt "
             f"«{clipped}». Para usar un modelo real, active ATTENTIONLAB_ENABLE_REAL_MODELS=true "
             "e instale las dependencias opcionales de Transformers/PyTorch."
         )

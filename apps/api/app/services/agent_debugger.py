@@ -20,7 +20,7 @@ def _tool_latency(index: int) -> float:
 def debug_agent(req: AgentDebugRequest) -> AgentDebugResponse:
     """Construye una traza auditable de agente con RAG y herramientas.
 
-    El objetivo de v0.5 no es simular un agente autónomo peligroso ni ejecutar
+    El objetivo de v1.1.0-dev no es simular un agente autónomo peligroso ni ejecutar
     herramientas externas reales. Es un depurador visual y reproducible para
     enseñar planificación, recuperación, uso de contexto y groundedness.
     """
@@ -97,7 +97,7 @@ def debug_agent(req: AgentDebugRequest) -> AgentDebugResponse:
         groundedness=groundedness,
         latency_ms=latency_ms,
         notes=[
-            "v0.5 convierte el playground de agentes en un depurador visual con RAG.",
+            "v1.1.0-dev convierte el playground de agentes en un depurador visual con RAG.",
             "Las herramientas son simuladas y seguras; no ejecutan acciones externas.",
         ],
     )

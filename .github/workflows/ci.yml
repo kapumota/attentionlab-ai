@@ -33,4 +33,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t attentionlab-ai:v1.0 .
+      - run: docker build -t attentio-ai-lab:v1.1.0-dev .

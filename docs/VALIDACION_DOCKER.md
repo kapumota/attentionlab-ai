@@ -5,13 +5,13 @@ La imagen está diseñada para Hugging Face Docker Spaces y expone el puerto `78
 #### Construcción
 
 ```bash
-docker build -t attentionlab-ai:v1.0 .
+docker build -t attentio-ai-lab:v1.1.0-dev .
 ```
 
 #### Ejecución
 
 ```bash
-docker run --rm -p 7860:7860 attentionlab-ai:v1.0
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
 ```
 
 #### Validación automática
