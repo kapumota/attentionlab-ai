@@ -8,6 +8,7 @@ import { HybridArchitecture } from "./components/HybridArchitecture";
 import { ModuleStatus } from "./components/ModuleStatus";
 import { ArchitectureBuilder } from "./components/ArchitectureBuilder";
 import { LLMPlayground } from "./components/LLMPlayground";
+import { LearningPathPanel } from "./components/LearningPathPanel";
 import { MLLMPlayground } from "./components/MLLMPlayground";
 import { AgentsPlayground } from "./components/AgentsPlayground";
 import { SpaceReadiness } from "./components/SpaceReadiness";
@@ -27,6 +28,7 @@ import { getApiHealth, getModelRuntimeStatus, type ApiHealth, type ModelRuntimeS
 import { createBlockFromBuilder, createInitialArchitecture, getHybridLayers, syncArchitecture } from "./core/architecture";
 import { getExplanation } from "./core/explanations";
 import type { ArchitectureSpec, BuilderConfig, LearningMode, MatrixCellSelection, SimulationConfig } from "./types";
+import type { PresetAprendizajeKv } from "./learning/kvCachePath";
 
 const initialConfig: SimulationConfig = {
   mode: "infonce",
@@ -334,6 +336,34 @@ export function App() {
     if (preset.batchSize) setBatchSize(preset.batchSize);
   }
 
+
+  function aplicarEscenarioAprendizaje(preset: PresetAprendizajeKv) {
+    const nextConfig: SimulationConfig = {
+      ...config,
+      mode: preset.modo,
+      tokens: preset.tokens,
+      queryHeads: preset.query_heads,
+      kvHeads: preset.kv_heads,
+      windowSize: preset.ventana_swa
+    };
+
+    const nextBuilder: BuilderConfig = {
+      ...builder,
+      numLayers: preset.capas,
+      dimension: preset.dimension,
+      blockType: preset.tipo_bloque,
+      windowSize: preset.ventana_swa,
+      mlaRank: preset.rango_mla,
+      rope: true
+    };
+
+    handleConfigChange(nextConfig);
+    handleBuilderChange(nextBuilder);
+    setContextLength(preset.longitud_contexto);
+    setBatchSize(preset.batch_size);
+    setActiveSection("llm");
+  }
+
   function goToNextSection() {
     const currentIndex = sections.findIndex((section) => section.id === activeSection);
     setActiveSection(sections[(currentIndex + 1) % sections.length].id);
@@ -423,6 +453,10 @@ export function App() {
         <section className="section-stack">
           <GuidedDemoPanel activeDemoStep={activeDemoStep} onApplyStep={applyDemoStep} compact />
           <ErrorBoundary title="Estimador LLM / KV Cache">
+          <ErrorBoundary title="Learning Path KV Cache">
+            <LearningPathPanel aplicarEscenario={aplicarEscenarioAprendizaje} />
+          </ErrorBoundary>
+
             <LLMPlayground
               config={config}
               builder={builder}

@@ -113,6 +113,61 @@ class LLMEstimateResponse(BaseModel):
     notes: list[str]
 
 
+
+
+class LearningPreset(BaseModel):
+    modo: AttentionMode
+    tokens: int = Field(ge=2, le=64)
+    query_heads: int = Field(ge=1, le=256)
+    kv_heads: int = Field(ge=1, le=256)
+    longitud_contexto: int = Field(ge=128, le=1048576)
+    batch_size: int = Field(ge=1, le=128)
+    capas: int = Field(ge=1, le=256)
+    dimension: int = Field(ge=64, le=32768)
+    ventana_swa: int = Field(ge=128, le=1048576)
+    rango_mla: int = Field(ge=1, le=8192)
+    tipo_bloque: BlockType
+
+
+class LearningCheckpoint(BaseModel):
+    id: str
+    titulo: str
+    duracion_minutos: int = Field(ge=1, le=20)
+    objetivo: str
+    concepto: str
+    accion: str
+    resultado_esperado: str
+    preset: LearningPreset
+
+
+class LearningQuizQuestion(BaseModel):
+    id: str
+    pregunta: str
+    opciones: list[str]
+    respuesta_correcta: int = Field(ge=0)
+    explicacion: str
+
+
+class LearningPathResponse(BaseModel):
+    id: str
+    titulo: str
+    resumen: str
+    duracion_total_minutos: int
+    checkpoints: list[LearningCheckpoint]
+    quiz: list[LearningQuizQuestion]
+
+
+class LearningQuizRequest(BaseModel):
+    pregunta_id: str
+    opcion: int = Field(ge=0)
+
+
+class LearningQuizResponse(BaseModel):
+    correcta: bool
+    respuesta_correcta: int
+    explicacion: str
+
+
 class ContrastiveBatchRequest(BaseModel):
     batch_size: int = Field(default=4, ge=2, le=64)
     temperature: float = Field(default=0.2, gt=0, le=5)

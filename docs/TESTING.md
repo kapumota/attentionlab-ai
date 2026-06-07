@@ -234,3 +234,35 @@ assets/gifs/kv-cache-estimator.gif
 assets/gifs/agent-debugger.gif
 assets/gifs/transformer-builder.gif
 ```
+
+### Validación del Learning Path KV Cache
+
+#### Objetivo
+
+La Fase 4 valida que el primer learning path convierta KV Cache Estimator en una experiencia guiada con checkpoints y quiz de feedback inmediato.
+
+#### Backend
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests/test_learning_paths.py -q
+```
+
+#### Suite completa
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests -q
+npm --prefix apps/web run check
+```
+
+#### Endpoints cubiertos
+
+- `GET /api/learning/kv-cache-path`
+- `POST /api/learning/kv-cache-path/quiz`
+
+#### Casos validados
+
+- La ruta contiene cinco checkpoints.
+- El quiz contiene tres preguntas.
+- Las respuestas correctas devuelven feedback positivo.
+- Las respuestas incorrectas devuelven explicación.
+- El frontend puede usar fallback local si el backend no responde.

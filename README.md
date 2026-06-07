@@ -347,3 +347,22 @@ Puedes ver ejemplos de uso en la carpeta de documentación, en el archivo `EJEMP
 
 ## Licencia
 MIT. Ver `LICENSE`.
+
+### Learning Path: Entiende KV Cache en 12 minutos
+
+#### Objetivo
+
+Attentio AI Lab ahora incluye un recorrido guiado para pasar del playground libre a un curriculum interactivo. El primer path enseña KV cache, crecimiento con contexto largo, MHA, GQA, MLA y diseño de una configuración para 128k tokens.
+
+#### Estructura
+
+- Checkpoint 1 - Qué es KV cache.
+- Checkpoint 2 - Por qué crece con el contexto.
+- Checkpoint 3 - MHA vs GQA.
+- Checkpoint 4 - MLA y compresión latente.
+- Checkpoint 5 - Diseña una configuración para 128k tokens.
+- Quiz - 3 preguntas con feedback inmediato.
+
+#### Integración
+
+El learning path se conecta con KV Cache Estimator y permite aplicar escenarios guiados directamente sobre el estimador.
