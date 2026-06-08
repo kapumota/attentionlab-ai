@@ -2,7 +2,7 @@ export function V10Readiness() {
   const items = [
     ["Demo pública", "Preparada para Hugging Face Docker Spaces con sdk: docker y app_port: 7860."],
     ["README profesional", "Incluye propósito, módulos, instalación, endpoints, Docker, tutoriales y licencia."],
-    ["Capturas/GIFs", "Capturas reales generadas desde la app y un GIF demo en screenshots/."],
+    ["GIFs y demo pública", "GIFs documentales en assets/gifs y validación pública mediante Hugging Face Space."],
     ["Pruebas", "Suite FastAPI, TypeScript build y scripts de validación local."],
     ["Ejemplos", "Cargas JSON reproducibles para atención, LLM, MLLM, RAG y Agent Debugger."]
   ];
