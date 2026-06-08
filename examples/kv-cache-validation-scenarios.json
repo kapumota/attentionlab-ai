@@ -1,0 +1,44 @@
+{
+  "descripcion": "Escenarios reproducibles para validar KV Cache Estimator de forma didáctica.",
+  "supuestos": {
+    "num_layers": 32,
+    "dimension": 4096,
+    "batch_size": 1,
+    "precision": "fp16",
+    "rope": true
+  },
+  "escenarios": [
+    {
+      "nombre": "MHA 32k baseline",
+      "context_length": 32768,
+      "query_heads": 32,
+      "kv_heads": 32,
+      "swa_window_size": 4096,
+      "mla_rank": 512
+    },
+    {
+      "nombre": "GQA 64k eficiente",
+      "context_length": 65536,
+      "query_heads": 32,
+      "kv_heads": 8,
+      "swa_window_size": 4096,
+      "mla_rank": 512
+    },
+    {
+      "nombre": "SWA 128k local",
+      "context_length": 131072,
+      "query_heads": 32,
+      "kv_heads": 8,
+      "swa_window_size": 4096,
+      "mla_rank": 512
+    },
+    {
+      "nombre": "MLA conceptual 1M",
+      "context_length": 1048576,
+      "query_heads": 32,
+      "kv_heads": 8,
+      "swa_window_size": 8192,
+      "mla_rank": 512
+    }
+  ]
+}
