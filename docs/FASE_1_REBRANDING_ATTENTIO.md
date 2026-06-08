@@ -2,14 +2,14 @@
 
 #### Objetivo
 
-Convertir la identidad pública del proyecto de AttentionLab AI a Attentio AI Lab sin modificar la lógica funcional ni romper contratos existentes entre frontend, backend y pruebas.
+Convertir la identidad pública del proyecto de AttentionLab AI a Attention AI Lab sin modificar la lógica funcional ni romper contratos existentes entre frontend, backend y pruebas.
 
 #### Alcance aplicado
 
-- Nombre público actualizado a `Attentio AI Lab`.
+- Nombre público actualizado a `Attention AI Lab`.
 - Slug técnico actualizado a `attentio-ai-lab`.
-- Versión unificada a `v1.1.0-dev`.
-- Imagen Docker actualizada a `attentio-ai-lab:v1.1.0-dev`.
+- Versión unificada a `v1.2.0`.
+- Imagen Docker actualizada a `attentio-ai-lab:v1.2.0`.
 - Metadatos de `package.json` y `apps/web/package.json` actualizados.
 - Textos visibles principales actualizados a español.
 - Separadores largos con signos igual reemplazados por separadores simples `---`.
@@ -27,13 +27,13 @@ Los términos técnicos como `KV Cache`, `GQA`, `MLA`, `FastAPI`, `Agent Debugge
 PYTHONPATH=apps/api python -m pytest apps/api/tests -q
 npm --prefix apps/web ci
 npm --prefix apps/web run check
-docker build -t attentio-ai-lab:v1.1.0-dev .
+docker build -t attentio-ai-lab:v1.2.0 .
 ```
 
 #### Commit sugerido
 
 ```bash
 git add .
-git commit -m "fase 1: unifica identidad y version de Attentio AI Lab"
+git commit -m "fase 1: unifica identidad y version de Attention AI Lab"
 git push -u origin fase-1-rebranding-attentio-ai-lab
 ```

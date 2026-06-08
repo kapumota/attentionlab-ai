@@ -2,7 +2,7 @@
 
 #### Objetivo
 
-Definir el checklist mínimo para publicar una versión presentable de Attentio AI Lab.
+Definir el checklist mínimo para publicar una versión presentable de Attention AI Lab.
 
 #### Antes del PR
 

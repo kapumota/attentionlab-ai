@@ -2,7 +2,7 @@
 
 #### Objetivo
 
-Agregar evidencia visual rápida para que una persona entienda el valor de Attentio AI Lab sin instalar dependencias ni ejecutar el proyecto localmente.
+Agregar evidencia visual rápida para que una persona entienda el valor de Attention AI Lab sin instalar dependencias ni ejecutar el proyecto localmente.
 
 #### Alcance
 

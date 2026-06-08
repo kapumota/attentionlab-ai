@@ -2,7 +2,7 @@
 
 #### Objetivo
 
-Convertir Agent Debugger en la segunda firma técnica de Attentio AI Lab.
+Convertir Agent Debugger en la segunda firma técnica de Attention AI Lab.
 
 #### Alcance
 
@@ -15,7 +15,7 @@ Convertir Agent Debugger en la segunda firma técnica de Attentio AI Lab.
 
 #### Narrativa
 
-Attentio AI Lab no solo enseña atención y memoria, también enseña a depurar agentes mediante trazas deterministas.
+Attention AI Lab no solo enseña atención y memoria, también enseña a depurar agentes mediante trazas deterministas.
 
 #### Límite técnico
 

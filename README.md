@@ -1,5 +1,5 @@
 ---
-title: Attentio AI Lab
+title: Attention AI Lab
 emoji: 🧠
 colorFrom: indigo
 colorTo: blue
@@ -9,17 +9,33 @@ fullWidth: true
 short_description: Lab visual de IA generativa sin GPU
 ---
 
-### Attentio AI Lab
+### Attention AI Lab
 
-[![Version](https://img.shields.io/badge/version-v1.1.0--dev-orange)](package.json)
-
+[![Version](https://img.shields.io/badge/version-v1.2.0-orange)](RELEASE_NOTES.md)
 [![CI](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml)
-
-[![Hugging Face Space](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
-[![CI](https://github.com/kapumota/attentionlab-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/kapumota/attentionlab-ai/actions)
+[![Demo](https://img.shields.io/badge/demo-Hugging%20Face-blue)](https://kapumota-attentio-ai-lab.hf.space)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+
+
+
+
 > Laboratorio interactivo para entender KV cache, atención moderna, diseño Transformer y depuración de agentes sin GPU ni API keys.
+
+### Identidad del proyecto
+
+#### Nombre público
+
+El sistema se presenta como **Attention AI Lab**.
+
+#### Nombre del repositorio
+
+El repositorio conserva el nombre `attentionlab-ai` por compatibilidad con enlaces, historial de PRs, badges, scripts y despliegues previos.
+
+#### Nombre del Space
+
+El Hugging Face Space conserva el slug histórico `attentio-ai-lab` porque ya está publicado y validado.
+
 
 ### El problema
 
@@ -27,7 +43,7 @@ Entender atención, KV cache y agentes modernos suele requerir leer papers, mont
 
 ### La solución
 
-Attentio AI Lab ofrece simulaciones visuales deterministas, contratos API validables y recorridos guiados para aprender conceptos de IA moderna de forma reproducible.
+Attention AI Lab ofrece simulaciones visuales deterministas, contratos API validables y recorridos guiados para aprender conceptos de IA moderna de forma reproducible.
 
 #### Qué ofrece
 
@@ -43,7 +59,7 @@ Attentio AI Lab ofrece simulaciones visuales deterministas, contratos API valida
 
 #### Hugging Face Space
 
-[Probar Attentio AI Lab](https://kapumota-attentio-ai-lab.hf.space)
+[Probar Attention AI Lab](https://kapumota-attentio-ai-lab.hf.space)
 
 #### Endpoints públicos
 
@@ -211,13 +227,13 @@ npm --prefix apps/web run dev
 #### Docker
 
 ```bash
-docker build -t attentio-ai-lab:v1.1.0-dev .
-docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+docker build -t attention-ai-lab:v1.2.0 .
+docker run --rm -p 7860:7860 attention-ai-lab:v1.2.0
 ```
 
 ### Límites
 
-Attentio AI Lab es una herramienta didáctica y reproducible. No es un LLM entrenado desde cero, no es un RAG productivo y no es un benchmark de rendimiento.
+Attention AI Lab es una herramienta didáctica y reproducible. No es un LLM entrenado desde cero, no es un RAG productivo y no es un benchmark de rendimiento.
 
 #### Qué no intenta reemplazar
 

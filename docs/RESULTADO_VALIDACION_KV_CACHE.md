@@ -28,4 +28,3 @@
 #### Límite
 
 Este reporte no mide kernels, latencia real ni memoria GPU. Sirve para validar consistencia matemática del estimador.
-

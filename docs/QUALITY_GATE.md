@@ -2,7 +2,7 @@
 
 #### Objetivo
 
-Definir las condiciones mínimas para aceptar cambios en Attentio AI Lab.
+Definir las condiciones mínimas para aceptar cambios en Attention AI Lab.
 
 #### Criterios obligatorios
 

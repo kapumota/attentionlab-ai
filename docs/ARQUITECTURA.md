@@ -1,6 +1,6 @@
-### Arquitectura de Attentio AI Lab
+### Arquitectura de Attention AI Lab
 
-Attentio AI Lab  usa una arquitectura full-stack ligera:
+Attention AI Lab  usa una arquitectura full-stack ligera:
 
 ```text
 Frontend React/Vite
