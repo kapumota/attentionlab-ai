@@ -299,3 +299,33 @@ npm --prefix apps/web run check
 #### Advertencia técnica
 
 Agent Debugger Timeline usa trazas deterministas y tool calls simulados. Su objetivo es educativo y de depuración conceptual, no ejecución productiva de agentes externos.
+
+### Validación del Learning Path Agent Debugger
+
+#### Objetivo
+
+La Fase 9 valida que Agent Debugger tenga un recorrido educativo guiado y que el backend exponga endpoints reproducibles para consultar el path y evaluar el quiz.
+
+#### Backend
+
+```bash
+PYTHONPATH=apps/api python -m pytest apps/api/tests/test_agent_debugger_learning_path.py -q
+```
+
+#### Suite completa
+
+```bash
+make validate
+```
+
+#### Endpoints cubiertos
+
+- `GET /api/learning/agent-debugger-path`
+- `POST /api/learning/agent-debugger-path/quiz`
+
+#### Casos validados
+
+- El path contiene cinco checkpoints.
+- El quiz contiene tres preguntas.
+- Las respuestas correctas reciben puntaje completo.
+- Las respuestas incorrectas devuelven feedback explicativo.
