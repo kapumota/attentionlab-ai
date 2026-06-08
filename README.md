@@ -60,7 +60,7 @@ Los GIFs y capturas se mantienen en GitHub para mostrar los flujos principales d
 - KV Cache Estimator: `assets/gifs/kv-cache-estimator.gif`
 - Agent Debugger: `assets/gifs/agent-debugger.gif`
 - Constructor Transformer: `assets/gifs/transformer-builder.gif`
-- Capturas: `screenshots/`
+- Demo visual vigente: Hugging Face Space y GIFs en `assets/gifs/`.
 
 ### Hero feature
 

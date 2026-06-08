@@ -131,7 +131,7 @@ La fase se considera cerrada si se cumple:
 Las capturas deben actualizarse después de verificar el Space real. Como mínimo:
 
 ```text
-screenshots/07-HuggingFace-docker-space.png
+La evidencia visual antigua fue retirada. La referencia vigente es el Space público validado por URL.
 ```
 
 No se debe reemplazar una captura por una imagen simulada. Si no hay acceso al navegador o al Space real, se deja la captura anterior y se documenta como pendiente.

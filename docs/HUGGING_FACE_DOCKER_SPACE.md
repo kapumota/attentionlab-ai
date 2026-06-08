@@ -54,7 +54,7 @@ HF_SPACE_URL=https://HF_USERNAME-attentio-ai-lab.hf.space bash scripts/validate-
 Actualiza esta captura después de verificar el Space real:
 
 ```text
-screenshots/07-HuggingFace-docker-space.png
+La evidencia visual antigua fue retirada. La referencia vigente es el Space público validado por URL.
 ```
 
 No se debe reemplazar por una captura simulada.
