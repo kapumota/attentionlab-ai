@@ -2,7 +2,7 @@
 
 #### Objetivo
 
-Publicar Attentio AI Lab como Docker Space para que una persona pueda probar el proyecto desde un enlace público, sin instalar dependencias locales, sin GPU y sin API keys.
+Publicar Attention AI Lab como Docker Space para que una persona pueda probar el proyecto desde un enlace público, sin instalar dependencias locales, sin GPU y sin API keys.
 
 #### Alcance
 

@@ -1,6 +1,6 @@
 ### Despliegue en Hugging Face Spaces
 
-Attentio AI Lab está preparado para publicarse como **Hugging Face Docker Space**.
+Attention AI Lab está preparado para publicarse como **Hugging Face Docker Space**.
 
 #### 1. Requisitos
 
@@ -17,7 +17,7 @@ El `README.md` debe empezar con:
 
 ```yaml
 ---
-title: Attentio AI Lab v1.1.0-dev
+title: Attention AI Lab v1.2.0
 emoji: 🧠
 colorFrom: indigo
 colorTo: blue

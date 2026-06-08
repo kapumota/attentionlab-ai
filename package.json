@@ -1,6 +1,6 @@
 {
   "name": "attentio-ai-lab",
-  "version": "1.1.0-dev",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,14 +9,14 @@
     "check:web": "npm --prefix apps/web run check",
     "dev:api": "uvicorn app.main:app --app-dir apps/api --host 0.0.0.0 --port 7860 --reload",
     "test:api": "PYTHONPATH=apps/api pytest apps/api/tests -q",
-    "docker:build": "docker build -t attentio-ai-lab:v1.1.0-dev .",
-    "docker:run": "docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev",
+    "docker:build": "docker build -t attention-ai-lab:v1.2.0 .",
+    "docker:run": "docker run --rm -p 7860:7860 attention-ai-lab:v1.2.0",
     "validate:local": "bash scripts/validate-local.sh",
     "validate:docker": "bash scripts/validate-docker.sh",
     "validate:hf-space": "bash scripts/validate-hf-space.sh",
     "validate:visual": "bash scripts/validate-visual-assets.sh"
   },
-  "description": "Attentio AI Lab v1.1.0-dev: laboratorio educativo para visualizar atención, KV Cache, arquitecturas Transformer, RAG y depuración de agentes sin GPU ni API keys.",
+  "description": "Attention AI Lab v1.2.0: laboratorio educativo para visualizar atención, KV Cache, arquitecturas Transformer, RAG y depuración de agentes sin GPU ni API keys.",
   "keywords": [
     "attention",
     "transformers",

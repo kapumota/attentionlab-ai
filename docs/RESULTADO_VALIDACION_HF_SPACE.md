@@ -10,7 +10,7 @@ https://kapumota-attentio-ai-lab.hf.space
 
 #### Objetivo
 
-Validar que Attentio AI Lab puede probarse desde un enlace público sin instalación local, sin GPU y sin API keys.
+Validar que Attention AI Lab puede probarse desde un enlace público sin instalación local, sin GPU y sin API keys.
 
 #### Enlaces de evidencia
 

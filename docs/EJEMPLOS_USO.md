@@ -1,6 +1,6 @@
-### Ejemplos de uso de Attentio AI Lab
+### Ejemplos de uso de Attention AI Lab
 
-Este documento muestra cómo ejecutar y usar el frontend de **Attentio AI Lab v1.1.0-dev** durante una demostración local.
+Este documento muestra cómo ejecutar y usar el frontend de **Attention AI Lab v1.2.0** durante una demostración local.
 
 Está pensado para explicar todas las operaciones principales del panel: navegación, laboratorio de atención, presets, constructor Transformer, estimador LLM, RAG,
 Agent Debugger, consola FastAPI, MLLM y publicación.
@@ -65,7 +65,7 @@ Respuesta esperada:
 ```json
 {
   "status": "ok",
-  "version": "1.1.0-dev"
+  "version": "1.2.0"
 }
 ```
 
@@ -136,7 +136,7 @@ Resumen de módulos
 Explicación sugerida:
 
 ```text
-Attentio AI Lab es un panel full-stack para visualizar mecanismos de atención,
+Attention AI Lab es un panel full-stack para visualizar mecanismos de atención,
 arquitecturas Transformer, estimación de KV cache, RAG visual, depuración de agentes,
 MLLM e integración con backend FastAPI.
 ```
@@ -1167,13 +1167,13 @@ En este modo:
 Construye la imagen:
 
 ```bash
-docker build -t attentio-ai-lab:v1.1.0-dev .
+docker build -t attentio-ai-lab:v1.2.0 .
 ```
 
 Ejecuta la imagen:
 
 ```bash
-docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.2.0
 ```
 
 Abre la dirección:
@@ -1300,11 +1300,11 @@ Con `.atencion` activo debe apuntar a:
 
 ### Uso rápido con Docker
 
-Attentio AI Lab puede ejecutarse como una demo local reproducible sin GPU ni API keys.
+Attention AI Lab puede ejecutarse como una demo local reproducible sin GPU ni API keys.
 
 ```bash
-docker build -t attentio-ai-lab:v1.1.0-dev .
-docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+docker build -t attentio-ai-lab:v1.2.0 .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.2.0
 ```
 
 Abrir en el navegador:
@@ -1342,7 +1342,7 @@ assets/gifs/transformer-builder.gif
 
 #### Uso en README
 
-Los GIFs se muestran en el README para explicar rápidamente el valor de Attentio AI Lab:
+Los GIFs se muestran en el README para explicar rápidamente el valor de Attention AI Lab:
 
 - Estimar memoria de KV Cache.
 - Depurar agentes con timeline.

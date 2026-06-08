@@ -1,6 +1,6 @@
 ### Publicación en Hugging Face Docker Spaces
 
-Attentio AI Lab usa Docker Space para servir el frontend compilado y la API FastAPI desde un único contenedor.
+Attention AI Lab usa Docker Space para servir el frontend compilado y la API FastAPI desde un único contenedor.
 
 #### Configuración del Space
 

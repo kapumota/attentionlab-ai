@@ -1,4 +1,4 @@
-### Instalación local de Attentio AI Lab
+### Instalación local de Attention AI Lab
 
 Esta guía instala el proyecto en modo desarrollo local usando `pyenv`, Python 3.10/3.11, entorno virtual `.atencion` y Node 22.
 

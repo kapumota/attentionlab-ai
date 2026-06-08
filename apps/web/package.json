@@ -1,6 +1,6 @@
 {
   "name": "@attentio-ai-lab/web",
-  "version": "1.1.0-dev",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,6 +21,6 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3"
   },
-  "description": "Attentio AI Lab v1.1.0-dev: interfaz educativa con ErrorBoundary, terminología consistente, interpretaciones automáticas, copiado para documentación y comparación MHA/GQA/MLA.",
+  "description": "Attention AI Lab v1.2.0: interfaz educativa para atención, KV Cache, learning paths y depuración de agentes.",
   "license": "MIT"
 }

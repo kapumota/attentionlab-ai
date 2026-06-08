@@ -1,6 +1,6 @@
 ### Resultado de validación Docker
 
-Release técnica documentada: Attentio AI Lab v1.1.0-dev
+Release técnica documentada: Attention AI Lab v1.2.0
 
 #### Estado
 
@@ -23,8 +23,8 @@ bash scripts/validate-docker.sh
 #### Validación manual equivalente
 
 ```bash
-docker build -t attentio-ai-lab:v1.1.0-dev .
-docker run --rm -p 7860:7860 attentio-ai-lab:v1.1.0-dev
+docker build -t attentio-ai-lab:v1.2.0 .
+docker run --rm -p 7860:7860 attentio-ai-lab:v1.2.0
 curl http://localhost:7860/api/health
 ```
 
