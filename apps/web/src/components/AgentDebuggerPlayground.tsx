@@ -11,6 +11,7 @@ import {
   type RagRetrievedDocument
 } from "../core/apiClient";
 import { CopyButton } from "./CopyButton";
+import { AgentLearningPathPanel } from "./AgentLearningPathPanel";
 
 const documentosIniciales = `KV cache y GQA|GQA reduce el KV cache compartiendo claves y valores entre grupos de query heads. Esto mejora memoria y throughput en inferencia.|manual:llm
 InfoNCE multimodal|InfoNCE ayuda a alinear pares imagen-texto correctos frente a negativos dentro del batch. Es útil en CLIP, retrieval y MLLMs.|manual:mllm
@@ -347,6 +348,7 @@ export function AgentDebuggerPlayground() {
 
   return (
     <section className="panel seccion agent-debugger rag-visual">
+      <AgentLearningPathPanel />
       <p className="eyebrow">v1.1.0-dev · Agent Debugger + RAG visual</p>
       <h2>Depurador visual de agentes</h2>
       <p className="mini-aviso">
