@@ -36,9 +36,10 @@ npm --prefix apps/web run check
 #### Validación documental
 
 ```bash
-git diff --check
-grep -RIn --exclude-dir=node_modules --exclude-dir=.venv --exclude-dir=.atencion --exclude-dir=.git --exclude-dir=dist --exclude-dir=__pycache__ "---\|-\|-" README.md docs packages/shared-contracts/openapi-notes.md
+make validate-docs
 ```
+
+La implementación canónica de esta comprobación se mantiene en el `Makefile` y en `.github/workflows/ci.yml`.
 
 #### Validación del Space
 
