@@ -8,7 +8,6 @@ Definir las condiciones mínimas para aceptar cambios en Attention AI Lab.
 
 - El backend debe pasar la suite de Pytest.
 - El frontend debe compilar con TypeScript y Vite.
-- La documentación no debe contener separadores `---`.
 - La documentación no debe contener guiones largos.
 - El árbol de trabajo no debe incluir caches, builds, entornos virtuales ni dependencias instaladas.
 - El README debe conservar el enlace público del Hugging Face Space.
