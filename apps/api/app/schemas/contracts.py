@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Literal
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 AttentionMode = Literal[
     "infonce",
@@ -99,6 +99,15 @@ class LLMEstimateRequest(BaseModel):
     batch_size: int = Field(default=1, ge=1, le=128)
     precision: Precision = "fp16"
     rope: bool = True
+
+    @model_validator(mode="after")
+    def mla_rank_must_compress_dimension(self) -> LLMEstimateRequest:
+        """Exige una representación latente estrictamente menor que d."""
+        if self.mla_rank >= self.dimension:
+            raise ValueError(
+                "mla_rank debe ser menor que dimension para la aproximación de cache latente"
+            )
+        return self
 
 
 class LLMEstimateResponse(BaseModel):
