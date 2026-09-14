@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from app.schemas import LLMEstimateRequest
 from app.services.llm_metrics import estimate_llm_costs
+from app.services.sliding_window import swa_memory_gb
 
 
 SCENARIOS = [
@@ -41,19 +42,6 @@ SCENARIOS = [
 ]
 
 
-def calculate_swa_cache_gb(result, context_length: int, swa_window_size: int) -> float:
-    """Calcula SWA como métrica derivada para el reporte reproducible."""
-    active_context = min(context_length, swa_window_size)
-    ratio = active_context / context_length
-    return round(result.kv_cache_mha_gb * ratio, 6)
-
-
-def calculate_swa_ratio(context_length: int, swa_window_size: int) -> float:
-    """Calcula la razón conceptual SWA/MHA para documentación."""
-    active_context = min(context_length, swa_window_size)
-    return active_context / context_length
-
-
 def build_request(scenario: dict[str, int | str]) -> LLMEstimateRequest:
     return LLMEstimateRequest(
         num_layers=32,
@@ -61,7 +49,6 @@ def build_request(scenario: dict[str, int | str]) -> LLMEstimateRequest:
         query_heads=int(scenario["query_heads"]),
         kv_heads=int(scenario["kv_heads"]),
         mla_rank=int(scenario["mla_rank"]),
-        swa_window_size=int(scenario["swa_window_size"]),
         context_length=int(scenario["context_length"]),
         batch_size=1,
         precision="fp16",
@@ -94,13 +81,21 @@ def build_markdown_report() -> str:
 
     for scenario in SCENARIOS:
         result = estimate_llm_costs(build_request(scenario))
+        swa_gb = swa_memory_gb(
+            num_layers=32,
+            dimension=4096,
+            context_length=int(scenario["context_length"]),
+            window_size=int(scenario["swa_window_size"]),
+            batch_size=1,
+            precision="fp16",
+        )
         lines.append(
             "| "
             f"{scenario['nombre']} | "
             f"{scenario['context_length']} | "
             f"{format_gb(result.kv_cache_mha_gb)} | "
             f"{format_gb(result.kv_cache_gqa_gb)} | "
-            f"{format_gb(calculate_swa_cache_gb(result, context_length=scenario['context_length'], swa_window_size=scenario['swa_window_size']))} | "
+            f"{format_gb(swa_gb)} | "
             f"{format_gb(result.kv_cache_mla_gb)} |"
         )
 

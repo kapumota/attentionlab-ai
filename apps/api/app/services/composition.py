@@ -9,12 +9,7 @@ from __future__ import annotations
 
 import math
 
-
-def _validate_window(context_length: int, window_size: int) -> None:
-    if context_length <= 0:
-        raise ValueError("context_length debe ser positivo")
-    if window_size <= 0:
-        raise ValueError("window_size debe ser positivo")
+from app.services.sliding_window import swa_ratio
 
 
 def apply_sliding_window_ratio(
@@ -25,10 +20,8 @@ def apply_sliding_window_ratio(
     """Aplica la reducción SWA de la Ecuación (4) a una memoria base."""
     if not math.isfinite(base_gb) or base_gb < 0:
         raise ValueError("base_gb debe ser finito y no negativo")
-    _validate_window(context_length, window_size)
 
-    effective_window = min(context_length, window_size)
-    return base_gb * (effective_window / context_length)
+    return base_gb * swa_ratio(context_length, window_size)
 
 
 def compose_gqa_swa_ratio(
@@ -48,8 +41,6 @@ def compose_gqa_swa_ratio(
         raise ValueError("kv_heads debe ser positivo")
     if kv_heads > query_heads:
         raise ValueError("kv_heads no puede exceder query_heads")
-    _validate_window(context_length, window_size)
 
     gqa_ratio = kv_heads / query_heads
-    swa_ratio = min(context_length, window_size) / context_length
-    return gqa_ratio * swa_ratio
+    return gqa_ratio * swa_ratio(context_length, window_size)
