@@ -1,0 +1,31 @@
+{
+  "assumptions": {
+    "base_precision": "fp16",
+    "batch_size": 1,
+    "dimension": 4096,
+    "num_layers": 32,
+    "query_heads": 32,
+    "units": "GB decimales"
+  },
+  "files": {
+    "context_sweep.csv": {
+      "rows": 36,
+      "sha256": "9291bd2a700fa620f953107306f2490d1ad6b9b05fd1512511f57e481460b4fc"
+    },
+    "precision_128k.csv": {
+      "rows": 20,
+      "sha256": "59dfd88b1dfe6a30e7fd10edea9698505ba2e9915c2d9aca9e735276526e8c71"
+    },
+    "sensitivity_128k.csv": {
+      "rows": 15,
+      "sha256": "bb8e0210471f6bdd881060e032dda937a44ffd931241455b0081c346a248d650"
+    }
+  },
+  "groups": {
+    "context_sweep": 36,
+    "precision_128k": 20,
+    "sensitivity_128k": 15
+  },
+  "paper_configuration_count": 71,
+  "schema_version": 1
+}

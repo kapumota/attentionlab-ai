@@ -1,0 +1,16 @@
+family,parameter,value,memory_gb,ratio_to_mha
+GQA,kv_heads,32,68.719477,1.0
+GQA,kv_heads,16,34.359738,0.5
+GQA,kv_heads,8,17.179869,0.25
+GQA,kv_heads,4,8.589935,0.125
+GQA,kv_heads,2,4.294967,0.0625
+GQA,kv_heads,1,2.147484,0.03125
+SWA,window,2048,1.073742,0.015625
+SWA,window,4096,2.147484,0.03125
+SWA,window,8192,4.294967,0.0625
+SWA,window,16384,8.589935,0.125
+SWA,window,32768,17.179869,0.25
+Latent,rank,128,2.147484,0.03125
+Latent,rank,256,4.294967,0.0625
+Latent,rank,512,8.589935,0.125
+Latent,rank,1024,17.179869,0.25
