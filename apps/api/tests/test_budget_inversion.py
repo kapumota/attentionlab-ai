@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 
 import pytest
+from hypothesis import given, settings, strategies as st
 
 from app.services.budget_inversion import (
     max_context_for_budget,
@@ -96,3 +97,32 @@ def test_rejects_invalid_budget(budget_gb: float) -> None:
 def test_rejects_unknown_precision() -> None:
     with pytest.raises(ValueError, match="precision no soportada"):
         max_context_for_budget(24, num_layers=32, d_cache=4096, precision="fp8")
+
+
+@given(
+    budget_milligb=st.integers(min_value=1, max_value=200_000),
+    num_layers=st.integers(min_value=1, max_value=256),
+    d_cache=st.integers(min_value=1, max_value=32768),
+    batch_size=st.integers(min_value=1, max_value=8),
+    precision=st.sampled_from(["fp32", "fp16", "bf16", "int8", "int4"]),
+)
+@settings(max_examples=300, deadline=None, database=None, derandomize=True)
+def test_round_trip_es_ajustado_en_casos_generados(
+    budget_milligb: int,
+    num_layers: int,
+    d_cache: int,
+    batch_size: int,
+    precision: str,
+) -> None:
+    """Busca contraejemplos a la inversión en configuraciones válidas generadas."""
+    budget_gb = budget_milligb / 1000
+    result = verify_round_trip(
+        budget_gb=budget_gb,
+        num_layers=num_layers,
+        d_cache=d_cache,
+        batch_size=batch_size,
+        precision=precision,
+    )
+
+    assert result.fits_budget
+    assert result.next_exceeds_budget

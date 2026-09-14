@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from fractions import Fraction
 
 _BYTES_BY_PRECISION = {
     "fp32": 4.0,
@@ -34,6 +35,18 @@ def _bytes_per_value(precision: str) -> float:
 def _validate_positive(name: str, value: int) -> None:
     if value <= 0:
         raise ValueError(f"{name} debe ser positivo")
+
+
+def _logical_bytes_per_token(
+    *,
+    num_layers: int,
+    d_cache: int,
+    batch_size: int,
+    precision: str,
+) -> Fraction:
+    """Devuelve el costo lógico exacto por token como fracción de bytes."""
+    bytes_per_value = Fraction(str(_bytes_per_value(precision)))
+    return Fraction(num_layers * 2 * d_cache * batch_size) * bytes_per_value
 
 
 def _logical_memory_gb(
@@ -73,9 +86,16 @@ def max_context_for_budget(
     _validate_positive("d_cache", d_cache)
     _validate_positive("batch_size", batch_size)
 
-    bytes_per_value = _bytes_per_value(precision)
-    denominator = num_layers * 2 * d_cache * bytes_per_value * batch_size
-    return math.floor(budget_gb * 1e9 / denominator)
+    # ``budget_gb`` usa GB decimales. ``Fraction(str(...))`` conserva el
+    # valor decimal introducido por el usuario y evita off-by-one en fronteras.
+    budget_bytes = Fraction(str(budget_gb)) * 1_000_000_000
+    bytes_per_token = _logical_bytes_per_token(
+        num_layers=num_layers,
+        d_cache=d_cache,
+        batch_size=batch_size,
+        precision=precision,
+    )
+    return math.floor(budget_bytes / bytes_per_token)
 
 
 def swa_window_fits_budget(
@@ -125,6 +145,16 @@ def verify_round_trip(
         batch_size=batch_size,
         precision=precision,
     )
+    budget_bytes = Fraction(str(budget_gb)) * 1_000_000_000
+    bytes_per_token = _logical_bytes_per_token(
+        num_layers=num_layers,
+        d_cache=d_cache,
+        batch_size=batch_size,
+        precision=precision,
+    )
+    memory_at_max_bytes = max_context * bytes_per_token
+    memory_at_next_bytes = (max_context + 1) * bytes_per_token
+
     memory_at_max_gb = _logical_memory_gb(
         num_layers=num_layers,
         context_length=max_context,
@@ -144,6 +174,6 @@ def verify_round_trip(
         max_context=max_context,
         memory_at_max_gb=memory_at_max_gb,
         memory_at_next_gb=memory_at_next_gb,
-        fits_budget=memory_at_max_gb <= budget_gb,
-        next_exceeds_budget=memory_at_next_gb > budget_gb,
+        fits_budget=memory_at_max_bytes <= budget_bytes,
+        next_exceeds_budget=memory_at_next_bytes > budget_bytes,
     )
