@@ -1,8 +1,9 @@
-"""Composición de reducciones de memoria entre mecanismos independientes.
+"""Composición lógica de reducciones entre mecanismos compatibles.
 
-La Ecuación (7) del artículo combina mecanismos que actúan sobre factores
-distintos del KV cache. Para GQA + SWA, la reducción respecto de MHA es el
-producto de la reducción por cabezas KV y la reducción por contexto efectivo.
+La Ecuación (7) combina mecanismos que actúan sobre factores compatibles
+del modelo lógico de KV cache bajo los supuestos declarados. Para GQA + SWA,
+la reducción respecto de MHA es el producto de la reducción por KV heads y la
+reducción por contexto efectivo.
 """
 
 from __future__ import annotations
@@ -33,7 +34,7 @@ def compose_gqa_swa_ratio(
     """Calcula la razón GQA+SWA de la Ecuación (7) respecto de MHA.
 
     La función modela el dominio científico del artículo: el número de
-    cabezas KV debe estar entre 1 y ``query_heads``.
+    KV heads debe estar entre 1 y ``query_heads``.
     """
     if query_heads <= 0:
         raise ValueError("query_heads debe ser positivo")

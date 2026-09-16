@@ -123,36 +123,74 @@ Como comprobación empírica acotada de la contabilidad elemental, se materializ
 
 \section{Desarrollo}
 \subsection{Implementación en Attention AI Lab}
-El marco se implementó en Attention AI Lab v1.2.0, una aplicación full-stack con backend FastAPI/Pydantic y frontend React/TypeScript \cite{lara2026attentionlab}. El servicio determinista central se expone mediante \texttt{/api/llm/estimate}. El contrato acepta entre 1 y 256 capas, dimensión de 64 a $32\,768$, entre 1 y 256 query heads y KV heads, rango latente de 1 a $8\,192$, contexto de 128 a $1\,048\,576$ tokens, lote de 1 a 128 y precisiones FP32, FP16, BF16, INT8 e INT4.
+El marco parte de Attention AI Lab v1.2.0, que se conserva como release base del estimador y del contrato público \cite{lara2026attentionlab}. La revisión científica del presente artículo incorpora artefactos reproducibles posteriores para inverse sizing, composición, generación determinista de las 71 configuraciones, pruebas de propiedades y comprobación de storage en CPU. La referencia inmutable de esta revisión se fijará en el commit o tag final del artefacto antes de la entrega. El servicio determinista central se expone mediante \texttt{/api/llm/estimate}. El contrato acepta entre 1 y 256 capas, dimensión de 64 a $32\,768$, entre 1 y 256 query heads y KV heads, rango latente de 1 a $8\,192$, contexto de 128 a $1\,048\,576$ tokens, lote de 1 a 128 y precisiones FP32, FP16, BF16, INT8 e INT4.
 
-El servicio principal calcula MHA, GQA y cache latente. SWA se obtiene en la capa de validación reproducible aplicando $\min(T,W)$ sobre el resultado MHA. Esta separación se mantiene explícita para no atribuir al contrato público una salida que todavía se deriva en el script de reporte. El estudio tampoco usa los proxies didácticos de perplejidad y tokens por segundo incluidos en la interfaz, porque no son mediciones calibradas.
+El servicio principal calcula MHA, GQA y el proxy de cache latente. Por compatibilidad con el contrato público heredado, el API conserva identificadores como \texttt{mla\_rank} y \texttt{kv\_cache\_mla\_gb}. En este artículo esos nombres representan exclusivamente el proxy latente idealizado de la Ecuación~\eqref{eq:latent} y no una implementación de MLA de DeepSeek-V2. SWA se obtiene en la capa de validación reproducible aplicando $\min(T,W)$ sobre el resultado MHA. Esta separación se mantiene explícita para no atribuir al contrato público una salida que todavía se deriva en el script de reporte. El estudio tampoco usa los proxies didácticos de perplejidad y tokens por segundo incluidos en la interfaz, porque no son mediciones calibradas.
 
-La aplicación puede ejecutarse sin GPU, sin API keys y sin servicios externos obligatorios. Un Docker multi-stage compila el frontend y sirve API, interfaz y documentación OpenAPI en el puerto 7860. Una demostración interactiva está disponible en \url{https://kapumota-attentio-ai-lab.hf.space/}. El Space constituye un entorno demostrativo en evolución y puede recibir actualizaciones posteriores; por ello, permite inspeccionar la interfaz y el contrato, pero no sustituye la referencia inmutable usada para reproducir el estudio. El paquete del artículo conserva CSV, figuras y script independientes.
+La aplicación puede ejecutarse sin GPU, sin API keys y sin servicios externos obligatorios. Un Docker multi-stage compila el frontend y sirve API, interfaz y documentación OpenAPI en el puerto 7860. Una demostración interactiva está disponible en \url{https://kapumota-attentio-ai-lab.hf.space/}. El Space constituye un entorno demostrativo en evolución y puede recibir actualizaciones posteriores; por ello, permite inspeccionar la interfaz y el contrato, pero no sustituye la referencia inmutable del artefacto científico que se fijará al cerrar la revisión. El paquete del artículo conserva CSV, figuras y script independientes.
 
 \subsection{Trazabilidad del artefacto}
-La Tabla~\ref{tab:traceability} vincula cada afirmación computacional con un artefacto verificable del repositorio.
+La Tabla~\ref{tab:traceability} vincula los claims computacionales principales con su implementación canónica, la evidencia reproducible y las pruebas correspondientes. El tag \texttt{v1.2.0} se conserva como release base, mientras que la referencia inmutable del artefacto científico revisado se fijará al cerrar la revisión final.
 
 \begin{table*}[!ht]
-\centering\footnotesize
-\caption{Trazabilidad entre formulación, implementación y evidencia. Fuente: elaboración propia a partir de Attention AI Lab v1.2.0.}\label{tab:traceability}
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.44\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\centering\scriptsize
+\caption{Trazabilidad entre claims, implementación canónica y evidencia reproducible. Fuente: elaboración propia.}\label{tab:traceability}
+\begin{tabular}{
+>{\raggedright\arraybackslash}p{0.18\textwidth}
+>{\raggedright\arraybackslash}p{0.28\textwidth}
+>{\raggedright\arraybackslash}p{0.27\textwidth}
+>{\raggedright\arraybackslash}p{0.18\textwidth}}
 \toprule
-Artefacto & Función en el estudio & Evidencia \\
+Claim & Implementación canónica & Evidencia reproducible & Verificación \\
 \midrule
-\texttt{llm\_metrics.py} & Implementa bytes por precisión y las ecuaciones lógicas para MHA, GQA y cache latente. & Salidas numéricas deterministas. \\
-\texttt{contracts.py} & Restringe dominios de capas, dimensión, heads, rango, contexto, lote y precisión. & Validación Pydantic del contrato. \\
-\path{examples/kv-cache-validation-scenarios.json} & Versiona cuatro escenarios de referencia entre $32\,768$ y $1\,048\,576$ tokens. & Configuración auditable. \\
-\path{scripts/generate-kv-cache-validation-report.py} & Ejecuta el servicio, deriva SWA y genera un reporte Markdown. & Tabla reproducible. \\
-\path{apps/api/tests/test_kv_cache_validation.py} & Verifica linealidad, razones GQA/SWA/latente y finitud del escenario de $1\,048\,576$ tokens. & Cinco pruebas de regresión. \\
-\path{profile_pytorch_memory.py} & Materializa dos tensores FP16, mide storage y RSS en subprocesos nuevos. & \path{data/pytorch_memory_profile.csv}. \\
-\texttt{QUALITY\_GATE.md} & Centraliza Pytest, chequeo TypeScript, limpieza y validación del Space. & Comando \texttt{make validate}. \\
-\url{https://kapumota-attentio-ai-lab.hf.space/} & Proporciona una demostración interactiva del estimador y de los módulos educativos. & Despliegue demostrativo mutable. \\
+MHA, GQA y proxy latente &
+\path{apps/api/app/services/llm_metrics.py} &
+salidas deterministas del estimador &
+\path{apps/api/tests/test_kv_cache_validation.py} \\
+
+SWA fija &
+\path{apps/api/app/services/sliding_window.py} &
+$T_{\mathrm{eff}}=\min(T,W)$ &
+\path{apps/api/tests/test_swa_and_latent_properties.py} \\
+
+Composición GQA+SWA &
+\path{apps/api/app/services/composition.py} &
+razón algebraica combinada &
+\path{apps/api/tests/test_composition_invariant.py} \\
+
+Inverse sizing &
+\path{apps/api/app/services/budget_inversion.py} &
+contexto máximo bajo presupuesto lógico &
+\path{apps/api/tests/test_budget_inversion.py} \\
+
+71 configuraciones &
+\path{scripts/generate-paper-kv-results.py} &
+tres CSV y \path{data/paper-kv-results/manifest.json} &
+\path{apps/api/tests/test_paper_71_configurations.py} \\
+
+Cinco invariantes científicos &
+servicios canónicos anteriores &
+valores esperados y observados de la Tabla~\ref{tab:invariants} &
+\path{apps/api/tests/test_property_invariants.py} y
+\path{apps/api/tests/test_swa_and_latent_properties.py} \\
+
+Contrato del proxy latente &
+\path{apps/api/app/schemas/contracts.py} &
+restricción $r<d$ &
+\path{apps/api/tests/test_mla_rank_contract_validation.py} \\
+
+Storage de tensores en CPU &
+\path{profile_pytorch_memory.py} &
+\path{data/pytorch_memory_profile.csv} &
+\path{apps/api/tests/test_pytorch_memory_profile_artifact.py} \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
+Para el barrido de 71 configuraciones, la cadena canónica parte de los servicios del backend y de \path{scripts/generate-paper-kv-results.py}, que produce los tres CSV deterministas y su manifest. Los artefactos y scripts mantenidos dentro de \path{paper/} se conservan para la preparación editorial de tablas y figuras, pero no se consideran la implementación canónica de las ecuaciones ni la fuente primaria de los 71 resultados reproducibles.
+
 \subsection{Protocolo reproducible}
-El protocolo consta de cinco pasos: (1) fijar supuestos y escenarios; (2) ejecutar el estimador determinista; (3) exportar CSV y figuras; (4) comprobar invariantes; y (5) ejecutar el perfil físico mínimo de PyTorch. El quality gate exige pruebas backend, compilación y chequeo TypeScript, revisión documental y validación opcional del despliegue público. Esto no valida fidelidad física, pero reduce errores de transcripción, cambios silenciosos de fórmula y discrepancias entre documentación y código.
+El protocolo consta de cinco pasos: (1) fijar supuestos y escenarios; (2) ejecutar el estimador determinista; (3) exportar CSV y figuras; (4) comprobar invariantes; y (5) ejecutar la comprobación empírica de storage de tensores en CPU. El quality gate exige pruebas backend, compilación y chequeo TypeScript, revisión documental y validación opcional del despliegue público. Esto no valida fidelidad física, pero reduce errores de transcripción, cambios silenciosos de fórmula y discrepancias entre documentación y código.
 
 \section{Resultados y discusión}
 \subsection{Escalamiento con la longitud de contexto}
@@ -192,7 +230,7 @@ La Figura~\ref{fig:ratios} confirma que GQA depende de $h_{kv}/h_q$. Con 16, 8, 
 
 SWA-$4\,096$ también produce $R=0.03125$ a $131\,072$, igual que GQA con un KV head. La igualdad de memoria no implica equivalencia funcional: GQA conserva todo el contexto mediante compartición entre query heads, mientras SWA limita el historial activo. La cache latente produce razones 0.03125, 0.0625, 0.125 y 0.25 para rangos 128, 256, 512 y 1024.
 
-La composición de la Ecuación~\eqref{eq:compose} ofrece un escenario de planeamiento adicional. A $1\,048\,576$ tokens, GQA-8 con SWA-$8\,192$ reduce la cache lógica FP16 de 549.756 GB a 1.074 GB. Si además se representa cada valor con 1 byte, el valor ideal es 0.537 GB. Estas cifras no describen una implementación ni su calidad; muestran cómo los factores independientes pueden detectar órdenes de magnitud antes del despliegue.
+La composición de la Ecuación~\eqref{eq:compose} ofrece un escenario de planeamiento adicional. A $1\,048\,576$ tokens, GQA-8 con SWA-$8\,192$ reduce la cache lógica FP16 de 549.756 GB a 1.074 GB. Si además se representa cada valor con 1 byte, el valor ideal es 0.537 GB. Estas cifras no describen una implementación ni su calidad; muestran cómo factores compatibles dentro del modelo lógico, bajo los supuestos declarados, pueden detectar órdenes de magnitud antes del despliegue.
 
 \subsection{Efecto de la precisión}
 La Figura~\ref{fig:precision} muestra escalamiento lineal con bytes por valor. Para MHA a $131\,072$ tokens, FP32 requiere 137.439 GB; FP16 y BF16, 68.719 GB; INT8, 34.360 GB; e INT4, 17.180 GB.
@@ -241,8 +279,8 @@ INT8 / FP16 & 0.500 & 0.500 \\
 \end{tabular}
 \end{table}
 
-\subsection{Validación física mínima en PyTorch}
-La Tabla~\ref{tab:pytorch-profile} muestra que los bytes del storage de PyTorch coinciden exactamente con la predicción analítica en ambas configuraciones. Para MHA, la Ecuación~\eqref{eq:base} predijo 134.218 MB y la mediana del incremento de RSS fue 134.222 MB; para GQA-4/16, los valores fueron 33.554 y 33.559 MB. En ambos casos la diferencia física fue de $4\,096$ bytes, equivalente a una página de memoria, y el error relativo respecto al modelo fue menor que 0.013\%. La razón observada GQA/MHA fue 0.25. Este resultado respalda la contabilidad elemental de almacenamiento y la tendencia de reducción, pero no valida overheads de un runtime de inferencia ni comportamiento en GPU.
+\subsection{Comprobación empírica de storage de tensores en CPU}
+La Tabla~\ref{tab:pytorch-profile} muestra que los bytes de \texttt{untyped\_storage().nbytes()} coinciden exactamente con la predicción analítica en ambas configuraciones. Para MHA, la Ecuación~\eqref{eq:base} predijo 134.218 MB y la mediana histórica del incremento de RSS fue 134.222 MB; para GQA-4/16, los valores fueron 33.554 y 33.559 MB. Estas mediciones de RSS corresponden al entorno histórico del experimento y dependen del proceso, allocator y sistema operativo, por lo que sus diferencias respecto al payload lógico no se interpretan como overhead físico reproducible ni se extrapolan a GPU. La razón observada GQA/MHA fue 0.25. La evidencia principal de esta comprobación es la igualdad entre la contabilidad analítica y los bytes del storage materializado.
 
 \begin{table}[!ht]
 \centering\scriptsize
@@ -278,7 +316,7 @@ En $1\,048\,576$ tokens, 32 capas, dimensión $4\,096$ y FP16, MHA requiere 549.
 Attention AI Lab aporta trazabilidad desde ecuaciones hasta API, contratos, escenarios, reportes y pruebas, y permite reproducir los cálculos sin GPU. El perfil mínimo de PyTorch mostró concordancia entre bytes analíticos, storage y RSS para MHA y GQA en CPU. El marco es adecuado para descarte preliminar y educación en arquitectura de inferencia. Antes de una decisión productiva debe calibrarse con memoria física, latencia y calidad del modelo.
 
 \section*{Disponibilidad de código y datos}
-El código de Attention AI Lab queda inmovilizado en el tag \texttt{v1.2.0}, asociado al commit \path{5e24e362302a14f8d8d3d77e56e9f964c2037ae1}. La release fue publicada el 8 de junio de 2026 y está disponible en \url{https://github.com/kapumota/attentionlab-ai/releases/tag/v1.2.0}. Una demostración interactiva se encuentra disponible en \url{https://kapumota-attentio-ai-lab.hf.space/}. Este Space es un entorno demostrativo en evolución y puede incorporar cambios posteriores; en consecuencia, los resultados y las afirmaciones de reproducibilidad del artículo se vinculan exclusivamente con el tag y el commit indicados, no con el estado mutable del despliegue público. Los cálculos principales corresponden a \path{apps/api/app/services/llm_metrics.py}; los escenarios, pruebas y reporte están en \path{examples/kv-cache-validation-scenarios.json}, \path{apps/api/tests/test_kv_cache_validation.py} y \path{scripts/generate-kv-cache-validation-report.py}. La validación física mínima se reproduce con \path{profile_pytorch_memory.py} y genera \path{data/pytorch_memory_profile.csv}. El paquete reproducible del artículo incluye fuente LaTeX, bibliografía, scripts, CSV y figuras.
+El tag \texttt{v1.2.0}, asociado al commit \path{5e24e362302a14f8d8d3d77e56e9f964c2037ae1}, se conserva sin modificaciones como release base de Attention AI Lab y está disponible en \url{https://github.com/kapumota/attentionlab-ai/releases/tag/v1.2.0}. La revisión científica del presente artículo incorpora artefactos reproducibles posteriores que amplían ese baseline con inverse sizing, composición, generación determinista de las 71 configuraciones, pruebas automatizadas y comprobación de storage en CPU. Estos artefactos se fijarán mediante un commit o tag inmutable al cerrar la revisión final. Una demostración interactiva se encuentra disponible en \url{https://kapumota-attentio-ai-lab.hf.space/}. Este Space es un entorno demostrativo mutable y no se utiliza como ancla de reproducibilidad ni como evidencia de rendimiento.
 
 \section*{Financiamiento}
 Este trabajo no recibió financiamiento externo específico.

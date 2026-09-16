@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Validación física mínima de almacenamiento KV con PyTorch en CPU.
+"""Comprobación empírica de storage de KV cache con PyTorch en CPU.
 
 Cada medición se ejecuta en un proceso nuevo. El tensor se materializa y se toca
-para forzar el respaldo de páginas. Se comparan bytes lógicos, bytes del storage
-de PyTorch y el incremento de RSS del proceso.
+para comprometer sus páginas. Se comparan bytes lógicos, bytes del storage de
+PyTorch y el incremento de RSS del proceso. Esta comprobación no representa
+memoria física de un runtime de inferencia ni profiling de GPU.
 """
 from __future__ import annotations
 

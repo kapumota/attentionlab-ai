@@ -28,7 +28,7 @@ def estimate_llm_costs(req: LLMEstimateRequest) -> LLMEstimateResponse:
     notes = [
         "Estimación didáctica, no benchmark real de GPU.",
         "GQA reduce KV cache compartiendo claves/valores entre query heads.",
-        "MLA representa el KV cache mediante un rango latente comprimido.",
+        "Los campos mla_* representan un proxy latente idealizado de rango r y no una implementación exacta de MLA.",
     ]
     if req.rope:
         notes.append("RoPE activado como codificación posicional conceptual.")
