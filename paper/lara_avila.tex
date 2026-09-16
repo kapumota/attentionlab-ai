@@ -6,6 +6,8 @@
 \usepackage[margin={1.5cm,2cm},columnsep=1cm]{geometry}
 \usepackage{mathptmx,authblk,orcidlink,abstract,graphicx,caption,booktabs,amsmath,multirow,array}
 \usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
 \usepackage{xurl}
 \hypersetup{hidelinks,pdftitle={Marco analítico reproducible y auditable para dimensionar el almacenamiento lógico de KV cache},pdfauthor={César Lara Ávila},pdfsubject={Artículo metodológico de inteligencia artificial},pdfkeywords={KV cache, GQA, SWA, almacenamiento lógico, contexto largo, dimensionamiento reproducible}}
 \captionsetup{font=small,margin=0.05\linewidth}
@@ -43,7 +45,7 @@ Los modelos Transformer establecieron la atención multi-head como componente ce
 Las optimizaciones recientes actúan sobre distintos niveles del problema, desde cambios arquitectónicos y cuantización hasta desalojo, paginación, transferencia entre niveles de memoria y planificación. El presente trabajo se concentra en una etapa previa a esas optimizaciones de ejecución: el dimensionamiento reproducible del almacenamiento lógico de KV cache. El objetivo no es predecir memoria GPU ni rendimiento de extremo a extremo, sino disponer de una representación compacta que permita comparar configuraciones bajo supuestos explícitos y vincular los cálculos con artefactos reproducibles.
 
 \subsection{Trabajo relacionado y posicionamiento}
-Las técnicas recientes de reducción de KV cache actúan sobre diferentes ejes. Multi-query attention comparte claves y valores entre query heads, y GQA introduce un número intermedio de KV heads \cite{shazeer2019fast,ainslie2023gqa}. Cross-Layer Attention extiende el compartición entre capas \cite{brandon2024crosslayer}. Otra línea reduce la dimensión almacenada mediante representaciones de bajo rango o latentes, como MLA en DeepSeek-V2 y métodos de compresión de bajo rango como Palu \cite{deepseek2024v2,chang2025palu}. Estas arquitecturas motivan abstraer por separado la dimensión cacheada y el contexto efectivo, aunque sus implementaciones contienen estructura adicional que no puede reducirse a una sola razón escalar.
+Las técnicas recientes de reducción de KV cache actúan sobre diferentes ejes. Multi-query attention comparte claves y valores entre query heads, y GQA introduce un número intermedio de KV heads \cite{shazeer2019fast,ainslie2023gqa}. Cross-Layer Attention extiende la compartición entre capas \cite{brandon2024crosslayer}. Otra línea reduce la dimensión almacenada mediante representaciones de bajo rango o latentes, como MLA en DeepSeek-V2 y métodos de compresión de bajo rango como Palu \cite{deepseek2024v2,chang2025palu}. Estas arquitecturas motivan abstraer por separado la dimensión cacheada y el contexto efectivo, aunque sus implementaciones contienen estructura adicional que no puede reducirse a una sola razón escalar.
 
 La compresión también puede actuar sobre el eje temporal o la precisión. H2O retiene tokens de alta importancia (heavy hitters) y tokens recientes, StreamingLLM mantiene attention sinks junto con una ventana reciente y DuoAttention mantiene la cache completa solo en retrieval heads \cite{zhang2023h2o,xiao2024streamingllm,xiao2025duoattention}. En cuantización, KIVI muestra que claves y valores presentan propiedades diferentes, mientras SKVQ combina almacenamiento con pocos bits con una ventana de mayor precisión \cite{liu2024kivi,duanmu2024skvq}. Por ello, reducir $T_{\mathrm{eff}}$ o los bytes por valor es útil para contabilidad lógica, pero no describe por sí solo pérdida de calidad, metadatos ni sobrecarga de kernels.
 
@@ -191,6 +193,28 @@ Para el barrido de 71 configuraciones, la cadena canónica parte de los servicio
 
 \subsection{Protocolo reproducible}
 El protocolo consta de cinco pasos: (1) fijar supuestos y escenarios; (2) ejecutar el estimador determinista; (3) exportar CSV y figuras; (4) comprobar invariantes; y (5) ejecutar la comprobación empírica del almacenamiento de tensores en CPU. El control de calidad exige pruebas del backend, compilación y verificación de TypeScript, revisión documental y validación opcional del despliegue público. Esto no valida fidelidad física, pero reduce errores de transcripción, cambios silenciosos de fórmula y discrepancias entre documentación y código.
+
+
+La Figura~\ref{fig:flujo-ia} explicita la separación entre el flujo científico
+determinista y las funciones auxiliares de las herramientas de IA. El autor
+desarrolló la formulación, el código del proyecto, los escenarios, las pruebas
+automatizadas y la interpretación científica. Las herramientas de IA se utilizaron como apoyo para la búsqueda y la organización bibliográfica,
+así como para la revisión lingüística, terminológica y de coherencia del
+manuscrito. Las sugerencias de estas herramientas fueron revisadas antes de su
+incorporación. Los valores numéricos reportados se generan exclusivamente
+mediante los scripts deterministas y versionados del repositorio.
+
+\begin{figure*}[!t]
+\centering
+\input{figures/flujo_trabajo_ia.tex}
+\caption{Flujo de trabajo científico y delimitación de la asistencia con IA.
+Las cajas continuas representan etapas desarrolladas y controladas por el
+autor. Las cajas discontinuas representan funciones auxiliares de asistencia.
+La generación numérica, las pruebas automatizadas y la interpretación
+científica pertenecen al flujo controlado por el autor. Fuente: elaboración
+propia.}
+\label{fig:flujo-ia}
+\end{figure*}
 
 \section{Resultados y discusión}
 \subsection{Escalamiento con la longitud de contexto}
