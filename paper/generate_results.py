@@ -19,6 +19,13 @@ HQ = 32
 B = 1
 BYTES = {"fp32": 4.0, "fp16": 2.0, "bf16": 2.0, "int8": 1.0, "int4": 0.5}
 
+DISPLAY_NAMES = {
+    "MHA": "MHA",
+    "GQA-8 heads KV": "GQA 8/32 KV heads",
+    "SWA-4 096": "SWA 4 096",
+    "Latente r=512": "Latente r=512",
+}
+
 
 def mha(context: int, precision: str = "fp16") -> float:
     return L * context * 2 * D * BYTES[precision] * B / 1e9
@@ -59,12 +66,12 @@ with (DATA / "context_sweep.csv").open("w", newline="", encoding="utf-8") as fil
 plt.figure(figsize=(7.4, 4.2))
 for method in ["MHA", "GQA-8 heads KV", "SWA-4 096", "Latente r=512"]:
     y_values = [row["value_gb"] for row in rows if row["method"] == method]
-    plt.plot([context / 1024 for context in contexts], y_values, marker="o", label=method)
+    plt.plot([context / 1024 for context in contexts], y_values, marker="o", label=DISPLAY_NAMES[method])
 plt.xscale("log", base=2)
 plt.yscale("log", base=2)
 plt.xticks([context / 1024 for context in contexts], ["4 096", "8 192", "16 384", "32 768", "65 536", "131 072", "262 144", "524 288", "1 048 576"], rotation=30, ha="right")
 plt.xlabel("Longitud de contexto (tokens)")
-plt.ylabel("KV cache estimada (GB, escala log2)")
+plt.ylabel("Almacenamiento lógico de KV cache (GB, escala log2)")
 plt.grid(True, which="both", linewidth=0.4, alpha=0.5)
 plt.legend(ncol=2, fontsize=9)
 plt.tight_layout()
@@ -99,7 +106,7 @@ positions = range(len(labels))
 plt.barh(positions, values)
 plt.axvline(1.0, linewidth=0.8)
 plt.yticks(list(positions), labels, fontsize=9)
-plt.xlabel("Razón de memoria respecto a MHA")
+plt.xlabel("Razón de almacenamiento lógico respecto a MHA")
 plt.xlim(0, 1.05)
 plt.gca().invert_yaxis()
 plt.grid(True, axis="x", linewidth=0.4, alpha=0.5)
@@ -129,9 +136,9 @@ width = 0.19
 methods = ["MHA", "GQA-8 heads KV", "SWA-4 096", "Latente r=512"]
 for index, method in enumerate(methods):
     y_values = [row["memory_gb"] for precision in precisions for row in precision_rows if row["precision"] == precision and row["method"] == method]
-    plt.bar([position + (index - 1.5) * width for position in x_values], y_values, width=width, label=method)
+    plt.bar([position + (index - 1.5) * width for position in x_values], y_values, width=width, label=DISPLAY_NAMES[method])
 plt.xticks(list(x_values), [precision.upper() for precision in precisions])
-plt.ylabel("KV cache estimada a 131 072 tokens (GB, escala log2)")
+plt.ylabel("Almacenamiento lógico de KV cache a 131 072 tokens (GB, escala log2)")
 plt.yscale("log", base=2)
 plt.grid(True, axis="y", linewidth=0.4, alpha=0.5)
 plt.legend(ncol=2, fontsize=9)

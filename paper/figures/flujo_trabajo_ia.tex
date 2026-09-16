@@ -1,11 +1,11 @@
 \begin{tikzpicture}[
-  node distance=6mm and 6mm,
+  node distance=6mm and 4mm,
   scientific/.style={
     draw,
     rounded corners=2pt,
     align=center,
     minimum height=10mm,
-    text width=0.205\textwidth,
+    text width=0.195\textwidth,
     inner sep=3pt,
     font=\small
   },
@@ -15,7 +15,7 @@
     rounded corners=2pt,
     align=center,
     minimum height=10mm,
-    text width=0.275\textwidth,
+    text width=0.250\textwidth,
     inner sep=3pt,
     font=\small
   },
@@ -64,12 +64,12 @@
 
 % Asistencia con IA
 \node[support, below=13mm of manuscript] (ai-literature)
-{Asistencia con IA\\descubrimiento y organización bibliográfica};
+{Asistencia con IA\\búsqueda y organización bibliográfica};
 
-\node[support, right=9mm of ai-literature] (ai-editorial)
+\node[support, right=6mm of ai-literature] (ai-editorial)
 {Asistencia con IA\\revisión lingüística, terminológica y de coherencia};
 
-\node[support, right=9mm of ai-editorial] (author-check)
+\node[support, right=6mm of ai-editorial] (author-check)
 {Verificación, selección\\y decisión final\\\textbf{Autor}};
 
 \draw[supportarrow] (ai-literature.north) -- (literature.south);
