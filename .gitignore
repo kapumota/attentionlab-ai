@@ -51,3 +51,15 @@ apps/web/dist/
 
 # Patches locales
 *.patch
+
+# Artefactos temporales de LaTeX del paper
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.toc
+paper/*.lof
+paper/*.lot
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz

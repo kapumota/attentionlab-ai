@@ -1,0 +1,90 @@
+\begin{tikzpicture}[
+  node distance=6mm and 4mm,
+  scientific/.style={
+    draw,
+    rounded corners=2pt,
+    align=center,
+    minimum height=10mm,
+    text width=0.195\textwidth,
+    inner sep=3pt,
+    font=\small
+  },
+  support/.style={
+    draw,
+    dashed,
+    rounded corners=2pt,
+    align=center,
+    minimum height=10mm,
+    text width=0.250\textwidth,
+    inner sep=3pt,
+    font=\small
+  },
+  mainarrow/.style={
+    -{Latex[length=2mm]},
+    thick
+  },
+  supportarrow/.style={
+    -{Latex[length=2mm]},
+    dashed
+  }
+]
+
+% Flujo científico principal
+\node[scientific] (literature)
+{Revisión de literatura\\y delimitación del alcance\\\textbf{Autor}};
+
+\node[scientific, right=of literature] (formulation)
+{Formulación analítica,\\supuestos y escenarios\\\textbf{Autor}};
+
+\node[scientific, right=of formulation] (implementation)
+{Implementación canónica\\y pruebas automatizadas\\\textbf{Código del autor}};
+
+\node[scientific, right=of implementation] (generation)
+{Generación determinista\\de 71 configuraciones};
+
+\node[scientific, below=9mm of generation] (invariants)
+{Invariantes científicos\\y trazabilidad};
+
+\node[scientific, left=of invariants] (results)
+{Datos, tablas\\y figuras};
+
+\node[scientific, left=of results] (interpretation)
+{Interpretación\\científica\\\textbf{Autor}};
+
+\node[scientific, left=of interpretation] (manuscript)
+{Manuscrito y respuesta\\a revisores\\\textbf{Autor}};
+
+\draw[mainarrow] (literature) -- (formulation);
+\draw[mainarrow] (formulation) -- (implementation);
+\draw[mainarrow] (implementation) -- (generation);
+\draw[mainarrow] (generation) -- (invariants);
+\draw[mainarrow] (invariants) -- (results);
+\draw[mainarrow] (results) -- (interpretation);
+\draw[mainarrow] (interpretation) -- (manuscript);
+
+% Asistencia con IA
+\node[support, below=13mm of manuscript] (ai-literature)
+{Asistencia con IA\\búsqueda y organización bibliográfica};
+
+\node[support, right=6mm of ai-literature] (ai-editorial)
+{Asistencia con IA\\revisión lingüística, terminológica y de coherencia};
+
+\node[support, right=6mm of ai-editorial] (author-check)
+{Verificación, selección\\y decisión final\\\textbf{Autor}};
+
+\draw[supportarrow] (ai-literature.north) -- (literature.south);
+\draw[supportarrow] (ai-editorial.north) -- (manuscript.south);
+\draw[supportarrow] (ai-literature) -- (author-check);
+\draw[supportarrow] (ai-editorial) -- (author-check);
+
+\node[
+  align=center,
+  font=\footnotesize,
+  text width=0.90\textwidth,
+  below=7mm of ai-editorial
+] (note)
+{La IA se utilizó únicamente como apoyo bibliográfico y editorial.
+El código, la generación numérica, las pruebas y la interpretación
+científica corresponden al autor.};
+
+\end{tikzpicture}

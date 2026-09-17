@@ -1,0 +1,37 @@
+experiment,context,method,value_gb
+context,4096,MHA,2.147484
+context,4096,GQA-8 heads KV,0.536871
+context,4096,SWA-4 096,2.147484
+context,4096,Latente r=512,0.268435
+context,8192,MHA,4.294967
+context,8192,GQA-8 heads KV,1.073742
+context,8192,SWA-4 096,2.147484
+context,8192,Latente r=512,0.536871
+context,16384,MHA,8.589935
+context,16384,GQA-8 heads KV,2.147484
+context,16384,SWA-4 096,2.147484
+context,16384,Latente r=512,1.073742
+context,32768,MHA,17.179869
+context,32768,GQA-8 heads KV,4.294967
+context,32768,SWA-4 096,2.147484
+context,32768,Latente r=512,2.147484
+context,65536,MHA,34.359738
+context,65536,GQA-8 heads KV,8.589935
+context,65536,SWA-4 096,2.147484
+context,65536,Latente r=512,4.294967
+context,131072,MHA,68.719477
+context,131072,GQA-8 heads KV,17.179869
+context,131072,SWA-4 096,2.147484
+context,131072,Latente r=512,8.589935
+context,262144,MHA,137.438953
+context,262144,GQA-8 heads KV,34.359738
+context,262144,SWA-4 096,2.147484
+context,262144,Latente r=512,17.179869
+context,524288,MHA,274.877907
+context,524288,GQA-8 heads KV,68.719477
+context,524288,SWA-4 096,2.147484
+context,524288,Latente r=512,34.359738
+context,1048576,MHA,549.755814
+context,1048576,GQA-8 heads KV,137.438953
+context,1048576,SWA-4 096,2.147484
+context,1048576,Latente r=512,68.719477
