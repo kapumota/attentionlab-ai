@@ -21,7 +21,7 @@ BYTES = {"fp32": 4.0, "fp16": 2.0, "bf16": 2.0, "int8": 1.0, "int4": 0.5}
 
 DISPLAY_NAMES = {
     "MHA": "MHA",
-    "GQA-8 heads KV": "GQA 8/32 KV heads",
+    "GQA-8 heads KV": r"GQA: $h_{kv}=8,\ h_q=32$",
     "SWA-4 096": "SWA 4 096",
     "Latente r=512": "Latente r=512",
 }
@@ -100,7 +100,7 @@ with (DATA / "sensitivity_128k.csv").open("w", newline="", encoding="utf-8") as 
         writer.writerow({"family": "Latent", "parameter": "rank", "value": rank, "memory_gb": round(value, 6), "ratio_to_mha": round(value / baseline, 6)})
 
 plt.figure(figsize=(7.4, 4.2))
-labels = [f"GQA {heads}/32" for heads in [16, 8, 4, 1]] + [f"SWA {window:,}".replace(",", " ") for window in windows] + [f"Lat. r={rank}" for rank in ranks]
+labels = [rf"GQA: $h_{{kv}}={heads},\ h_q=32$" for heads in [16, 8, 4, 1]] + [f"SWA {window:,}".replace(",", " ") for window in windows] + [f"Lat. r={rank}" for rank in ranks]
 values = [gqa(T, heads) / mha(T) for heads in [16, 8, 4, 1]] + [swa(T, window) / mha(T) for window in windows] + [latent(T, rank) / mha(T) for rank in ranks]
 positions = range(len(labels))
 plt.barh(positions, values)

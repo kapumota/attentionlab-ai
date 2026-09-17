@@ -25,14 +25,14 @@ A Reproducible and Auditable Analytical Framework for Sizing Logical KV-Cache St
 \begin{document}
 \twocolumn[\maketitle
 \begin{onecolabstract}
-La memoria de claves y valores (KV cache) es una restricción central en la inferencia autoregresiva de modelos de lenguaje con contexto largo. Este trabajo presenta un marco analítico reproducible y auditable para dimensionar el almacenamiento lógico de KV cache en atención multi-head (MHA), grouped-query attention (GQA), sliding-window attention (SWA) y una aproximación de cache latente inspirada en MLA. El marco integra una formulación común, factores adimensionales que pueden componerse bajo supuestos explícitos y una formulación inversa que calcula la longitud de contexto admisible bajo un presupuesto reservado al almacenamiento lógico de KV cache. Se evaluaron 71 configuraciones entre $4\,096$ y $1\,048\,576$ tokens y cinco invariantes automatizados. Para 32 capas, dimensión $4\,096$, FP16 y $1\,048\,576$ tokens, MHA requiere 549.756 GB; GQA con 8 de 32 KV heads, 137.439 GB; SWA con ventana $8\,192$, 4.295 GB; y la aproximación latente de rango 512, 68.719 GB. Con un presupuesto lógico de 24 GB, el contexto completo admisible pasa de $45\,776$ tokens en MHA a $183\,105$ en GQA-8 y $366\,210$ en la aproximación latente. Attention AI Lab vincula las ecuaciones con implementación, datos regenerables y pruebas automatizadas. Una comprobación empírica acotada en CPU mostró igualdad entre los bytes analíticos y el almacenamiento materializado por PyTorch en los escenarios evaluados. Los resultados cuantifican el almacenamiento lógico de KV cache y no la memoria pico de GPU ni las sobrecargas de un entorno de ejecución de inferencia.\\
+La memoria de claves y valores (KV cache) es una restricción central en la inferencia autorregresiva de modelos de lenguaje con contexto largo. Este trabajo presenta un marco analítico reproducible y auditable para dimensionar el almacenamiento lógico de KV cache en atención multi-head (MHA), grouped-query attention (GQA), sliding-window attention (SWA) y una aproximación de cache latente inspirada en MLA. El marco integra una formulación común, factores adimensionales que pueden componerse bajo supuestos explícitos y una formulación inversa que calcula la longitud de contexto admisible bajo un presupuesto reservado al almacenamiento lógico de KV cache. Se evaluaron 71 configuraciones entre $4\,096$ y $1\,048\,576$ tokens y cinco invariantes automatizados. Para 32 capas, dimensión $4\,096$, FP16 y $1\,048\,576$ tokens, MHA requiere 549.756 GB; GQA con 8 KV heads y 32 query heads, 137.439 GB; SWA con ventana $8\,192$, 4.295 GB; y la aproximación latente de rango 512, 68.719 GB. Con un presupuesto lógico de 24 GB, el contexto completo admisible pasa de $45\,776$ tokens en MHA a $183\,105$ en GQA-8 y $366\,210$ en la aproximación latente. Attention AI Lab vincula las ecuaciones con implementación, datos regenerables y pruebas automatizadas. Una comprobación empírica acotada en CPU mostró igualdad entre los bytes analíticos y el almacenamiento materializado por PyTorch en los escenarios evaluados. Los resultados cuantifican el almacenamiento lógico de KV cache y no la memoria pico de GPU ni las sobrecargas de un entorno de ejecución de inferencia.\\
 
 \noindent\textbf{Palabras clave}: KV cache, contexto largo, atención multi-head, GQA, SWA, dimensionamiento reproducible.
 \vspace{3ex}
 \end{onecolabstract}
 \renewcommand{\abstractname}{Abstract}
 \begin{onecolabstract}
-Key-value caching is a central constraint in autoregressive inference with long-context language models. This paper presents a reproducible and auditable analytical framework for sizing logical KV-cache storage under multi-head attention (MHA), grouped-query attention (GQA), sliding-window attention (SWA), and a latent-cache approximation inspired by MLA. The framework integrates a common formulation, dimensionless factors that can be composed under explicit assumptions, and an inverse formulation that computes admissible context length under a logical budget reserved for the KV-cache payload. We evaluated 71 configurations from $4\,096$ to $1\,048\,576$ tokens and five automated invariants. For 32 layers, dimension $4\,096$, FP16 precision, and a $1\,048\,576$-token context, MHA requires 549.756 GB; GQA with 8 of 32 KV heads requires 137.439 GB; SWA with an $8\,192$-token window requires 4.295 GB; and the rank-512 latent approximation requires 68.719 GB. Under a logical 24 GB budget, admissible full context grows from $45\,776$ tokens with MHA to $183\,105$ with GQA-8 and $366\,210$ with the latent approximation. Attention AI Lab links the equations to implementation, regenerable data, and automated tests. A bounded CPU check showed exact agreement between analytical bytes and materialized PyTorch storage for the evaluated scenarios. The reported values quantify logical KV-cache payload rather than peak GPU memory or inference-runtime overhead.\\
+Key-value caching is a central constraint in autoregressive inference with long-context language models. This paper presents a reproducible and auditable analytical framework for sizing logical KV-cache storage under multi-head attention (MHA), grouped-query attention (GQA), sliding-window attention (SWA), and a latent-cache approximation inspired by MLA. The framework integrates a common formulation, dimensionless factors that can be composed under explicit assumptions, and an inverse formulation that computes admissible context length under a logical budget reserved for the KV-cache payload. We evaluated 71 configurations from $4\,096$ to $1\,048\,576$ tokens and five automated invariants. For 32 layers, dimension $4\,096$, FP16 precision, and a $1\,048\,576$-token context, MHA requires 549.756 GB; GQA with 8 KV heads and 32 query heads requires 137.439 GB; SWA with an $8\,192$-token window requires 4.295 GB; and the rank-512 latent approximation requires 68.719 GB. Under a logical 24 GB budget, admissible full context grows from $45\,776$ tokens with MHA to $183\,105$ with GQA-8 and $366\,210$ with the latent approximation. Attention AI Lab links the equations to implementation, regenerable data, and automated tests. A bounded CPU check showed exact agreement between analytical bytes and materialized PyTorch storage for the evaluated scenarios. The reported values quantify logical KV-cache payload rather than peak GPU memory or inference-runtime overhead.\\
 
 \noindent\textbf{Keywords}: KV cache, long context, multi-head attention, grouped-query attention, sliding-window attention, reproducible sizing.
 \vspace{3ex}
@@ -40,7 +40,7 @@ Key-value caching is a central constraint in autoregressive inference with long-
 ]
 
 \section{Introducción}
-Los modelos Transformer establecieron la atención multi-head como componente central de los modelos de lenguaje modernos \cite{vaswani2017attention}. Durante la generación autoregresiva, las claves y valores asociados con los tokens ya procesados se almacenan para evitar recomputación. Esta KV cache reduce cálculo redundante, pero su almacenamiento lógico crece con la longitud de contexto, el número de capas, el lote, la dimensión almacenada y la precisión numérica \cite{shazeer2019fast,pope2022efficiently}. En contextos extensos, este estado puede convertirse en una restricción de capacidad antes de considerar latencia o throughput.
+Los modelos Transformer establecieron la atención multi-head como componente central de los modelos de lenguaje modernos \cite{vaswani2017attention}. Durante la generación autorregresiva, las claves y valores asociados con los tokens ya procesados se almacenan para evitar recomputación. Esta KV cache reduce cálculo redundante, pero su almacenamiento lógico crece con la longitud de contexto, el número de capas, el lote, la dimensión almacenada y la precisión numérica \cite{shazeer2019fast,pope2022efficiently}. En contextos extensos, este estado puede convertirse en una restricción de capacidad antes de considerar latencia o throughput.
 
 Las optimizaciones recientes actúan sobre distintos niveles del problema, desde cambios arquitectónicos y cuantización hasta desalojo, paginación, transferencia entre niveles de memoria y planificación. El presente trabajo se concentra en una etapa previa a esas optimizaciones de ejecución: el dimensionamiento reproducible del almacenamiento lógico de KV cache. El objetivo no es predecir memoria GPU ni rendimiento de extremo a extremo, sino disponer de una representación compacta que permita comparar configuraciones bajo supuestos explícitos y vincular los cálculos con artefactos reproducibles.
 
@@ -60,7 +60,7 @@ Las contribuciones del trabajo son cuatro. Primero, se define un modelo compacto
 
 \section{Materiales y métodos}
 \subsection{Modelo analítico base}
-Para un decodificador autoregresivo con $L$ capas, contexto efectivo $T_{\mathrm{eff}}$, lote $B$, dimensión cacheada por token $d_{\mathrm{cache}}$ y $s$ bytes por valor, la memoria decimal estimada es:
+Para un decodificador autorregresivo con $L$ capas, contexto efectivo $T_{\mathrm{eff}}$, lote $B$, dimensión cacheada por token $d_{\mathrm{cache}}$ y $s$ bytes por valor, el almacenamiento lógico estimado, expresado en GB decimales, es:
 \begin{equation}\label{eq:base}
 M_{\mathrm{KV}}=\frac{L\,T_{\mathrm{eff}}\,2\,d_{\mathrm{cache}}\,s\,B}{10^{9}}\quad [\mathrm{GB}].
 \end{equation}
@@ -78,14 +78,14 @@ Sea $h_q$ el número de query heads y $h_{kv}$ el número de KV heads. Bajo dime
 M_{\mathrm{GQA}}=M_{\mathrm{MHA}}\frac{h_{kv}}{h_q},\qquad
 R_{\mathrm{GQA}}=\frac{h_{kv}}{h_q}.
 \end{equation}
-La Ecuación~\eqref{eq:gqa} expresa la reducción proporcional producida al compartir claves y valores entre grupos de query heads.
+La Ecuación~\eqref{eq:gqa} expresa la reducción proporcional producida al compartir claves y valores entre grupos de query heads. Las comparaciones científicas de este estudio emplean configuraciones con $1\leq h_{kv}\leq h_q$. La normalización heredada del API para entradas fuera de este dominio no forma parte de los escenarios evaluados.
 
 En SWA, el contexto activo se limita a una ventana $W$ \cite{jiang2023mistral}:
 \begin{equation}\label{eq:swa}
 M_{\mathrm{SWA}}=\frac{L\,\min(T,W)\,2\,d\,s\,B}{10^{9}},\qquad
 R_{\mathrm{SWA}}=\frac{\min(T,W)}{T}.
 \end{equation}
-La Ecuación~\eqref{eq:swa} cuantifica la memoria cuando el contexto efectivo se limita a una ventana local. Este caso representa una ventana fija y no modela políticas adaptativas, attention sinks ni caches heterogéneas por head. Diseños con tokens globales, estados retenidos selectivamente o mecanismos híbridos requieren términos complementarios.
+La Ecuación~\eqref{eq:swa} cuantifica el almacenamiento lógico cuando el contexto efectivo se limita a una ventana local. Este caso representa una ventana fija y no modela políticas adaptativas, attention sinks ni caches heterogéneas por head. Diseños con tokens globales, estados retenidos selectivamente o mecanismos híbridos requieren términos complementarios.
 
 Para una aproximación abstracta de cache latente que almacena, por token y por capa, dos representaciones de dimensión $r<d$, una asociada a claves y otra a valores:
 \begin{equation}\label{eq:latent}
@@ -118,7 +118,7 @@ El escenario base usa 32 capas, dimensión $4\,096$, 32 query heads, lote 1 y FP
 El conjunto incluye 71 estimaciones: 36 para contexto, 15 para parámetros arquitectónicos y 20 para precisión. INT8 e INT4 representan almacenamiento ideal con 1 y 0.5 bytes por valor. No modelan granularidad por grupo o canal, escalas, puntos cero, regiones residuales en mayor precisión, protección de valores atípicos o attention sinks, metadatos, precisión mixta ni kernels de cuantización y descuantización \cite{liu2024kivi,duanmu2024skvq}.
 
 \subsection{Métricas y criterios de verificación}
-Se reportan memoria en GB decimales, razón $R=M/M_{\mathrm{MHA}}$, reducción $100(1-R)$ y $T_{\max}$ bajo presupuestos de 24, 48 y 80 GB. La implementación se verifica con cinco invariantes: linealidad de MHA respecto a $T$; razón GQA igual a $h_{kv}/h_q$; saturación SWA para $T\ge W$; razón latente igual a $r/d$; y consumo INT8 igual a la mitad de FP16 bajo parámetros idénticos.
+Se reporta el almacenamiento lógico en GB decimales, razón $R=M/M_{\mathrm{MHA}}$, reducción $100(1-R)$ y $T_{\max}$ bajo presupuestos de 24, 48 y 80 GB. La implementación se verifica con cinco invariantes: linealidad de MHA respecto a $T$; razón GQA igual a $h_{kv}/h_q$; saturación SWA para $T\ge W$; razón latente igual a $r/d$; y consumo INT8 igual a la mitad de FP16 bajo parámetros idénticos.
 
 \subsection{Comprobación empírica del almacenamiento de tensores en CPU}
 Como comprobación empírica acotada de la contabilidad elemental, se materializaron tensores FP16 en CPU con PyTorch 2.10.0 usando la forma $[L,2,B,T,d_{\mathrm{cache}}]$. Cada escenario se ejecutó tres veces en un subproceso nuevo. Después de importar PyTorch, se escribió el tensor completo para comprometer sus páginas y se compararon la Ecuación~\eqref{eq:base}, los bytes de \texttt{untyped\_storage().nbytes()} y la mediana del incremento de memoria residente (RSS). Se usaron dos configuraciones reducidas: MHA con $L=4$, $T=8\,192$ y $d_{\mathrm{cache}}=1\,024$; y GQA-4/16 con $d_{\mathrm{cache}}=256$. Los bytes reportados por \texttt{untyped\_storage().nbytes()} permiten comprobar la contabilidad del tensor materializado, mientras que RSS depende del proceso, asignador de memoria y sistema operativo. Esta comprobación no incluye pesos, kernels de atención, buffers de ejecución ni memoria CUDA, por lo que no calibra memoria física de inferencia ni constituye una evaluación de rendimiento en GPU.
@@ -202,8 +202,7 @@ desarrolló la formulación, el código del proyecto, los escenarios, las prueba
 automatizadas y la interpretación científica. Las herramientas de IA se utilizaron como apoyo para la búsqueda y la organización bibliográfica,
 así como para la revisión lingüística, terminológica y de coherencia del
 manuscrito. Las sugerencias de estas herramientas fueron revisadas antes de su
-incorporación. Los valores numéricos reportados se generan exclusivamente
-mediante los scripts deterministas y versionados del repositorio.
+incorporación. Las estimaciones analíticas reportadas se generan mediante scripts deterministas y versionados del repositorio. Las mediciones de RSS corresponden al perfil histórico en CPU y dependen del entorno de ejecución.
 
 \begin{figure*}[!t]
 \centering
@@ -224,20 +223,20 @@ La Figura~\ref{fig:context} muestra el barrido de $4\,096$ a $1\,048\,576$ token
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.84\linewidth]{figures/context_sweep.png}
-\caption{Almacenamiento lógico estimado de KV cache al variar la longitud de contexto. Supuestos: 32 capas, dimensión $4\,096$, FP16, lote 1, GQA con 8 de 32 KV heads, SWA con ventana $4\,096$ y cache latente de rango 512. Fuente: elaboración propia.}\label{fig:context}
+\caption{Almacenamiento lógico estimado de KV cache al variar la longitud de contexto. Supuestos: 32 capas, dimensión $4\,096$, FP16, lote 1, GQA con 8 KV heads y 32 query heads, SWA con ventana $4\,096$ y cache latente de rango 512. Fuente: elaboración propia.}\label{fig:context}
 \end{figure*}
 
 La Tabla~\ref{tab:scenarios} separa las cuatro familias para evitar interpretar SWA y cache latente como una misma salida. En $1\,048\,576$ tokens, MHA requiere 549.756 GB. GQA-8 reduce 75\%, la cache latente de rango 512 reduce 87.5\% y SWA-$8\,192$ reduce 99.219\% respecto al MHA de referencia. Esta última reducción se obtiene al renunciar a atención directa sobre tokens fuera de la ventana local.
 
 \begin{table*}[!ht]
 \centering\small
-\caption{Escenarios representativos de almacenamiento lógico estimado. Valores en GB decimales. Fuente: elaboración propia.}\label{tab:scenarios}
+\caption{Escenarios representativos de almacenamiento lógico estimado. Supuestos comunes: 32 capas, dimensión $4\,096$, FP16 y lote 1. Salvo indicación contraria, GQA utiliza 8 KV heads y 32 query heads, SWA utiliza $W=4\,096$ y el proxy latente utiliza $r=512$. La primera fila utiliza 32 KV heads y la última $W=8\,192$. Valores en GB decimales. Fuente: elaboración propia.}\label{tab:scenarios}
 \begin{tabular}{lrrrrr}
 \toprule
 Escenario & Contexto & MHA & GQA & SWA & Latente \\
 \midrule
 MHA $32\,768$, 32 KV heads & $32\,768$ & 17.180 & 17.180 & 2.147 & 2.147 \\
-GQA $65\,536$, 8 de 32 KV heads & $65\,536$ & 34.360 & 8.590 & 2.147 & 4.295 \\
+GQA $65\,536$, 8 KV heads y 32 query heads & $65\,536$ & 34.360 & 8.590 & 2.147 & 4.295 \\
 SWA $131\,072$, ventana $4\,096$ & $131\,072$ & 68.719 & 17.180 & 2.147 & 8.590 \\
 Contexto $1\,048\,576$, ventana $8\,192$, rango 512 & $1\,048\,576$ & 549.756 & 137.439 & 4.295 & 68.719 \\
 \bottomrule
@@ -286,7 +285,7 @@ Presupuesto KV & MHA & GQA-8 & Latente $r=512$ \\
 \end{table}
 
 \subsection{Verificación por invariantes}
-La Tabla~\ref{tab:invariants} resume las pruebas. El error absoluto es cero dentro de la aritmética del script. Estas pruebas verifican la coherencia entre ecuaciones y código, no correspondencia con hardware.
+La Tabla~\ref{tab:invariants} presenta comprobaciones numéricas representativas de las relaciones analíticas. El error absoluto es cero dentro de la aritmética del script para estas comprobaciones. La fila SWA muestra la razón respecto a MHA para una configuración puntual, mientras que la saturación para $T\geq W$ se comprueba adicionalmente mediante las pruebas de propiedades del repositorio. Estas verificaciones comprueban coherencia entre ecuaciones y código, no correspondencia con hardware ni verificación exhaustiva de todo el dominio.
 
 \begin{table}[!ht]
 \centering\small

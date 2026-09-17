@@ -48,8 +48,12 @@ CSV. Esta es la cadena canónica para el barrido experimental reproducible.
 
 #### Generar datos y figuras editoriales
 
+Desde la raíz del repositorio:
+
 ```bash
-python generate_results.py
+cd paper
+PYTHONDONTWRITEBYTECODE=1 python generate_results.py
+cd ..
 ```
 
 El comando produce:
@@ -68,11 +72,15 @@ figures/precision_128k.png
 
 #### Compilar el manuscrito
 
+Desde la raíz del repositorio:
+
 ```bash
+cd paper
 pdflatex -interaction=nonstopmode -halt-on-error lara_avila.tex
 bibtex lara_avila
 pdflatex -interaction=nonstopmode -halt-on-error lara_avila.tex
 pdflatex -interaction=nonstopmode -halt-on-error lara_avila.tex
+cd ..
 ```
 
 #### Alcance
@@ -90,7 +98,8 @@ artefacto final.
 
 #### Comprobación empírica de storage con PyTorch
 
-La revisión conserva un perfil histórico acotado de tensores en CPU:
+La revisión conserva un perfil histórico acotado de tensores en CPU.
+Este comando se ejecuta desde la raíz del repositorio:
 
 ```bash
 python profile_pytorch_memory.py --repetitions 3 \
