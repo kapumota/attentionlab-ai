@@ -74,8 +74,10 @@
 
 \draw[supportarrow] (ai-literature.north) -- (literature.south);
 \draw[supportarrow] (ai-editorial.north) -- (manuscript.south);
-\draw[supportarrow] (ai-literature) -- (author-check);
-\draw[supportarrow] (ai-editorial) -- (author-check);
+\draw[supportarrow]
+  (ai-literature.south) -- ++(0,-4mm) -| (author-check.south);
+\draw[supportarrow]
+  (ai-editorial.east) -- (author-check.west);
 
 \node[
   align=center,
