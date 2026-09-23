@@ -72,7 +72,8 @@
 \node[support, right=6mm of ai-editorial] (author-check)
 {Verificación, selección\\y decisión final\\\textbf{Autor}};
 
-\draw[supportarrow] (ai-literature.north) -- (literature.south);
+\draw[supportarrow]
+  (ai-literature.west) -- ++(-5mm,0) |- (literature.west);
 \draw[supportarrow] (ai-editorial.north) -- (manuscript.south);
 \draw[supportarrow]
   (ai-literature.south) -- ++(0,-4mm) -| (author-check.south);
